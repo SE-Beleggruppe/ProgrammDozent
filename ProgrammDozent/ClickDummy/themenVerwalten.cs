@@ -21,12 +21,6 @@ namespace ProgrammDozent
             refreshThemen();
         }
 
-        private void newThemaButton_Click(object sender, EventArgs e)
-        {
-            database.ExecuteQuery("insert into Thema values(8,\"Thema3\")");
-            refreshThemen();
-        }
-
         private void deleteThemaButton_Click(object sender, EventArgs e)
         {
             Thema selT = (Thema)themenListBox.SelectedItem;
@@ -46,6 +40,12 @@ namespace ProgrammDozent
             }
             themenListBox.DataSource = themen;
             themenListBox.DisplayMember = "aufgabenName";
+        }
+
+        private void addThemaButton_Click_1(object sender, EventArgs e)
+        {
+            database.ExecuteQuery("insert into Thema values(9,\"Thema3\")");
+            refreshThemen();
         }
     }
 }

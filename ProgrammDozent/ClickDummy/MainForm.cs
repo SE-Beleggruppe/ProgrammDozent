@@ -143,6 +143,12 @@ namespace ProgrammDozent
             themenV.Show();
         }
 
+        private void rolleTextBox_Click(object sender, EventArgs e)
+        {
+            rolleVerwalten rolleV = new rolleVerwalten();
+            rolleV.Show();
+        }
+
 
 
         

@@ -159,6 +159,7 @@
             this.rolleTextBox.TabIndex = 13;
             this.rolleTextBox.Text = "Rollen verwalten";
             this.rolleTextBox.UseVisualStyleBackColor = true;
+            this.rolleTextBox.Click += new System.EventHandler(this.rolleTextBox_Click);
             // 
             // MainForm
             // 

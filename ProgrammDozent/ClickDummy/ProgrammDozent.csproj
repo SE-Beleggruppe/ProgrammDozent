@@ -71,6 +71,12 @@
       <DependentUpon>belegBearbeiten.cs</DependentUpon>
     </Compile>
     <Compile Include="Database.cs" />
+    <Compile Include="Eingabe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Eingabe.Designer.cs">
+      <DependentUpon>Eingabe.cs</DependentUpon>
+    </Compile>
     <Compile Include="Gruppe.cs" />
     <Compile Include="gruppeBearbeiten.cs">
       <SubType>Form</SubType>
@@ -109,6 +115,9 @@
     </Compile>
     <EmbeddedResource Include="belegBearbeiten.resx">
       <DependentUpon>belegBearbeiten.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Eingabe.resx">
+      <DependentUpon>Eingabe.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gruppeBearbeiten.resx">
       <DependentUpon>gruppeBearbeiten.cs</DependentUpon>

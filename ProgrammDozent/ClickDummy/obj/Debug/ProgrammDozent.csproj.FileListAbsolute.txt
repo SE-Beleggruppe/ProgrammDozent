@@ -30,3 +30,5 @@ C:\Users\Maggo\Documents\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\Prog
 C:\Users\Maggo\Documents\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\ProgrammDozent.exe
 C:\Users\Maggo\Documents\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\ProgrammDozent.pdb
 C:\Users\Maggo\Documents\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\ProgrammDozent.rolleVerwalten.resources
+C:\Users\Maggo\Documents\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\ProgrammDozent.csprojResolveAssemblyReference.cache
+C:\Users\Maggo\Documents\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\ProgrammDozent.Eingabe.resources

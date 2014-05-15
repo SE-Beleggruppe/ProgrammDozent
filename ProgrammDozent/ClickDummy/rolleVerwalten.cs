@@ -12,6 +12,7 @@ namespace ProgrammDozent
 {
     public partial class rolleVerwalten : Form
     {
+
         private List<Rolle> rollen;
         Database database = new Database();
 
@@ -21,13 +22,8 @@ namespace ProgrammDozent
             refreshRollen();
         }
 
-        private void newThemaButton_Click(object sender, EventArgs e)
-        {
-            database.ExecuteQuery("insert into Thema values(8,\"Thema3\")");
-            refreshRollen();
-        }
 
-        private void deleteThemaButton_Click(object sender, EventArgs e)
+        private void deleteRolleButton_Click(object sender, EventArgs e)
         {
             Rolle rolle = (Rolle)rollenListBox.SelectedItem;
             rollen.Remove(rolle);
@@ -45,7 +41,23 @@ namespace ProgrammDozent
                 rollen.Add(rolle);
             }
             rollenListBox.DataSource = rollen;
-            rollenListBox.DisplayMember = "aufgabenName";
+            rollenListBox.DisplayMember = "rolle";
+        }
+
+        private void newRolleButton_Click(object sender, EventArgs e)
+        {
+            Eingabe eingabe = new Eingabe();
+            eingabe.textEingabe = new Eingabe.textEingabeHandler(eingabeF);
+            eingabe.Show();
+            
+            
+   
+        }
+
+        public void eingabeF(object sender)
+        {
+            database.ExecuteQuery("insert into Rolle values(\""+((TextBox)sender).Text +"\")");
+            refreshRollen();
         }
     }
 }

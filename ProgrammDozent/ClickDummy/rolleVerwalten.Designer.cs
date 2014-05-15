@@ -49,7 +49,7 @@
             this.newRolleButton.TabIndex = 1;
             this.newRolleButton.Text = "Neue Rolle";
             this.newRolleButton.UseVisualStyleBackColor = true;
-            this.newRolleButton.Click += new System.EventHandler(this.newThemaButton_Click);
+            this.newRolleButton.Click += new System.EventHandler(this.newRolleButton_Click);
             // 
             // deleteRolleButton
             // 
@@ -59,9 +59,9 @@
             this.deleteRolleButton.TabIndex = 2;
             this.deleteRolleButton.Text = "Ausgewählte Rolle löschen";
             this.deleteRolleButton.UseVisualStyleBackColor = true;
-            this.deleteRolleButton.Click += new System.EventHandler(this.deleteThemaButton_Click);
+            this.deleteRolleButton.Click += new System.EventHandler(this.deleteRolleButton_Click);
             // 
-            // themenVerwalten
+            // rolleVerwalten
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -69,7 +69,7 @@
             this.Controls.Add(this.deleteRolleButton);
             this.Controls.Add(this.newRolleButton);
             this.Controls.Add(this.rollenListBox);
-            this.Name = "themenVerwalten";
+            this.Name = "rolleVerwalten";
             this.Text = "themenVerwalten";
             this.ResumeLayout(false);
 
