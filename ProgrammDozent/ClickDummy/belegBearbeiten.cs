@@ -17,6 +17,8 @@ namespace ProgrammDozent
 
         public Beleg beleg { get; set; }
 
+        Database database = new Database();
+
         public belegBearbeiten(Beleg beleg)
         {
             InitializeComponent();
@@ -29,11 +31,12 @@ namespace ProgrammDozent
             minGR.Value = beleg.minMitglieder;
             maxGR.Value = beleg.maxMitglieder;
 
-            
-            for (int i = 0; i < 10; i++)
+            foreach (string[] array in database.ExecuteQuery("select * from Thema"))
             {
-                themen.Add(new Thema("Eine schöne Aufgabe " + i));
+                Thema thema = new Thema(Convert.ToInt32(array[0]),array[1]);
+                themen.Add(thema);
             }
+
             allThemen.DataSource = themen;
             allThemen.DisplayMember = "aufgabenName";
 

@@ -8,12 +8,13 @@ namespace ProgrammDozent
 {
     public class Thema
     {
-        public List<Beleg> beleg { get; set; }
+        public int themenNummer { get; set; }
         public string aufgabenName { get; set; }
 
-        public Thema(string aufgabe)
+        public Thema(int themenNummer, string aufgabe)
         {
             this.aufgabenName = aufgabe;
+            this.themenNummer = themenNummer;
         }
     }
 }

@@ -53,13 +53,13 @@
             // 
             // deleteThemaButton
             // 
-            this.deleteThemaButton.Location = new System.Drawing.Point(168, 42);
-            this.deleteThemaButton.Name = "deleteThemaButton";
-            this.deleteThemaButton.Size = new System.Drawing.Size(164, 23);
-            this.deleteThemaButton.TabIndex = 2;
-            this.deleteThemaButton.Text = "Ausgewähltes Thema löschen";
-            this.deleteThemaButton.UseVisualStyleBackColor = true;
-            this.deleteThemaButton.Click += new System.EventHandler(this.deleteThemaButton_Click);
+            this.newThemaButton.Location = new System.Drawing.Point(168, 42);
+            this.newThemaButton.Name = "deleteThemaButton";
+            this.newThemaButton.Size = new System.Drawing.Size(164, 23);
+            this.newThemaButton.TabIndex = 2;
+            this.newThemaButton.Text = "Ausgewähltes Thema löschen";
+            this.newThemaButton.UseVisualStyleBackColor = true;
+            this.newThemaButton.Click += new System.EventHandler(this.deleteThemaButton_Click);
             // 
             // themenVerwalten
             // 

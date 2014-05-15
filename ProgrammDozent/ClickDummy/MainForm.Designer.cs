@@ -39,6 +39,7 @@
             this.saveDataGridViewButton = new System.Windows.Forms.Button();
             this.cancelDataGridViewButton = new System.Windows.Forms.Button();
             this.themenVerwaltenButton = new System.Windows.Forms.Button();
+            this.rolleTextBox = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.studentenDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -150,11 +151,21 @@
             this.themenVerwaltenButton.UseVisualStyleBackColor = true;
             this.themenVerwaltenButton.Click += new System.EventHandler(this.themenVerwaltenButton_Click);
             // 
+            // rolleTextBox
+            // 
+            this.rolleTextBox.Location = new System.Drawing.Point(207, 272);
+            this.rolleTextBox.Name = "rolleTextBox";
+            this.rolleTextBox.Size = new System.Drawing.Size(180, 23);
+            this.rolleTextBox.TabIndex = 13;
+            this.rolleTextBox.Text = "Rollen verwalten";
+            this.rolleTextBox.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(972, 310);
+            this.Controls.Add(this.rolleTextBox);
             this.Controls.Add(this.themenVerwaltenButton);
             this.Controls.Add(this.cancelDataGridViewButton);
             this.Controls.Add(this.saveDataGridViewButton);
@@ -189,6 +200,7 @@
         private System.Windows.Forms.Button saveDataGridViewButton;
         private System.Windows.Forms.Button cancelDataGridViewButton;
         private System.Windows.Forms.Button themenVerwaltenButton;
+        private System.Windows.Forms.Button rolleTextBox;
 
 
     }

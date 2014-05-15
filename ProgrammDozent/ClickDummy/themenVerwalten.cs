@@ -13,25 +13,18 @@ namespace ProgrammDozent
     public partial class themenVerwalten : Form
     {
         private List<Thema> themen;
-        
+        Database database = new Database();
+
         public themenVerwalten()
         {
             InitializeComponent();
-            themen = new List<Thema>();
-            for (int i = 0; i < 10; i++)
-            { 
-                themen.Add(new Thema("Eine schöne Aufgabe " + i));
-            }
-            themenListBox.DataSource = themen;
-            themenListBox.DisplayMember = "aufgabenName";
+            refreshThemen();
         }
 
         private void newThemaButton_Click(object sender, EventArgs e)
         {
-            themen.Add(new Thema("eine neue Aufgabe"));
-            themenListBox.DataSource = null;
-            themenListBox.DataSource = themen;
-            themenListBox.DisplayMember = "aufgabenName";
+            database.ExecuteQuery("insert into Thema values(8,\"Thema3\")");
+            refreshThemen();
         }
 
         private void deleteThemaButton_Click(object sender, EventArgs e)
@@ -39,6 +32,18 @@ namespace ProgrammDozent
             Thema selT = (Thema)themenListBox.SelectedItem;
             themen.Remove(selT);
             themenListBox.DataSource = null;
+            themenListBox.DataSource = themen;
+            themenListBox.DisplayMember = "aufgabenName";
+        }
+
+        private void refreshThemen()
+        {
+            themen = new List<Thema>();
+            foreach (string[] array in database.ExecuteQuery("select * from Thema"))
+            {
+                Thema thema = new Thema(Convert.ToInt32(array[0]), array[1]);
+                themen.Add(thema);
+            }
             themenListBox.DataSource = themen;
             themenListBox.DisplayMember = "aufgabenName";
         }
