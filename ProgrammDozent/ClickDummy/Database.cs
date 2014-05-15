@@ -49,7 +49,7 @@ namespace ProgrammDozent
                     string[] array = new string[col];
                     for (int i = 0; i < col; i++)
                     {
-                        array[i] = dataReader.GetString(i);
+                        array[i] = dataReader.GetString(i).Trim();
                     }
                     strings.Add(array);
                 }

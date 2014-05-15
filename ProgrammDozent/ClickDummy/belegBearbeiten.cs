@@ -13,6 +13,7 @@ namespace ProgrammDozent
     public partial class belegBearbeiten : Form
     {
         public List<Thema> themen = new List<Thema>();
+        public List<string> rollen = new List<string>();
 
         public Beleg beleg { get; set; }
 
@@ -20,8 +21,9 @@ namespace ProgrammDozent
         {
             InitializeComponent();
             this.beleg = beleg;
-            if (this.beleg.belegKennung != null) kennungTextBox.Text = beleg.belegKennung;
-            if (this.beleg.semester != null) semesterTextBox.Text = beleg.semester;
+            kennungTextBox.Text = beleg.belegKennung;
+            passwortTextBox.Text = beleg.passwort;
+            semesterTextBox.Text = beleg.semester;
             if (this.beleg.startDatum != null) startDateTimePicker.Value = beleg.startDatum;
             if (this.beleg.endDatum != null) endDateTimePicker.Value = beleg.endDatum;
             minGR.Value = beleg.minMitglieder;
@@ -34,6 +36,12 @@ namespace ProgrammDozent
             }
             allThemen.DataSource = themen;
             allThemen.DisplayMember = "aufgabenName";
+
+            for (int i = 0; i < 10; i++)
+            {
+                rollen.Add("Rolle " + i);
+            }
+            allRollen.DataSource = rollen;
         }
 
         private void belegBearbeiten_Load(object sender, EventArgs e)
@@ -68,6 +76,11 @@ namespace ProgrammDozent
         }
 
         private void remButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
         {
 
         }

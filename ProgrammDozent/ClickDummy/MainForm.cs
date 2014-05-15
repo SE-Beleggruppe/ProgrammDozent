@@ -20,20 +20,10 @@ namespace ProgrammDozent
         public MainForm()
         {
             InitializeComponent();
-
-            
-
-            //Belege.Add(new Beleg("WS 13/14", "Prof. Hauptmann", new DateTime(2014,5,11), new DateTime(2014,5,20), 5, 15));
-            //Belege.Add(new Beleg("SS 13", "Prof. Hauptmann", new DateTime(2014,5,11), new DateTime(2014,5,20), 5, 15));
-            //Belege.Add(new Beleg("WS 13/14", "Prof. Hauptmann", new DateTime(2014,5,11), new DateTime(2014,5,20), 5, 15));
-            //Belege.Add(new Beleg("SS 15", "Prof. Hauptmann", new DateTime(2014,5,11), new DateTime(2014,5,20), 5, 15));
-            //Belege.Add(new Beleg("WS 12/13", "Prof. Hauptmann", new DateTime(2014,5,11), new DateTime(2014,5,20), 5, 15));
-
-
             
             foreach (string[] array in database.ExecuteQuery("select * from Beleg"))
             {
-                Beleg beleg = new Beleg(array[0], array[1], Convert.ToDateTime(array[2]), Convert.ToDateTime(array[3]), Convert.ToInt32(array[4]), Convert.ToInt32(array[5]));
+                Beleg beleg = new Beleg(array[0], array[1], Convert.ToDateTime(array[2]), Convert.ToDateTime(array[3]), Convert.ToInt32(array[4]), Convert.ToInt32(array[5]), array[6] );
                 Belege.Add(beleg);
             }
             belegListBox.DataSource = Belege;
@@ -82,12 +72,12 @@ namespace ProgrammDozent
 
         private void belegAnlegenButton_Click(object sender, EventArgs e)
         {
-            Beleg newBeleg = new Beleg();
-            Belege.Add(newBeleg);
+            //Beleg newBeleg = new Beleg();
+            //Belege.Add(newBeleg);
 
-            belegListBox.DataSource = null;
-            belegListBox.DataSource = Belege;
-            belegListBox.DisplayMember = "belegKennung";
+            //belegListBox.DataSource = null;
+            //belegListBox.DataSource = Belege;
+            //belegListBox.DisplayMember = "Semester";
         }
 
         private void gruppeAnlegenButton_Click(object sender, EventArgs e)

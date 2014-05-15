@@ -9,6 +9,7 @@ namespace ProgrammDozent
     public class Beleg
     {
         public string semester { get; set; }
+        public string passwort { get; set; }
         public string belegKennung { get; set; }
         public string dozent { get; set; }
         public DateTime startDatum { get; set; }
@@ -19,15 +20,10 @@ namespace ProgrammDozent
 
         public List<Gruppe>  gruppen = new List<Gruppe>(); 
 
-        public Beleg() {
-            this.belegKennung = "KENNUNG";
-            this.themen = new List<Thema>();
-            this.themen.Add(new Thema("Dies ist eine tolle Aufgabe"));
-        }
-
-        public Beleg(string semester,  string dozent, DateTime startDatum, DateTime endDatum, int minM, int maxM)
+        public Beleg(string kennung, string semester, DateTime startDatum, DateTime endDatum, int minM, int maxM, string passwort)
         {
-            this.belegKennung = "KENNUNG"; // Automatisch generieren
+            this.belegKennung = kennung; // Automatisch generieren
+            this.passwort = passwort;
             this.semester = semester;
             this.dozent = dozent;
             this.startDatum = startDatum;
