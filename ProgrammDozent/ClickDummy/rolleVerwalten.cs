@@ -26,10 +26,8 @@ namespace ProgrammDozent
         private void deleteRolleButton_Click(object sender, EventArgs e)
         {
             Rolle rolle = (Rolle)rollenListBox.SelectedItem;
-            rollen.Remove(rolle);
-            rollenListBox.DataSource = null;
-            rollenListBox.DataSource = rollen;
-            rollenListBox.DisplayMember = "aufgabenName";
+            database.ExecuteQuery("delete from Rolle where Rolle =\""+rolle.rolle+"\"");
+            refreshRollen();
         }
 
         private void refreshRollen()

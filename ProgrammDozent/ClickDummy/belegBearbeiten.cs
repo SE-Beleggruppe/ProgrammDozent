@@ -58,6 +58,8 @@ namespace ProgrammDozent
 
             allCases.DataSource = cases;
             allCases.DisplayMember = "CaseKennung";
+
+
            
         }
 
@@ -89,6 +91,7 @@ namespace ProgrammDozent
         private void addButton_Click(object sender, EventArgs e)
         {
             Thema thema = (Thema)allThemen.SelectedItem;
+            themen.Remove(thema);
             
         }
 

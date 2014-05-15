@@ -23,11 +23,9 @@ namespace ProgrammDozent
 
         private void deleteThemaButton_Click(object sender, EventArgs e)
         {
-            Thema selT = (Thema)themenListBox.SelectedItem;
-            themen.Remove(selT);
-            themenListBox.DataSource = null;
-            themenListBox.DataSource = themen;
-            themenListBox.DisplayMember = "aufgabenName";
+            Thema thema = (Thema)themenListBox.SelectedItem;
+            database.ExecuteQuery("delete from Thema where Themennummer =" + thema.themenNummer + "");
+            refreshThemen();
         }
 
         private void refreshThemen()
