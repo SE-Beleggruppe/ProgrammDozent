@@ -44,7 +44,14 @@ namespace ProgrammDozent
 
         private void addThemaButton_Click_1(object sender, EventArgs e)
         {
-            database.ExecuteQuery("insert into Thema values(9,\"Thema3\")");
+            Eingabe eingabe = new Eingabe();
+            eingabe.textEingabe = new Eingabe.textEingabeHandler(eingabeF);
+            eingabe.Show();
+        }
+
+        public void eingabeF(object sender)
+        {
+            database.ExecuteQuery("insert into Thema values(\"" + ((TextBox)sender).Text + "\")");
             refreshThemen();
         }
     }

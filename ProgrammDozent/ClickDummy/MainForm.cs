@@ -27,7 +27,7 @@ namespace ProgrammDozent
                 Belege.Add(beleg);
             }
             belegListBox.DataSource = Belege;
-            belegListBox.DisplayMember = "Semester";
+            belegListBox.DisplayMember = "Belegkennung";
 
             belegListBox.DoubleClick += new EventHandler(belegListBox_DoubleClicked);
             gruppenListBox.DoubleClick += new EventHandler(gruppenListBox_DoubleClicked);

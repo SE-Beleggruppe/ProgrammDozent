@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProgrammDozent
 {
-    class Rolle
+    public class Rolle
     {
         public string rolle { get; set; }
 

@@ -13,7 +13,8 @@ namespace ProgrammDozent
     public partial class belegBearbeiten : Form
     {
         public List<Thema> themen = new List<Thema>();
-        public List<string> rollen = new List<string>();
+        public List<Rolle> rollen = new List<Rolle>();
+        public List<string> cases = new List<string>();
 
         public Beleg beleg { get; set; }
 
@@ -40,11 +41,24 @@ namespace ProgrammDozent
             allThemen.DataSource = themen;
             allThemen.DisplayMember = "aufgabenName";
 
-            for (int i = 0; i < 10; i++)
+            foreach (string[] array in database.ExecuteQuery("select * from Rolle"))
             {
-                rollen.Add("Rolle " + i);
+                Rolle rolle = new Rolle(array[0]);
+                rollen.Add(rolle);
             }
+
             allRollen.DataSource = rollen;
+            allRollen.DisplayMember = "rolle";
+
+            foreach (string[] array in database.ExecuteQuery("select Cases.Casekennung from Cases where Cases.Casekennung not in (select Casekennung from Zuordnung_BelegCases)"))
+            {
+                string oneCase = array[0];
+                cases.Add(oneCase);
+            }
+
+            allCases.DataSource = cases;
+            allCases.DisplayMember = "CaseKennung";
+           
         }
 
         private void belegBearbeiten_Load(object sender, EventArgs e)

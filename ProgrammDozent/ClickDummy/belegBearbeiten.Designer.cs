@@ -60,7 +60,7 @@
             this.label16 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.allCases = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.minGR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.maxGR)).BeginInit();
@@ -296,9 +296,9 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(246, 497);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(56, 13);
+            this.label10.Size = new System.Drawing.Size(85, 13);
             this.label10.TabIndex = 29;
-            this.label10.Text = "Alle Cases";
+            this.label10.Text = "Alle freien Cases";
             // 
             // passwortTextBox
             // 
@@ -353,13 +353,13 @@
             this.button4.Text = "<<";
             this.button4.UseVisualStyleBackColor = true;
             // 
-            // listBox1
+            // allCases
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(246, 513);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(149, 108);
-            this.listBox1.TabIndex = 37;
+            this.allCases.FormattingEnabled = true;
+            this.allCases.Location = new System.Drawing.Point(246, 513);
+            this.allCases.Name = "allCases";
+            this.allCases.Size = new System.Drawing.Size(149, 108);
+            this.allCases.TabIndex = 37;
             // 
             // listBox2
             // 
@@ -378,7 +378,7 @@
             this.Controls.Add(this.label16);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button4);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.allCases);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.passwortTextBox);
             this.Controls.Add(this.label14);
@@ -452,7 +452,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox allCases;
         private System.Windows.Forms.ListBox listBox2;
     }
 }

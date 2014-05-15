@@ -17,6 +17,7 @@ namespace ProgrammDozent
         public int minMitglieder { get; set; }
         public int maxMitglieder { get; set; }
         public List<Thema> themen;
+        public List<string> cases;
 
         public List<Gruppe>  gruppen = new List<Gruppe>(); 
 
