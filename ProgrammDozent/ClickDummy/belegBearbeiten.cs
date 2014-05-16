@@ -12,9 +12,13 @@ namespace ProgrammDozent
 {
     public partial class belegBearbeiten : Form
     {
-        public List<Thema> themen = new List<Thema>();
-        public List<Rolle> rollen = new List<Rolle>();
-        public List<string> cases = new List<string>();
+        public List<Thema> allethemen = new List<Thema>();
+        public List<Thema> verfthemen = new List<Thema>();
+        public List<Rolle> allerollen = new List<Rolle>();
+        public List<Rolle> verfrollen = new List<Rolle>();
+        public List<string> allecases = new List<string>();
+        public List<string> verfcases = new List<string>();
+
 
         public Beleg beleg { get; set; }
 
@@ -35,29 +39,28 @@ namespace ProgrammDozent
             foreach (string[] array in database.ExecuteQuery("select * from Thema"))
             {
                 Thema thema = new Thema(Convert.ToInt32(array[0]),array[1]);
-                themen.Add(thema);
+                allethemen.Add(thema);
             }
 
-            allThemen.DataSource = themen;
+            allThemen.DataSource = allethemen;
             allThemen.DisplayMember = "aufgabenName";
 
             foreach (string[] array in database.ExecuteQuery("select * from Rolle"))
             {
                 Rolle rolle = new Rolle(array[0]);
-                rollen.Add(rolle);
+                allerollen.Add(rolle);
             }
 
-            allRollen.DataSource = rollen;
+            allRollen.DataSource = allerollen;
             allRollen.DisplayMember = "rolle";
 
             foreach (string[] array in database.ExecuteQuery("select Cases.Casekennung from Cases where Cases.Casekennung not in (select Casekennung from Zuordnung_BelegCases)"))
             {
                 string oneCase = array[0];
-                cases.Add(oneCase);
+                allecases.Add(oneCase);
             }
 
-            allCases.DataSource = cases;
-            allCases.DisplayMember = "CaseKennung";
+            allCases.DataSource = allecases;
 
 
            
@@ -88,21 +91,91 @@ namespace ProgrammDozent
             //SPEICHERN
         }
 
-        private void addButton_Click(object sender, EventArgs e)
+        private void addButtonThema_Click(object sender, EventArgs e)
         {
             Thema thema = (Thema)allThemen.SelectedItem;
-            themen.Remove(thema);
-            
+            allethemen.Remove(thema);
+            allThemen.DataSource = null;
+            allThemen.DataSource = allethemen;
+            allThemen.DisplayMember = "aufgabenName";
+
+            verfthemen.Add(thema);
+            verThemen.DataSource = null;
+            verThemen.DataSource = verfthemen;
+            verThemen.DisplayMember = "aufgabenName";
         }
 
-        private void remButton_Click(object sender, EventArgs e)
+        private void remButtonThema_Click(object sender, EventArgs e)
         {
+            Thema thema = (Thema)verThemen.SelectedItem;
+            verfthemen.Remove(thema);
+            verThemen.DataSource = null;
+            verThemen.DataSource = verfthemen;
+            verThemen.DisplayMember = "aufgabenName";
 
+            allethemen.Add(thema);
+            allThemen.DataSource = null;
+            allThemen.DataSource = allethemen;
+            allThemen.DisplayMember = "aufgabenName";
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
 
+        }
+
+        private void addButtonRolle_Click(object sender, EventArgs e)
+        {
+            Rolle rolle = (Rolle)allRollen.SelectedItem;
+            allerollen.Remove(rolle);
+            allRollen.DataSource = null;
+            allRollen.DataSource = allerollen;
+            allRollen.DisplayMember = "rolle";
+
+            verfrollen.Add(rolle);
+            verRollen.DataSource = null;
+            verRollen.DataSource = verfrollen;
+            verRollen.DisplayMember = "rolle";
+        }
+
+        private void remButtonRolle_Click(object sender, EventArgs e)
+        {
+            Rolle rolle = (Rolle)verRollen.SelectedItem;
+            verfrollen.Remove(rolle);
+            verRollen.DataSource = null;
+            verRollen.DataSource = verfrollen;
+            verRollen.DisplayMember = "rolle";
+
+            allerollen.Add(rolle);
+            allRollen.DataSource = null;
+            allRollen.DataSource = allerollen;
+            allRollen.DisplayMember = "rolle";
+        }
+
+        private void addButtonCase_Click(object sender, EventArgs e)
+        {
+            string onecase = (string)allCases.SelectedItem;
+            allecases.Remove(onecase);
+            allCases.DataSource = null;
+            allCases.DataSource = allecases;
+
+            verfcases.Add(onecase);
+            verfcases.Sort();
+            verCases.DataSource = null;
+            verCases.DataSource = verfcases;
+        }
+
+        private void remButtonCase_Click(object sender, EventArgs e)
+        {
+            string onecase = (string)verCases.SelectedItem;
+            verfcases.Remove(onecase);
+            verCases.DataSource = null;
+            verCases.DataSource = verfcases;
+
+            allecases.Add(onecase);
+            allecases.Sort();
+            allCases.DataSource = null;
+            allCases.DataSource = allecases;
         }
     }
 }

@@ -42,14 +42,14 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.allThemen = new System.Windows.Forms.ListBox();
-            this.addButton = new System.Windows.Forms.Button();
-            this.remButton = new System.Windows.Forms.Button();
+            this.addButtonThema = new System.Windows.Forms.Button();
+            this.remButtonThema = new System.Windows.Forms.Button();
             this.speichernbutton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.minGR = new System.Windows.Forms.NumericUpDown();
             this.maxGR = new System.Windows.Forms.NumericUpDown();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.remButtonRolle = new System.Windows.Forms.Button();
+            this.addButtonRolle = new System.Windows.Forms.Button();
             this.allRollen = new System.Windows.Forms.ListBox();
             this.verRollen = new System.Windows.Forms.ListBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -58,10 +58,10 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.remButtonCase = new System.Windows.Forms.Button();
+            this.addButtonCase = new System.Windows.Forms.Button();
             this.allCases = new System.Windows.Forms.ListBox();
-            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.verCases = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.minGR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.maxGR)).BeginInit();
             this.SuspendLayout();
@@ -184,25 +184,25 @@
             this.allThemen.Size = new System.Drawing.Size(149, 108);
             this.allThemen.TabIndex = 17;
             // 
-            // addButton
+            // addButtonThema
             // 
-            this.addButton.Location = new System.Drawing.Point(173, 265);
-            this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(67, 23);
-            this.addButton.TabIndex = 18;
-            this.addButton.Text = "<<";
-            this.addButton.UseVisualStyleBackColor = true;
-            this.addButton.Click += new System.EventHandler(this.addButton_Click);
+            this.addButtonThema.Location = new System.Drawing.Point(173, 265);
+            this.addButtonThema.Name = "addButtonThema";
+            this.addButtonThema.Size = new System.Drawing.Size(67, 23);
+            this.addButtonThema.TabIndex = 18;
+            this.addButtonThema.Text = "<<";
+            this.addButtonThema.UseVisualStyleBackColor = true;
+            this.addButtonThema.Click += new System.EventHandler(this.addButtonThema_Click);
             // 
-            // remButton
+            // remButtonThema
             // 
-            this.remButton.Location = new System.Drawing.Point(173, 294);
-            this.remButton.Name = "remButton";
-            this.remButton.Size = new System.Drawing.Size(67, 23);
-            this.remButton.TabIndex = 19;
-            this.remButton.Text = ">>";
-            this.remButton.UseVisualStyleBackColor = true;
-            this.remButton.Click += new System.EventHandler(this.remButton_Click);
+            this.remButtonThema.Location = new System.Drawing.Point(173, 294);
+            this.remButtonThema.Name = "remButtonThema";
+            this.remButtonThema.Size = new System.Drawing.Size(67, 23);
+            this.remButtonThema.TabIndex = 19;
+            this.remButtonThema.Text = ">>";
+            this.remButtonThema.UseVisualStyleBackColor = true;
+            this.remButtonThema.Click += new System.EventHandler(this.remButtonThema_Click);
             // 
             // speichernbutton
             // 
@@ -248,23 +248,25 @@
             this.maxGR.Size = new System.Drawing.Size(120, 20);
             this.maxGR.TabIndex = 23;
             // 
-            // button1
+            // remButtonRolle
             // 
-            this.button1.Location = new System.Drawing.Point(174, 425);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(67, 23);
-            this.button1.TabIndex = 27;
-            this.button1.Text = ">>";
-            this.button1.UseVisualStyleBackColor = true;
+            this.remButtonRolle.Location = new System.Drawing.Point(174, 425);
+            this.remButtonRolle.Name = "remButtonRolle";
+            this.remButtonRolle.Size = new System.Drawing.Size(67, 23);
+            this.remButtonRolle.TabIndex = 27;
+            this.remButtonRolle.Text = ">>";
+            this.remButtonRolle.UseVisualStyleBackColor = true;
+            this.remButtonRolle.Click += new System.EventHandler(this.remButtonRolle_Click);
             // 
-            // button2
+            // addButtonRolle
             // 
-            this.button2.Location = new System.Drawing.Point(174, 396);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(67, 23);
-            this.button2.TabIndex = 26;
-            this.button2.Text = "<<";
-            this.button2.UseVisualStyleBackColor = true;
+            this.addButtonRolle.Location = new System.Drawing.Point(174, 396);
+            this.addButtonRolle.Name = "addButtonRolle";
+            this.addButtonRolle.Size = new System.Drawing.Size(67, 23);
+            this.addButtonRolle.TabIndex = 26;
+            this.addButtonRolle.Text = "<<";
+            this.addButtonRolle.UseVisualStyleBackColor = true;
+            this.addButtonRolle.Click += new System.EventHandler(this.addButtonRolle_Click);
             // 
             // allRollen
             // 
@@ -304,7 +306,6 @@
             // 
             this.passwortTextBox.Location = new System.Drawing.Point(195, 67);
             this.passwortTextBox.Name = "passwortTextBox";
-            this.passwortTextBox.PasswordChar = '*';
             this.passwortTextBox.Size = new System.Drawing.Size(200, 20);
             this.passwortTextBox.TabIndex = 35;
             // 
@@ -335,23 +336,25 @@
             this.label16.TabIndex = 40;
             this.label16.Text = "Verfügbare Rollen";
             // 
-            // button3
+            // remButtonCase
             // 
-            this.button3.Location = new System.Drawing.Point(173, 566);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(67, 23);
-            this.button3.TabIndex = 39;
-            this.button3.Text = ">>";
-            this.button3.UseVisualStyleBackColor = true;
+            this.remButtonCase.Location = new System.Drawing.Point(173, 566);
+            this.remButtonCase.Name = "remButtonCase";
+            this.remButtonCase.Size = new System.Drawing.Size(67, 23);
+            this.remButtonCase.TabIndex = 39;
+            this.remButtonCase.Text = ">>";
+            this.remButtonCase.UseVisualStyleBackColor = true;
+            this.remButtonCase.Click += new System.EventHandler(this.remButtonCase_Click);
             // 
-            // button4
+            // addButtonCase
             // 
-            this.button4.Location = new System.Drawing.Point(173, 537);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(67, 23);
-            this.button4.TabIndex = 38;
-            this.button4.Text = "<<";
-            this.button4.UseVisualStyleBackColor = true;
+            this.addButtonCase.Location = new System.Drawing.Point(173, 537);
+            this.addButtonCase.Name = "addButtonCase";
+            this.addButtonCase.Size = new System.Drawing.Size(67, 23);
+            this.addButtonCase.TabIndex = 38;
+            this.addButtonCase.Text = "<<";
+            this.addButtonCase.UseVisualStyleBackColor = true;
+            this.addButtonCase.Click += new System.EventHandler(this.addButtonCase_Click);
             // 
             // allCases
             // 
@@ -361,13 +364,13 @@
             this.allCases.Size = new System.Drawing.Size(149, 108);
             this.allCases.TabIndex = 37;
             // 
-            // listBox2
+            // verCases
             // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(13, 510);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(154, 108);
-            this.listBox2.TabIndex = 36;
+            this.verCases.FormattingEnabled = true;
+            this.verCases.Location = new System.Drawing.Point(13, 510);
+            this.verCases.Name = "verCases";
+            this.verCases.Size = new System.Drawing.Size(154, 108);
+            this.verCases.TabIndex = 36;
             // 
             // belegBearbeiten
             // 
@@ -376,24 +379,24 @@
             this.ClientSize = new System.Drawing.Size(410, 658);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label16);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.remButtonCase);
+            this.Controls.Add(this.addButtonCase);
             this.Controls.Add(this.allCases);
-            this.Controls.Add(this.listBox2);
+            this.Controls.Add(this.verCases);
             this.Controls.Add(this.passwortTextBox);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.remButtonRolle);
+            this.Controls.Add(this.addButtonRolle);
             this.Controls.Add(this.allRollen);
             this.Controls.Add(this.verRollen);
             this.Controls.Add(this.maxGR);
             this.Controls.Add(this.minGR);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.speichernbutton);
-            this.Controls.Add(this.remButton);
-            this.Controls.Add(this.addButton);
+            this.Controls.Add(this.remButtonThema);
+            this.Controls.Add(this.addButtonThema);
             this.Controls.Add(this.allThemen);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -434,14 +437,14 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ListBox allThemen;
-        private System.Windows.Forms.Button addButton;
-        private System.Windows.Forms.Button remButton;
+        private System.Windows.Forms.Button addButtonThema;
+        private System.Windows.Forms.Button remButtonThema;
         private System.Windows.Forms.Button speichernbutton;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.NumericUpDown minGR;
         private System.Windows.Forms.NumericUpDown maxGR;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button remButtonRolle;
+        private System.Windows.Forms.Button addButtonRolle;
         private System.Windows.Forms.ListBox allRollen;
         private System.Windows.Forms.ListBox verRollen;
         private System.Windows.Forms.Label label9;
@@ -450,9 +453,9 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button remButtonCase;
+        private System.Windows.Forms.Button addButtonCase;
         private System.Windows.Forms.ListBox allCases;
-        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.ListBox verCases;
     }
 }
