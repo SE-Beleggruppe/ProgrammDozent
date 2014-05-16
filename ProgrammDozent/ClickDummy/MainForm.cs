@@ -43,7 +43,7 @@ namespace ProgrammDozent
 
         private void belegListBox_DoubleClicked(object sender, EventArgs e)
         {
-            belegBearbeiten belegB = new belegBearbeiten((Beleg)belegListBox.SelectedItem);
+            belegBearbeiten belegB = new belegBearbeiten(((Beleg)belegListBox.SelectedItem).belegKennung);
             belegB.Show();
         }
 

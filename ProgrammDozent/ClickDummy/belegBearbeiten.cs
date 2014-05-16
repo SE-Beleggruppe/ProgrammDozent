@@ -24,10 +24,10 @@ namespace ProgrammDozent
 
         Database database = new Database();
 
-        public belegBearbeiten(Beleg beleg)
+        public belegBearbeiten(string belegKennung)
         {
             InitializeComponent();
-            this.beleg = beleg;
+            this.beleg = getBelegFromKennung(belegKennung);
             kennungTextBox.Text = beleg.belegKennung;
             passwortTextBox.Text = beleg.passwort;
             semesterTextBox.Text = beleg.semester;
@@ -36,32 +36,66 @@ namespace ProgrammDozent
             minGR.Value = beleg.minMitglieder;
             maxGR.Value = beleg.maxMitglieder;
 
-            foreach (string[] array in database.ExecuteQuery("select * from Thema"))
+            //Alle Themen füllen
+            foreach (string[] array in database.ExecuteQuery("select * from Thema where Themennummer not in (select Themennummer from Zuordnung_BelegThema where Belegkennung = \""+beleg.belegKennung+"\")"))
             {
                 Thema thema = new Thema(Convert.ToInt32(array[0]),array[1]);
                 allethemen.Add(thema);
             }
-
+            allethemen.Sort((t1, t2) => t1.aufgabenName.CompareTo(t2.aufgabenName));
             allThemen.DataSource = allethemen;
             allThemen.DisplayMember = "aufgabenName";
 
-            foreach (string[] array in database.ExecuteQuery("select * from Rolle"))
+            //Verfügbare Themen füllen
+            foreach (string[] array in database.ExecuteQuery("select * from Thema where Themennummer in (select Themennummer from Zuordnung_BelegThema where Belegkennung = \"" + beleg.belegKennung + "\")"))
+            {
+                Thema thema = new Thema(Convert.ToInt32(array[0]), array[1]);
+                verfthemen.Add(thema);
+            }
+
+            verfthemen.Sort((t1, t2) => t1.aufgabenName.CompareTo(t2.aufgabenName));
+            verThemen.DataSource = verfthemen;
+            verThemen.DisplayMember = "aufgabenName";
+
+            //Alle Rollen füllen
+            foreach (string[] array in database.ExecuteQuery("select * from Rolle where Rolle not in(select Rolle from Zuordnung_BelegRolle where Belegkennung = \"" + beleg.belegKennung + "\")"))
             {
                 Rolle rolle = new Rolle(array[0]);
                 allerollen.Add(rolle);
             }
 
+            allerollen.Sort((t1, t2) => t1.rolle.CompareTo(t2.rolle));
             allRollen.DataSource = allerollen;
             allRollen.DisplayMember = "rolle";
 
+            //Verfügbare Rollen füllen
+            foreach (string[] array in database.ExecuteQuery("select * from Rolle where Rolle in(select Rolle from Zuordnung_BelegRolle where Belegkennung = \"" + beleg.belegKennung + "\")"))
+            {
+                Rolle rolle = new Rolle(array[0]);
+                verfrollen.Add(rolle);
+            }
+
+            verfrollen.Sort((t1, t2) => t1.rolle.CompareTo(t2.rolle));
+            verRollen.DataSource = verfrollen;
+            verRollen.DisplayMember = "rolle";
+
+            //Alle Cases füllen
             foreach (string[] array in database.ExecuteQuery("select Cases.Casekennung from Cases where Cases.Casekennung not in (select Casekennung from Zuordnung_BelegCases)"))
             {
                 string oneCase = array[0];
                 allecases.Add(oneCase);
             }
-
+            allecases.Sort();
             allCases.DataSource = allecases;
 
+            //Verfügbare Cases füllen
+            foreach (string[] array in database.ExecuteQuery("select Cases.Casekennung from Cases where Cases.Casekennung in (select Casekennung from Zuordnung_BelegCases where Belegkennung = \"" + beleg.belegKennung + "\")"))
+            {
+                string oneCase = array[0];
+                verfcases.Add(oneCase);
+            }
+            verfcases.Sort();
+            verCases.DataSource = verfcases;
 
            
         }
@@ -88,7 +122,38 @@ namespace ProgrammDozent
 
         private void speichernbutton_Click(object sender, EventArgs e)
         {
-            //SPEICHERN
+            //Beleg updaten
+            string startdatum = startDateTimePicker.Value.Year.ToString() + "-" + startDateTimePicker.Value.Month.ToString() + "-" + startDateTimePicker.Value.Day.ToString();
+            string enddatum = endDateTimePicker.Value.Year.ToString() + "-" + endDateTimePicker.Value.Month.ToString() + "-" + endDateTimePicker.Value.Day.ToString();
+            string query = "Update Beleg Set Semester = \"" + semesterTextBox.Text + "\", StartDatum = \"" + startdatum + "\",EndDatum = \"" + enddatum + "\",MinAnzMitglieder = " + minGR.Value + ",MaxAnzMitglieder = " + maxGR.Value + ",Passwort = \"" + passwortTextBox.Text + "\" where Belegkennung = \"" + beleg.belegKennung + "\"";
+            var ergebnis = database.ExecuteQuery(query);
+
+            //Zuordnung_BelegThema updaten
+              //Alle zugehörigen Datensätze löschen
+            ergebnis = database.ExecuteQuery("delete from Zuordnung_BelegThema where Belegkennung = \""+beleg.belegKennung+"\"");
+              //Inhalt von verfthemen inserten
+            foreach (Thema thema in verfthemen)
+            {
+                ergebnis = database.ExecuteQuery("insert into Zuordnung_BelegThema values(\""+beleg.belegKennung+"\", "+thema.themenNummer+")");
+            }
+
+            //Zuordnung_BelegRolle
+              //Alle zugehörigen Datensätze löschen
+            ergebnis = database.ExecuteQuery("delete from Zuordnung_BelegRolle where Belegkennung = \"" + beleg.belegKennung + "\"");
+              //Inhalt von verfthemen inserten
+            foreach (Rolle rolle in verfrollen)
+            {
+                ergebnis = database.ExecuteQuery("insert into Zuordnung_BelegRolle values(\"" + beleg.belegKennung + "\", \"" + rolle.rolle + "\")");
+            }
+
+            //Zuordnung_BelegCase
+            //Alle zugehörigen Datensätze löschen
+            ergebnis = database.ExecuteQuery("delete from Zuordnung_BelegCases where Belegkennung = \"" + beleg.belegKennung + "\"");
+            //Inhalt von verfthemen inserten
+            foreach (string onecase in verfcases)
+            {
+                ergebnis = database.ExecuteQuery("insert into Zuordnung_BelegCases values(\"" + beleg.belegKennung + "\", \"" + onecase + "\")");
+            }
         }
 
         private void addButtonThema_Click(object sender, EventArgs e)
@@ -100,6 +165,7 @@ namespace ProgrammDozent
             allThemen.DisplayMember = "aufgabenName";
 
             verfthemen.Add(thema);
+            verfthemen.Sort((t1, t2) => t1.aufgabenName.CompareTo(t2.aufgabenName));
             verThemen.DataSource = null;
             verThemen.DataSource = verfthemen;
             verThemen.DisplayMember = "aufgabenName";
@@ -114,6 +180,7 @@ namespace ProgrammDozent
             verThemen.DisplayMember = "aufgabenName";
 
             allethemen.Add(thema);
+            allethemen.Sort((t1, t2) => t1.aufgabenName.CompareTo(t2.aufgabenName));
             allThemen.DataSource = null;
             allThemen.DataSource = allethemen;
             allThemen.DisplayMember = "aufgabenName";
@@ -133,6 +200,7 @@ namespace ProgrammDozent
             allRollen.DisplayMember = "rolle";
 
             verfrollen.Add(rolle);
+            verfrollen.Sort((t1, t2) => t1.rolle.CompareTo(t2.rolle));
             verRollen.DataSource = null;
             verRollen.DataSource = verfrollen;
             verRollen.DisplayMember = "rolle";
@@ -147,6 +215,7 @@ namespace ProgrammDozent
             verRollen.DisplayMember = "rolle";
 
             allerollen.Add(rolle);
+            allerollen.Sort((t1, t2) => t1.rolle.CompareTo(t2.rolle));
             allRollen.DataSource = null;
             allRollen.DataSource = allerollen;
             allRollen.DisplayMember = "rolle";
@@ -176,6 +245,14 @@ namespace ProgrammDozent
             allecases.Sort();
             allCases.DataSource = null;
             allCases.DataSource = allecases;
+        }
+
+        private Beleg getBelegFromKennung(string belegKennung)
+        {
+            var ergebnis = database.ExecuteQuery("select * from Beleg where Belegkennung = \""+belegKennung+"\"");
+            string[] array = ergebnis.First();
+            return new Beleg(array[0], array[1], Convert.ToDateTime(array[2]), Convert.ToDateTime(array[3]), Convert.ToInt32(array[4]), Convert.ToInt32(array[5]), array[6]);
+
         }
     }
 }

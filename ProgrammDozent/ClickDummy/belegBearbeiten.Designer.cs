@@ -68,6 +68,7 @@
             // 
             // kennungTextBox
             // 
+            this.kennungTextBox.Enabled = false;
             this.kennungTextBox.Location = new System.Drawing.Point(196, 15);
             this.kennungTextBox.Name = "kennungTextBox";
             this.kennungTextBox.Size = new System.Drawing.Size(200, 20);
