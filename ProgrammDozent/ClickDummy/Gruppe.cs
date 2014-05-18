@@ -9,22 +9,17 @@ namespace ProgrammDozent
     public class Gruppe
     {
         public string gruppenKennung { get; set; }
-        public Student leiter { get; set; }
         public List<Student> studenten { get; set; }
-        public Thema thema { get; set; }
-        public string gruppenPasswort { get; set; }
+        public int themenNummer { get; set; }
+        public string password { get; set; }
+        public string Belegkennung { get; set; }
 
-        public Gruppe() {
-            this.gruppenKennung = "ICH BIN EINE NEUE GRUPPE";
-        }
-
-        public Gruppe(string gruppenKennung, Student leiter, List<Student> mitglieder, Thema thema, string passwort)
+        public Gruppe(string kennung, int themennummer, string password)
         {
-            this.gruppenKennung = gruppenKennung;
-            this.leiter = leiter;
-            this.studenten = mitglieder;
-            this.thema = thema;
-            this.gruppenPasswort = passwort;
+            this.gruppenKennung = kennung;
+            this.themenNummer = themenNummer;
+            this.password = password;
+            this.studenten = new List<Student>();
         }
 
         public void addMitglied(Student neu)

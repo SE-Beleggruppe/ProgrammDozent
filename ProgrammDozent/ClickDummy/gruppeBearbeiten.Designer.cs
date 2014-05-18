@@ -37,7 +37,7 @@
             this.contactLeiterButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.themenComboBox = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.passwortTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -59,6 +59,7 @@
             this.speichernbutton.TabIndex = 40;
             this.speichernbutton.Text = "Speichern";
             this.speichernbutton.UseVisualStyleBackColor = true;
+            this.speichernbutton.Click += new System.EventHandler(this.speichernbutton_Click);
             // 
             // label2
             // 
@@ -73,6 +74,7 @@
             // 
             this.kennungTextBox.Location = new System.Drawing.Point(134, 12);
             this.kennungTextBox.Name = "kennungTextBox";
+            this.kennungTextBox.ReadOnly = true;
             this.kennungTextBox.Size = new System.Drawing.Size(200, 20);
             this.kennungTextBox.TabIndex = 23;
             // 
@@ -115,20 +117,17 @@
             // themenComboBox
             // 
             this.themenComboBox.FormattingEnabled = true;
-            this.themenComboBox.Items.AddRange(new object[] {
-            "Thema1",
-            "Thema2"});
             this.themenComboBox.Location = new System.Drawing.Point(134, 65);
             this.themenComboBox.Name = "themenComboBox";
             this.themenComboBox.Size = new System.Drawing.Size(200, 21);
             this.themenComboBox.TabIndex = 45;
             // 
-            // textBox1
+            // passwortTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(134, 101);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(200, 20);
-            this.textBox1.TabIndex = 47;
+            this.passwortTextBox.Location = new System.Drawing.Point(134, 101);
+            this.passwortTextBox.Name = "passwortTextBox";
+            this.passwortTextBox.Size = new System.Drawing.Size(200, 20);
+            this.passwortTextBox.TabIndex = 47;
             // 
             // label4
             // 
@@ -144,7 +143,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(346, 183);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.passwortTextBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.themenComboBox);
             this.Controls.Add(this.label3);
@@ -173,7 +172,7 @@
         private System.Windows.Forms.Button contactLeiterButton;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox themenComboBox;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox passwortTextBox;
         private System.Windows.Forms.Label label4;
     }
 }

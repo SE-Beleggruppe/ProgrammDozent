@@ -14,6 +14,7 @@ namespace ProgrammDozent
     public partial class MainForm : Form
     {
         List<Beleg> Belege = new List<Beleg>();
+        List<Gruppe> Gruppen = new List<Gruppe>();
         List<Student> tempStudent;
         Database database = new Database();
 
@@ -35,10 +36,18 @@ namespace ProgrammDozent
 
          
         private void belegListBox_SelectedIndexChanged(object sender, EventArgs e){
-            //if (belegListBox.SelectedItem == null) return;
-            //Beleg selected = (Beleg)belegListBox.SelectedItem;
-            //gruppenListBox.DataSource = selected.gruppen;
-            //gruppenListBox.DisplayMember = "gruppenKennung";
+            if (belegListBox.SelectedItem == null) return;
+            Beleg selected = (Beleg)belegListBox.SelectedItem;
+            List<Gruppe> Gruppen = new List<Gruppe>();
+            foreach (string[] info in database.ExecuteQuery("select * from Gruppe where Gruppenkennung in (select Gruppenkennung from Zuordnung_GruppeBeleg where Belegkennung=\"" + selected.belegKennung + "\")"))
+            {
+                Gruppe temp = new Gruppe(info[0], Convert.ToInt32(info[1]), info[2]);
+                temp.Belegkennung = selected.belegKennung;
+                Gruppen.Add(temp);
+            }
+            gruppenListBox.DataSource = null;
+            gruppenListBox.DataSource = Gruppen;
+            gruppenListBox.DisplayMember = "gruppenKennung";
         }
 
         private void belegListBox_DoubleClicked(object sender, EventArgs e)
@@ -49,7 +58,7 @@ namespace ProgrammDozent
 
         private void gruppenListBox_DoubleClicked(object sender, EventArgs e)
         {
-            gruppeBearbeiten gruppeB = new gruppeBearbeiten();
+            gruppeBearbeiten gruppeB = new gruppeBearbeiten((Gruppe)gruppenListBox.SelectedItem);
             gruppeB.Show();
         }
 
@@ -82,9 +91,7 @@ namespace ProgrammDozent
 
         private void gruppeAnlegenButton_Click(object sender, EventArgs e)
         {
-            Gruppe newGruppe = new Gruppe();
             Beleg selected = (Beleg)belegListBox.SelectedItem;
-            selected.addGruppe(newGruppe);
 
             gruppenListBox.DataSource = null;
             gruppenListBox.DataSource = selected.gruppen;

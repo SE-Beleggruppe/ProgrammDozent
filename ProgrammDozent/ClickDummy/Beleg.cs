@@ -32,15 +32,6 @@ namespace ProgrammDozent
             this.minMitglieder = minM;
             this.maxMitglieder = maxM;
 
-
-            Student leiter = new Student("Herzog", "Benjamin", "s12345", "benjamin@herzog.de", "CTO");
-            Student stud1 = new Student("Noack", "Markus", "s23456", "noack@markus.de", "Praktikant");
-            Student stud2 = new Student("Jobs", "Steve", "s34567", "steve@jobs.com", "CEO");
-            Student stud3 = new Student("Gates", "Bill", "s45678", "bill@gates.com", "Programmierer");
-            List<Student> mitglieder = new List<Student> {leiter, stud1, stud2, stud3};
-            Thema thema = new Thema(1,"Ich bin eine Aufgabe");
-            this.gruppen.Add(new Gruppe("Kennung01",leiter,mitglieder,thema,"password"));
-
             this.themen = new List<Thema>();
             this.themen.Add(new Thema(1,"Dies ist eine tolle Aufgabe"));
         }

@@ -154,6 +154,9 @@ namespace ProgrammDozent
             {
                 ergebnis = database.ExecuteQuery("insert into Zuordnung_BelegCases values(\"" + beleg.belegKennung + "\", \"" + onecase + "\")");
             }
+
+            MessageBox.Show("Daten erfolgreich gespeichert.");
+            Close();
         }
 
         private void addButtonThema_Click(object sender, EventArgs e)
