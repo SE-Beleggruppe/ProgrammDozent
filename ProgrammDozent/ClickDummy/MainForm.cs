@@ -15,6 +15,7 @@ namespace ProgrammDozent
     {
         List<Beleg> Belege = new List<Beleg>();
         List<Gruppe> Gruppen = new List<Gruppe>();
+        List<string> rollen = new List<string>();
         List<Student> tempStudent;
         Database database = new Database();
 
@@ -38,16 +39,29 @@ namespace ProgrammDozent
         private void belegListBox_SelectedIndexChanged(object sender, EventArgs e){
             if (belegListBox.SelectedItem == null) return;
             Beleg selected = (Beleg)belegListBox.SelectedItem;
+            updateRollen(selected);
             List<Gruppe> Gruppen = new List<Gruppe>();
             foreach (string[] info in database.ExecuteQuery("select * from Gruppe where Gruppenkennung in (select Gruppenkennung from Zuordnung_GruppeBeleg where Belegkennung=\"" + selected.belegKennung + "\")"))
             {
                 Gruppe temp = new Gruppe(info[0], Convert.ToInt32(info[1]), info[2]);
-                temp.Belegkennung = selected.belegKennung;
+                temp.belegkennung = selected.belegKennung;
                 Gruppen.Add(temp);
             }
             gruppenListBox.DataSource = null;
             gruppenListBox.DataSource = Gruppen;
             gruppenListBox.DisplayMember = "gruppenKennung";
+        }
+
+        private void updateRollen(Beleg beleg)
+        {
+            rollen = new List<string>();
+            Database db = new Database();
+            List<string[]> output = db.ExecuteQuery("Select Rolle from Rolle where Rolle in (select Rolle from Zuordnung_BelegRolle where Belegkennung=\"" + beleg.belegKennung + "\")");
+            foreach (string[] info in output)
+            {
+                rollen.Add(info[0]);
+            }
+            rollen.Add("na");
         }
 
         private void belegListBox_DoubleClicked(object sender, EventArgs e)
@@ -66,7 +80,24 @@ namespace ProgrammDozent
         {
             if (gruppenListBox.SelectedItem == null) return;
             Gruppe selected = (Gruppe)gruppenListBox.SelectedItem;
-            studentenDataGridView.DataSource = selected.studenten;
+            foreach (string[] info2 in database.ExecuteQuery("select * from Student where sNummer in (select sNummer from Zuordnung_GruppeStudent where Gruppenkennung=\"" + selected.gruppenKennung + "\")"))
+            {
+                selected.addStudent(new Student(info2[2], info2[1], info2[0], info2[3], info2[4]));
+            }
+            mitgliederDataGridView.Rows.Clear();
+            (mitgliederDataGridView.Columns[4] as DataGridViewComboBoxColumn).DataSource = rollen;
+            (mitgliederDataGridView.Columns[4] as DataGridViewComboBoxColumn).MinimumWidth = 150;
+            (mitgliederDataGridView.Columns[3] as DataGridViewTextBoxColumn).MinimumWidth = 250;
+            foreach (Student info in selected.studenten)
+            {
+                int number = mitgliederDataGridView.Rows.Add();
+                mitgliederDataGridView.Rows[number].Cells[0].Value = info.name;
+                mitgliederDataGridView.Rows[number].Cells[1].Value = info.vorname;
+                mitgliederDataGridView.Rows[number].Cells[2].Value = info.sNummer;
+                if (info.sNummer != "na") mitgliederDataGridView.Rows[number].Cells[2].ReadOnly = true;
+                mitgliederDataGridView.Rows[number].Cells[3].Value = info.mail;
+                mitgliederDataGridView.Rows[number].Cells[4].Value = info.rolle;
+            }
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -102,18 +133,18 @@ namespace ProgrammDozent
         {
             Student neu = new Student("na", "na", "na", "na@na.de", "na");
             Gruppe grup = (Gruppe)gruppenListBox.SelectedItem;
-            grup.addMitglied(neu);
-            studentenDataGridView.DataSource = null;
-            studentenDataGridView.DataSource = grup.studenten;
+            grup.addStudent(neu);
+            mitgliederDataGridView.DataSource = null;
+            mitgliederDataGridView.DataSource = grup.studenten;
         }
 
         private void dataGridViewFreigebenButton_Click(object sender, EventArgs e)
         {
-            tempStudent = (List<Student>)studentenDataGridView.DataSource;
-            studentenDataGridView.DataSource = null;
-            studentenDataGridView.DataSource = tempStudent;
+            tempStudent = (List<Student>)mitgliederDataGridView.DataSource;
+            mitgliederDataGridView.DataSource = null;
+            mitgliederDataGridView.DataSource = tempStudent;
 
-            studentenDataGridView.Enabled = true;
+            mitgliederDataGridView.Enabled = true;
             saveDataGridViewButton.Enabled = true;
             cancelDataGridViewButton.Enabled = true;
             dataGridViewFreigebenButton.Enabled = false;
@@ -121,27 +152,22 @@ namespace ProgrammDozent
 
         private void saveDataGridViewButton_Click(object sender, EventArgs e)
         {
-            Gruppe grup = (Gruppe)gruppenListBox.SelectedItem;
-            grup.studenten = tempStudent;
-            studentenDataGridView.DataSource = null;
-            studentenDataGridView.DataSource = grup.studenten;
-
-            studentenDataGridView.Enabled = false;
+            mitgliederDataGridView.Enabled = false;
             saveDataGridViewButton.Enabled = false;
             cancelDataGridViewButton.Enabled = false;
             dataGridViewFreigebenButton.Enabled = true;
+
+            MessageBox.Show("Noch nicht implementiert...");
         }
 
         private void cancelDataGridViewButton_Click(object sender, EventArgs e)
         {
-            Gruppe grup = (Gruppe)gruppenListBox.SelectedItem;
-            studentenDataGridView.DataSource = null;
-            studentenDataGridView.DataSource = grup.studenten;
-
-            studentenDataGridView.Enabled = false;
+            mitgliederDataGridView.Enabled = false;
             saveDataGridViewButton.Enabled = false;
             cancelDataGridViewButton.Enabled = false;
             dataGridViewFreigebenButton.Enabled = true;
+
+            MessageBox.Show("Noch nicht implementiert...");
         }
 
         private void themenVerwaltenButton_Click(object sender, EventArgs e)
@@ -154,6 +180,11 @@ namespace ProgrammDozent
         {
             rolleVerwalten rolleV = new rolleVerwalten();
             rolleV.Show();
+        }
+
+        private void studentenDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
 

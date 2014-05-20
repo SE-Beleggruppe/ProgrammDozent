@@ -12,7 +12,7 @@ namespace ProgrammDozent
         public List<Student> studenten { get; set; }
         public int themenNummer { get; set; }
         public string password { get; set; }
-        public string Belegkennung { get; set; }
+        public string belegkennung { get; set; }
 
         public Gruppe(string kennung, int themennummer, string password)
         {
@@ -22,10 +22,9 @@ namespace ProgrammDozent
             this.studenten = new List<Student>();
         }
 
-        public void addMitglied(Student neu)
+        public void addStudent(Student student)
         {
-            if (this.studenten == null) this.studenten = new List<Student>();
-            this.studenten.Add(neu);
+            if (student != null) this.studenten.Add(student);
         }
     }
 }

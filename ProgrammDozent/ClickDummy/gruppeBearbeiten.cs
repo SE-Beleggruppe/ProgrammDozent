@@ -27,7 +27,7 @@ namespace ProgrammDozent
 
         void getThemen()
         {
-            foreach (string[] info in database.ExecuteQuery("select Aufgabe from Thema where Themennummer in (select Themennummer from Zuordnung_BelegThema where Belegkennung=\"" + gruppe.Belegkennung + "\")"))
+            foreach (string[] info in database.ExecuteQuery("select Aufgabe from Thema where Themennummer in (select Themennummer from Zuordnung_BelegThema where Belegkennung=\"" + gruppe.belegkennung + "\")"))
             {
                 Themen.Add(info[0]);
             }

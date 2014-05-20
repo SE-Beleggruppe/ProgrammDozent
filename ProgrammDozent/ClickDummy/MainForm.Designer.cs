@@ -32,7 +32,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.belegAnlegenButton = new System.Windows.Forms.Button();
             this.gruppenListBox = new System.Windows.Forms.ListBox();
-            this.studentenDataGridView = new System.Windows.Forms.DataGridView();
+            this.mitgliederDataGridView = new System.Windows.Forms.DataGridView();
             this.gruppeAnlegenButton = new System.Windows.Forms.Button();
             this.mitgliedAnlegen = new System.Windows.Forms.Button();
             this.dataGridViewFreigebenButton = new System.Windows.Forms.Button();
@@ -40,7 +40,12 @@
             this.cancelDataGridViewButton = new System.Windows.Forms.Button();
             this.themenVerwaltenButton = new System.Windows.Forms.Button();
             this.rolleTextBox = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.studentenDataGridView)).BeginInit();
+            this.nachname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vorname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sNummer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rolle = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.mitgliederDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // belegListBox
@@ -80,14 +85,21 @@
             this.gruppenListBox.TabIndex = 4;
             this.gruppenListBox.SelectedIndexChanged += new System.EventHandler(this.gruppenListBox_SelectedIndexChanged);
             // 
-            // studentenDataGridView
+            // mitgliederDataGridView
             // 
-            this.studentenDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.studentenDataGridView.Enabled = false;
-            this.studentenDataGridView.Location = new System.Drawing.Point(393, 38);
-            this.studentenDataGridView.Name = "studentenDataGridView";
-            this.studentenDataGridView.Size = new System.Drawing.Size(552, 199);
-            this.studentenDataGridView.TabIndex = 6;
+            this.mitgliederDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.mitgliederDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.nachname,
+            this.vorname,
+            this.sNummer,
+            this.mail,
+            this.rolle});
+            this.mitgliederDataGridView.Enabled = false;
+            this.mitgliederDataGridView.Location = new System.Drawing.Point(393, 38);
+            this.mitgliederDataGridView.Name = "mitgliederDataGridView";
+            this.mitgliederDataGridView.Size = new System.Drawing.Size(785, 199);
+            this.mitgliederDataGridView.TabIndex = 6;
+            this.mitgliederDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.studentenDataGridView_CellContentClick);
             // 
             // gruppeAnlegenButton
             // 
@@ -161,11 +173,36 @@
             this.rolleTextBox.UseVisualStyleBackColor = true;
             this.rolleTextBox.Click += new System.EventHandler(this.rolleTextBox_Click);
             // 
+            // nachname
+            // 
+            this.nachname.HeaderText = "Nachname";
+            this.nachname.Name = "nachname";
+            // 
+            // vorname
+            // 
+            this.vorname.HeaderText = "Vorname";
+            this.vorname.Name = "vorname";
+            // 
+            // sNummer
+            // 
+            this.sNummer.HeaderText = "S-Nummer";
+            this.sNummer.Name = "sNummer";
+            // 
+            // mail
+            // 
+            this.mail.HeaderText = "Mail";
+            this.mail.Name = "mail";
+            // 
+            // rolle
+            // 
+            this.rolle.HeaderText = "Rolle";
+            this.rolle.Name = "rolle";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(972, 310);
+            this.ClientSize = new System.Drawing.Size(1190, 310);
             this.Controls.Add(this.rolleTextBox);
             this.Controls.Add(this.themenVerwaltenButton);
             this.Controls.Add(this.cancelDataGridViewButton);
@@ -173,7 +210,7 @@
             this.Controls.Add(this.dataGridViewFreigebenButton);
             this.Controls.Add(this.mitgliedAnlegen);
             this.Controls.Add(this.gruppeAnlegenButton);
-            this.Controls.Add(this.studentenDataGridView);
+            this.Controls.Add(this.mitgliederDataGridView);
             this.Controls.Add(this.gruppenListBox);
             this.Controls.Add(this.belegAnlegenButton);
             this.Controls.Add(this.label1);
@@ -182,7 +219,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainForm";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.studentenDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mitgliederDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -194,7 +231,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button belegAnlegenButton;
         private System.Windows.Forms.ListBox gruppenListBox;
-        private System.Windows.Forms.DataGridView studentenDataGridView;
+        private System.Windows.Forms.DataGridView mitgliederDataGridView;
         private System.Windows.Forms.Button gruppeAnlegenButton;
         private System.Windows.Forms.Button mitgliedAnlegen;
         private System.Windows.Forms.Button dataGridViewFreigebenButton;
@@ -202,6 +239,11 @@
         private System.Windows.Forms.Button cancelDataGridViewButton;
         private System.Windows.Forms.Button themenVerwaltenButton;
         private System.Windows.Forms.Button rolleTextBox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nachname;
+        private System.Windows.Forms.DataGridViewTextBoxColumn vorname;
+        private System.Windows.Forms.DataGridViewTextBoxColumn sNummer;
+        private System.Windows.Forms.DataGridViewTextBoxColumn mail;
+        private System.Windows.Forms.DataGridViewComboBoxColumn rolle;
 
 
     }
