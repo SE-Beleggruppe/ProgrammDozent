@@ -47,6 +47,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="itextsharp">
+      <HintPath>bin\iTextSharp DLLs\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.pdfa">
+      <HintPath>bin\iTextSharp DLLs\itextsharp.pdfa.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xtra">
+      <HintPath>bin\iTextSharp DLLs\itextsharp.xtra.dll</HintPath>
+    </Reference>
     <Reference Include="Sybase.AdoNet4.AseClient, Version=16.0.0.2, Culture=neutral, PublicKeyToken=95d94fac46c88e1e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\..\SAP\DataAccess64\ADONET\dll\Sybase.AdoNet4.AseClient.dll</HintPath>
@@ -83,6 +92,12 @@
     </Compile>
     <Compile Include="gruppeBearbeiten.Designer.cs">
       <DependentUpon>gruppeBearbeiten.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PdfArchivierung.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PdfArchivierung.Designer.cs">
+      <DependentUpon>PdfArchivierung.cs</DependentUpon>
     </Compile>
     <Compile Include="rolleVerwalten.cs">
       <SubType>Form</SubType>
@@ -121,6 +136,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gruppeBearbeiten.resx">
       <DependentUpon>gruppeBearbeiten.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PdfArchivierung.resx">
+      <DependentUpon>PdfArchivierung.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="rolleVerwalten.resx">
       <DependentUpon>rolleVerwalten.cs</DependentUpon>
