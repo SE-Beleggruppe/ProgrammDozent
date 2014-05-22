@@ -86,6 +86,12 @@
     <Compile Include="Eingabe.Designer.cs">
       <DependentUpon>Eingabe.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Gruppe.cs" />
     <Compile Include="gruppeBearbeiten.cs">
       <SubType>Form</SubType>
@@ -133,6 +139,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Eingabe.resx">
       <DependentUpon>Eingabe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gruppeBearbeiten.resx">
       <DependentUpon>gruppeBearbeiten.cs</DependentUpon>
