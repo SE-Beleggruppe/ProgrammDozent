@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -37,14 +38,15 @@ namespace ProgrammDozent
 
                 pdfArchiv.Open();
 
-                Paragraph header = new Paragraph(new Phrase("Beleg - Archivierung"));
+                Paragraph header = new Paragraph(new Phrase("Beleg - Archivierung")) { Alignment = 1, SpacingAfter = 15 };
+                header.Font.SetStyle("underline");
                 pdfArchiv.Add(header);
 
-                PdfPTable table = new PdfPTable(2) { WidthPercentage = 60, HorizontalAlignment = 0 };
+                /*PdfPTable table = new PdfPTable(2) { WidthPercentage = 60, HorizontalAlignment = 0 };
                 PdfPCell head = new PdfPCell(new Phrase("Your Heading"));
                 head.Colspan = 2;
                 head.HorizontalAlignment = 1; //0=Left, 1=Centre, 2=Right
-                table.AddCell(header);
+                table.AddCell(head);
                 table.AddCell(new PdfPCell(new Phrase("Beispieltext")));
                 table.AddCell(new PdfPCell(new Phrase("Beispieltext")));
                 table.AddCell(new PdfPCell(new Phrase("Beispieltext")));
@@ -54,28 +56,31 @@ namespace ProgrammDozent
                 table.AddCell(new PdfPCell(new Phrase("Beispieltext")));
                 table.CompleteRow();
                 pdfArchiv.Add(table);
-
-                /*
+                */
+                
                 foreach (string[] array in database.ExecuteQuery("select * from Beleg"))
                 {
                     //pro Beleg auszuführender Code
-
-                    Beleg beleg = new Beleg(array[0], array[1], Convert.ToDateTime(array[2]), Convert.ToDateTime(array[3]), Convert.ToInt32(array[4]), Convert.ToInt32(array[5]), array[6]);
+                    //Beleg beleg = new Beleg(array[0], array[1], Convert.ToDateTime(array[2]), Convert.ToDateTime(array[3]), Convert.ToInt32(array[4]), Convert.ToInt32(array[5]), array[6]);
                     //speichern der belegspezifischen Daten in der PDF
-                    foreach (string[] info in database.ExecuteQuery("select * from Gruppe where Gruppenkennung in (select Gruppenkennung from Zuordnung_GruppeBeleg where Belegkennung=\"" + beleg.belegKennung + "\")"))
+                    //string kennung, string semester, DateTime startDatum, DateTime endDatum, int minM, int maxM
+                    Paragraph belegabsatz = new Paragraph("Belegkennung: "+array[0]+"\nSemester: "+array[1]+"\nStartdatum: "+array[2]+"\nEnddatum: "+array[3]+"\nMinimale bis maximale Gruppengröße: "+array[4]+"-"+array[5]+ "\n");
+                    pdfArchiv.Add(belegabsatz);
+                    foreach (string[] info in database.ExecuteQuery("select * from Gruppe where Gruppenkennung in (select Gruppenkennung from Zuordnung_GruppeBeleg where Belegkennung=\"" + array[6] + "\")"))
                     {
                         Gruppe gtemp = new Gruppe(info[0], Convert.ToInt32(info[1]), info[2]);
-                        gtemp.belegkennung = beleg.belegKennung;
+                        gtemp.belegkennung = array[6];
                         //speichern der gruppenspezifischen Daten in der PDF
                         foreach (string[] info2 in database.ExecuteQuery("select * from Student where sNummer in (select sNummer from Zuordnung_GruppeStudent where Gruppenkennung=\"" + gtemp.gruppenKennung + "\")"))
                         {
                             Student stemp = new Student(info2[2], info2[1], info2[0], info2[3], info2[4]);
                             //speichern der studentenspezifischen Daten in der PDF
+                            PdfPTable table = new PdfPTable(5) { WidthPercentage = 60, HorizontalAlignment = 0 };
                         }
                     }
                     pdfArchiv.NewPage();
                 }
-                */
+                
                 //tbd
                 //database.ExecuteQuery("delete * from ...");
 
@@ -112,6 +117,12 @@ namespace ProgrammDozent
                 //PDF aus Stream schreiben
                 FileStream fs = File.Create("archivierung.pdf");
                 fs.Write(content, 0, (int)content.Length);
+
+                fs.Close();
+                myMemoryStream.Close();
+                
+                Process.Start("archivierung.pdf");
+                //Application.Exit();
             }
         }
     }
