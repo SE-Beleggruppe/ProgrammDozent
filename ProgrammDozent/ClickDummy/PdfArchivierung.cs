@@ -96,7 +96,7 @@ namespace ProgrammDozent
                     foreach (string[] info in database.ExecuteQuery("select * from Gruppe where Gruppenkennung in (select Gruppenkennung from Zuordnung_GruppeBeleg where Belegkennung=\"" + array[6] + "\")"))
                     {
                         Gruppe gtemp = new Gruppe(info[0], Convert.ToInt32(info[1]), info[2]);
-                        gtemp.belegkennung = array[6];
+                        gtemp.Belegkennung = array[6];
 
                         PdfPTable table = new PdfPTable(5) { WidthPercentage = 60, HorizontalAlignment = 0 };
                         PdfPCell tableHeader = new PdfPCell(new Phrase(info[0]));
@@ -109,7 +109,7 @@ namespace ProgrammDozent
                         table.AddCell(tableHeader);
                         
                         //speichern der gruppenspezifischen Daten in der PDF
-                        foreach (string[] info2 in database.ExecuteQuery("select * from Student where sNummer in (select sNummer from Zuordnung_GruppeStudent where Gruppenkennung=\"" + gtemp.gruppenKennung + "\")"))
+                        foreach (string[] info2 in database.ExecuteQuery("select * from Student where sNummer in (select sNummer from Zuordnung_GruppeStudent where Gruppenkennung=\"" + gtemp.GruppenKennung + "\")"))
                         {
                             Student stemp = new Student(info2[2], info2[1], info2[0], info2[3], info2[4]);
                             //speichern der studentenspezifischen Daten in der PDF

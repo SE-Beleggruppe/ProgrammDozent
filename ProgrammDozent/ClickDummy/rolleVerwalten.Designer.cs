@@ -1,6 +1,6 @@
 ﻿namespace ProgrammDozent
 {
-    partial class rolleVerwalten
+    partial class RolleVerwalten
     {
         /// <summary>
         /// Required designer variable.
@@ -69,7 +69,7 @@
             this.Controls.Add(this.deleteRolleButton);
             this.Controls.Add(this.newRolleButton);
             this.Controls.Add(this.rollenListBox);
-            this.Name = "rolleVerwalten";
+            this.Name = "RolleVerwalten";
             this.Text = "themenVerwalten";
             this.ResumeLayout(false);
 

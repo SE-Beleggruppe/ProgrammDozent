@@ -1,56 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ProgrammDozent
 {
-    public partial class themenVerwalten : Form
+    public partial class ThemenVerwalten : Form
     {
-        private List<Thema> themen;
-        Database database = new Database();
+        private List<Thema> _themen;
+        readonly Database _database = new Database();
 
-        public themenVerwalten()
+        public ThemenVerwalten()
         {
             InitializeComponent();
-            refreshThemen();
+            RefreshThemen();
         }
 
         private void deleteThemaButton_Click(object sender, EventArgs e)
         {
-            Thema thema = (Thema)themenListBox.SelectedItem;
-            database.ExecuteQuery("delete from Thema where Themennummer =" + thema.themenNummer + "");
-            refreshThemen();
+            var thema = (Thema)themenListBox.SelectedItem;
+            _database.ExecuteQuery("delete from Thema where Themennummer =" + thema.ThemenNummer + "");
+            RefreshThemen();
         }
 
-        private void refreshThemen()
+        private void RefreshThemen()
         {
-            themen = new List<Thema>();
-            foreach (string[] array in database.ExecuteQuery("select * from Thema"))
+            _themen = new List<Thema>();
+            foreach (var array in _database.ExecuteQuery("select * from Thema"))
             {
-                Thema thema = new Thema(Convert.ToInt32(array[0]), array[1]);
-                themen.Add(thema);
+                var thema = new Thema(Convert.ToInt32(array[0]), array[1]);
+                _themen.Add(thema);
             }
-            themenListBox.DataSource = themen;
+            themenListBox.DataSource = _themen;
             themenListBox.DisplayMember = "aufgabenName";
         }
 
         private void addThemaButton_Click_1(object sender, EventArgs e)
         {
-            Eingabe eingabe = new Eingabe();
-            eingabe.textEingabe = new Eingabe.textEingabeHandler(eingabeF);
+            var eingabe = new Eingabe {textEingabe = new Eingabe.textEingabeHandler(EingabeF)};
             eingabe.Show();
         }
 
-        public void eingabeF(object sender)
+        public void EingabeF(object sender)
         {
-            database.ExecuteQuery("insert into Thema values(\"" + ((TextBox)sender).Text + "\")");
-            refreshThemen();
+            _database.ExecuteQuery("insert into Thema values(\"" + ((TextBox)sender).Text + "\")");
+            RefreshThemen();
         }
     }
 }

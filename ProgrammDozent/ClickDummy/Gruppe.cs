@@ -1,31 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ProgrammDozent
 {
     public class Gruppe
     {
-        public string gruppenKennung { get; set; }
-        public List<Student> studenten { get; set; }
-        public int themenNummer { get; set; }
-        public string password { get; set; }
-        public string belegkennung { get; set; }
+        public string GruppenKennung { get; set; }
+        public List<Student> Studenten { get; set; }
+        public int ThemenNummer { get; set; }
+        public string Password { get; set; }
+        public string Belegkennung { get; set; }
 
         public Gruppe(string kennung, int themennummer, string password)
         {
-            this.gruppenKennung = kennung;
-            this.themenNummer = themenNummer;
-            this.password = password;
-            this.studenten = new List<Student>();
+            GruppenKennung = kennung;
+            ThemenNummer = ThemenNummer;
+            Password = password;
+            Studenten = new List<Student>();
         }
 
-        public void addStudent(Student student)
+        public void AddStudent(Student student)
         {
-            if (this.studenten == null) this.studenten = new List<Student>();
-            if (student != null) this.studenten.Add(student);
+            if (Studenten == null) Studenten = new List<Student>();
+            if (student != null) Studenten.Add(student);
         }
     }
 }

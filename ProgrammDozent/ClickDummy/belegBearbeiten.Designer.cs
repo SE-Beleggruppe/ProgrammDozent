@@ -1,6 +1,6 @@
 ﻿namespace ProgrammDozent
 {
-    partial class belegBearbeiten
+    partial class BelegBearbeiten
     {
         /// <summary>
         /// Required designer variable.
@@ -116,6 +116,7 @@
             this.startDateTimePicker.Name = "startDateTimePicker";
             this.startDateTimePicker.Size = new System.Drawing.Size(200, 20);
             this.startDateTimePicker.TabIndex = 7;
+            this.startDateTimePicker.ValueChanged += new System.EventHandler(this.startDateTimePicker_ValueChanged);
             // 
             // endDateTimePicker
             // 
@@ -123,6 +124,7 @@
             this.endDateTimePicker.Name = "endDateTimePicker";
             this.endDateTimePicker.Size = new System.Drawing.Size(200, 20);
             this.endDateTimePicker.TabIndex = 9;
+            this.endDateTimePicker.ValueChanged += new System.EventHandler(this.endDateTimePicker_ValueChanged);
             // 
             // label4
             // 
@@ -373,7 +375,7 @@
             this.verCases.Size = new System.Drawing.Size(154, 108);
             this.verCases.TabIndex = 36;
             // 
-            // belegBearbeiten
+            // BelegBearbeiten
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -412,7 +414,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.kennungTextBox);
             this.Controls.Add(this.label1);
-            this.Name = "belegBearbeiten";
+            this.Name = "BelegBearbeiten";
             this.Text = "belegBearbeiten";
             this.Load += new System.EventHandler(this.belegBearbeiten_Load);
             ((System.ComponentModel.ISupportInitialize)(this.minGR)).EndInit();

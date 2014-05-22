@@ -1,6 +1,6 @@
 ﻿namespace ProgrammDozent
 {
-    partial class themenVerwalten
+    partial class ThemenVerwalten
     {
         /// <summary>
         /// Required designer variable.
@@ -69,7 +69,7 @@
             this.Controls.Add(this.addThemaButton);
             this.Controls.Add(this.newThemaButton);
             this.Controls.Add(this.themenListBox);
-            this.Name = "themenVerwalten";
+            this.Name = "ThemenVerwalten";
             this.Text = "themenVerwalten";
             this.ResumeLayout(false);
 

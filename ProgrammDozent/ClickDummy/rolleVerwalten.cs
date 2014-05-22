@@ -1,61 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ProgrammDozent
 {
-    public partial class rolleVerwalten : Form
+    public partial class RolleVerwalten : Form
     {
 
-        private List<Rolle> rollen;
-        Database database = new Database();
+        private List<Rolle> _rollen;
+        readonly Database _database = new Database();
 
-        public rolleVerwalten()
+        public RolleVerwalten()
         {
             InitializeComponent();
-            refreshRollen();
+            RefreshRollen();
         }
 
 
         private void deleteRolleButton_Click(object sender, EventArgs e)
         {
-            Rolle rolle = (Rolle)rollenListBox.SelectedItem;
-            database.ExecuteQuery("delete from Rolle where Rolle =\""+rolle.rolle+"\"");
-            refreshRollen();
+            var rolle = (Rolle)rollenListBox.SelectedItem;
+            _database.ExecuteQuery("delete from Rolle where Rolle =\""+rolle.rolle+"\"");
+            RefreshRollen();
         }
 
-        private void refreshRollen()
+        private void RefreshRollen()
         {
-            rollen = new List<Rolle>();
-            foreach (string[] array in database.ExecuteQuery("select * from Rolle"))
+            _rollen = new List<Rolle>();
+            foreach (var array in _database.ExecuteQuery("select * from Rolle"))
             {
-                Rolle rolle = new Rolle(array[0]);
-                rollen.Add(rolle);
+                var rolle = new Rolle(array[0]);
+                _rollen.Add(rolle);
             }
-            rollenListBox.DataSource = rollen;
+            rollenListBox.DataSource = _rollen;
             rollenListBox.DisplayMember = "rolle";
         }
 
         private void newRolleButton_Click(object sender, EventArgs e)
         {
-            Eingabe eingabe = new Eingabe();
-            eingabe.textEingabe = new Eingabe.textEingabeHandler(eingabeF);
+            var eingabe = new Eingabe {textEingabe = new Eingabe.textEingabeHandler(EingabeF)};
             eingabe.Show();
             
             
    
         }
 
-        public void eingabeF(object sender)
+        public void EingabeF(object sender)
         {
-            database.ExecuteQuery("insert into Rolle values(\""+((TextBox)sender).Text +"\")");
-            refreshRollen();
+            _database.ExecuteQuery("insert into Rolle values(\""+((TextBox)sender).Text +"\")");
+            RefreshRollen();
         }
     }
 }
