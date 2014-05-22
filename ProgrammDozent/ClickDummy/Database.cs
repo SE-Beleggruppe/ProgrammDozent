@@ -8,7 +8,7 @@ using Sybase.Data.AseClient;
 namespace ProgrammDozent
 {
    
-    class Database
+    public class Database
     {
         public string connectionString =  "Data Source=141.56.20.2;Port=5200;" +
                                     "UID=case04;PWD=itcyisay;" +

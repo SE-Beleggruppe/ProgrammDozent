@@ -33,6 +33,11 @@
             this.belegAnlegenButton = new System.Windows.Forms.Button();
             this.gruppenListBox = new System.Windows.Forms.ListBox();
             this.mitgliederDataGridView = new System.Windows.Forms.DataGridView();
+            this.nachname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vorname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sNummer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rolle = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.gruppeAnlegenButton = new System.Windows.Forms.Button();
             this.mitgliedAnlegen = new System.Windows.Forms.Button();
             this.dataGridViewFreigebenButton = new System.Windows.Forms.Button();
@@ -40,11 +45,7 @@
             this.cancelDataGridViewButton = new System.Windows.Forms.Button();
             this.themenVerwaltenButton = new System.Windows.Forms.Button();
             this.rolleTextBox = new System.Windows.Forms.Button();
-            this.nachname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.vorname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sNummer = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.mail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rolle = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.buttonArchivieren = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.mitgliederDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -100,6 +101,31 @@
             this.mitgliederDataGridView.Size = new System.Drawing.Size(785, 199);
             this.mitgliederDataGridView.TabIndex = 6;
             this.mitgliederDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.studentenDataGridView_CellContentClick);
+            // 
+            // nachname
+            // 
+            this.nachname.HeaderText = "Nachname";
+            this.nachname.Name = "nachname";
+            // 
+            // vorname
+            // 
+            this.vorname.HeaderText = "Vorname";
+            this.vorname.Name = "vorname";
+            // 
+            // sNummer
+            // 
+            this.sNummer.HeaderText = "S-Nummer";
+            this.sNummer.Name = "sNummer";
+            // 
+            // mail
+            // 
+            this.mail.HeaderText = "Mail";
+            this.mail.Name = "mail";
+            // 
+            // rolle
+            // 
+            this.rolle.HeaderText = "Rolle";
+            this.rolle.Name = "rolle";
             // 
             // gruppeAnlegenButton
             // 
@@ -173,36 +199,22 @@
             this.rolleTextBox.UseVisualStyleBackColor = true;
             this.rolleTextBox.Click += new System.EventHandler(this.rolleTextBox_Click);
             // 
-            // nachname
+            // buttonArchivieren
             // 
-            this.nachname.HeaderText = "Nachname";
-            this.nachname.Name = "nachname";
-            // 
-            // vorname
-            // 
-            this.vorname.HeaderText = "Vorname";
-            this.vorname.Name = "vorname";
-            // 
-            // sNummer
-            // 
-            this.sNummer.HeaderText = "S-Nummer";
-            this.sNummer.Name = "sNummer";
-            // 
-            // mail
-            // 
-            this.mail.HeaderText = "Mail";
-            this.mail.Name = "mail";
-            // 
-            // rolle
-            // 
-            this.rolle.HeaderText = "Rolle";
-            this.rolle.Name = "rolle";
+            this.buttonArchivieren.Location = new System.Drawing.Point(1054, 244);
+            this.buttonArchivieren.Name = "buttonArchivieren";
+            this.buttonArchivieren.Size = new System.Drawing.Size(124, 22);
+            this.buttonArchivieren.TabIndex = 14;
+            this.buttonArchivieren.Text = "Beleg archivieren";
+            this.buttonArchivieren.UseVisualStyleBackColor = true;
+            this.buttonArchivieren.Click += new System.EventHandler(this.buttonArchivieren_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1190, 310);
+            this.Controls.Add(this.buttonArchivieren);
             this.Controls.Add(this.rolleTextBox);
             this.Controls.Add(this.themenVerwaltenButton);
             this.Controls.Add(this.cancelDataGridViewButton);
@@ -244,6 +256,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn sNummer;
         private System.Windows.Forms.DataGridViewTextBoxColumn mail;
         private System.Windows.Forms.DataGridViewComboBoxColumn rolle;
+        private System.Windows.Forms.Button buttonArchivieren;
 
 
     }

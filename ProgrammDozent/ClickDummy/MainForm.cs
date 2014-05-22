@@ -187,6 +187,11 @@ namespace ProgrammDozent
 
         }
 
+        private void buttonArchivieren_Click(object sender, EventArgs e)
+        {
+            PdfArchivierung archivierung = new PdfArchivierung(database);
+            archivierung.Show();
+        }
 
 
         
