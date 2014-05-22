@@ -66,16 +66,54 @@ namespace ProgrammDozent
                     //string kennung, string semester, DateTime startDatum, DateTime endDatum, int minM, int maxM
                     Paragraph belegabsatz = new Paragraph("Belegkennung: "+array[0]+"\nSemester: "+array[1]+"\nStartdatum: "+array[2]+"\nEnddatum: "+array[3]+"\nMinimale bis maximale Gruppengröße: "+array[4]+"-"+array[5]+ "\n");
                     pdfArchiv.Add(belegabsatz);
+
+                    PdfPTable nestedtable = new PdfPTable(2) { WidthPercentage = 90, HorizontalAlignment = 0, SpacingBefore=10, SpacingAfter=10 };
+
+                    PdfPTable roletable = new PdfPTable(1) { WidthPercentage = 40, HorizontalAlignment=0 };
+                    roletable.AddCell(new PdfPCell(new Phrase("Verfügbare Rollen: ")));
+                    foreach (string[] roles in database.ExecuteQuery("select Rolle from Zuordnung_BelegRolle Z where Z.Belegkennung=\""+array[0]+"\""))
+                    {
+                        Phrase roletempphrase = new Phrase(roles[0]);
+                        roletempphrase.Font.SetStyle("italic");
+                        roletempphrase.Font.Size = 11.0f;
+                        roletable.AddCell(new PdfPCell(roletempphrase));
+                    }
+                    nestedtable.AddCell(roletable);
+
+                    PdfPTable topictable = new PdfPTable(1) { WidthPercentage = 40, HorizontalAlignment = 0 };
+                    topictable.AddCell(new PdfPCell(new Phrase("Verfügbare Themen: ")));
+                    foreach (string[] topics in database.ExecuteQuery("select Aufgabe from Zuordnung_BelegThema Z, Thema T where Z.Belegkennung=\""+array[0]+"\" and Z.Themennummer=T.Themennummer"))
+                    {
+                        Phrase topictempphrase = new Phrase(topics[0]);
+                        topictempphrase.Font.SetStyle("italic");
+                        topictempphrase.Font.Size = 11.0f;
+                        topictable.AddCell(new PdfPCell(topictempphrase));
+                    }
+                    nestedtable.AddCell(topictable);
+                    pdfArchiv.Add(nestedtable);
+                    pdfArchiv.NewPage();
+
                     foreach (string[] info in database.ExecuteQuery("select * from Gruppe where Gruppenkennung in (select Gruppenkennung from Zuordnung_GruppeBeleg where Belegkennung=\"" + array[6] + "\")"))
                     {
                         Gruppe gtemp = new Gruppe(info[0], Convert.ToInt32(info[1]), info[2]);
                         gtemp.belegkennung = array[6];
+
+                        PdfPTable table = new PdfPTable(5) { WidthPercentage = 60, HorizontalAlignment = 0 };
+                        PdfPCell tableHeader = new PdfPCell(new Phrase(info[0]));
+                        tableHeader.Colspan = 2;
+                        tableHeader.HorizontalAlignment = 1; //0=Left, 1=Centre, 2=Right
+                        table.AddCell(tableHeader);
+                        tableHeader = new PdfPCell(new Phrase(info[0]));
+                        tableHeader.Colspan = 3;
+                        tableHeader.HorizontalAlignment = 1; //0=Left, 1=Centre, 2=Right
+                        table.AddCell(tableHeader);
+                        
                         //speichern der gruppenspezifischen Daten in der PDF
                         foreach (string[] info2 in database.ExecuteQuery("select * from Student where sNummer in (select sNummer from Zuordnung_GruppeStudent where Gruppenkennung=\"" + gtemp.gruppenKennung + "\")"))
                         {
                             Student stemp = new Student(info2[2], info2[1], info2[0], info2[3], info2[4]);
                             //speichern der studentenspezifischen Daten in der PDF
-                            PdfPTable table = new PdfPTable(5) { WidthPercentage = 60, HorizontalAlignment = 0 };
+                            
                         }
                     }
                     pdfArchiv.NewPage();
