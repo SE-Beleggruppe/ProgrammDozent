@@ -28,6 +28,8 @@ namespace ProgrammDozent
                 Beleg beleg = new Beleg(array[0], array[1], Convert.ToDateTime(array[2]), Convert.ToDateTime(array[3]), Convert.ToInt32(array[4]), Convert.ToInt32(array[5]), array[6] );
                 Belege.Add(beleg);
             }
+
+            mitgliederDataGridView.AllowUserToAddRows = false;
             belegListBox.DataSource = Belege;
             belegListBox.DisplayMember = "Belegkennung";
 
@@ -38,6 +40,7 @@ namespace ProgrammDozent
          
         private void belegListBox_SelectedIndexChanged(object sender, EventArgs e){
             if (belegListBox.SelectedItem == null) return;
+            mitgliederDataGridView.Rows.Clear();
             Beleg selected = (Beleg)belegListBox.SelectedItem;
             updateRollen(selected);
             List<Gruppe> Gruppen = new List<Gruppe>();
@@ -80,6 +83,7 @@ namespace ProgrammDozent
         {
             if (gruppenListBox.SelectedItem == null) return;
             Gruppe selected = (Gruppe)gruppenListBox.SelectedItem;
+            selected.studenten = null;
             foreach (string[] info2 in database.ExecuteQuery("select * from Student where sNummer in (select sNummer from Zuordnung_GruppeStudent where Gruppenkennung=\"" + selected.gruppenKennung + "\")"))
             {
                 selected.addStudent(new Student(info2[2], info2[1], info2[0], info2[3], info2[4]));
@@ -152,12 +156,49 @@ namespace ProgrammDozent
 
         private void saveDataGridViewButton_Click(object sender, EventArgs e)
         {
+            saveMitglieder();
+
             mitgliederDataGridView.Enabled = false;
             saveDataGridViewButton.Enabled = false;
             cancelDataGridViewButton.Enabled = false;
             dataGridViewFreigebenButton.Enabled = true;
 
-            MessageBox.Show("Noch nicht implementiert...");
+            gruppenListBox_SelectedIndexChanged(this, null);
+        }
+
+        private void saveMitglieder()
+        {
+            Gruppe gruppe = (Gruppe)gruppenListBox.SelectedItem;
+            for (int i = 0; i < mitgliederDataGridView.Rows.Count; i++)
+            {
+                string name = (string)mitgliederDataGridView.Rows[i].Cells[0].Value;
+                string vorname = (string)mitgliederDataGridView.Rows[i].Cells[1].Value;
+                string sNummer = (string)mitgliederDataGridView.Rows[i].Cells[2].Value;
+                string mail = (string)mitgliederDataGridView.Rows[i].Cells[3].Value;
+                string rolle = (string)mitgliederDataGridView.Rows[i].Cells[4].FormattedValue.ToString();
+
+                if (sNummer != "na" && sNummer != "" && sNummer != null)
+                {
+                    if (mitgliederDataGridView.Rows[i].Cells[2].ReadOnly) updateStudent(new Student(name, vorname, sNummer, mail, rolle));
+                    else insertStudent(new Student(name, vorname, sNummer, mail, rolle), gruppe);
+                }
+            }
+        }
+
+        private void updateStudent(Student student)
+        {
+            Database db = new Database();
+            string query = "update Student set Nachname=\"" + student.name + "\", Vorname=\"" + student.vorname + "\", Mail=\"" + student.mail + "\", Rolle=\"" + student.rolle + "\" where sNummer=\"" + student.sNummer + "\"";
+            db.ExecuteQuery(query);
+        }
+
+        private void insertStudent(Student student, Gruppe gruppe)
+        {
+            Database db = new Database();
+            string query = "insert into Student values(\"" + student.sNummer + "\",\"" + student.vorname + "\",\"" + student.name + "\",\"" + student.mail + "\",\"" + student.rolle + "\")";
+            db.ExecuteQuery(query);
+            query = "insert into Zuordnung_GruppeStudent values(\"" + gruppe.gruppenKennung + "\",\"" + student.sNummer + "\")";
+            db.ExecuteQuery(query);
         }
 
         private void cancelDataGridViewButton_Click(object sender, EventArgs e)
@@ -167,7 +208,7 @@ namespace ProgrammDozent
             cancelDataGridViewButton.Enabled = false;
             dataGridViewFreigebenButton.Enabled = true;
 
-            MessageBox.Show("Noch nicht implementiert...");
+            gruppenListBox_SelectedIndexChanged(this, null);
         }
 
         private void themenVerwaltenButton_Click(object sender, EventArgs e)
