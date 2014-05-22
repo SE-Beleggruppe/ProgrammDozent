@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.comboBoxBeleg = new System.Windows.Forms.ComboBox();
+            this.comboBoxBelegthema = new System.Windows.Forms.ComboBox();
+            this.comboBoxGruppe = new System.Windows.Forms.ComboBox();
+            this.comboBoxRolle = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -40,37 +40,38 @@
             this.btnMail = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // comboBox1
+            // comboBoxBeleg
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(126, 38);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 0;
+            this.comboBoxBeleg.FormattingEnabled = true;
+            this.comboBoxBeleg.Location = new System.Drawing.Point(126, 38);
+            this.comboBoxBeleg.Name = "comboBoxBeleg";
+            this.comboBoxBeleg.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxBeleg.TabIndex = 0;
+            this.comboBoxBeleg.SelectedIndexChanged += new System.EventHandler(this.comboBoxBeleg_SelectedIndexChanged);
             // 
-            // comboBox2
+            // comboBoxBelegthema
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(126, 78);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 1;
+            this.comboBoxBelegthema.FormattingEnabled = true;
+            this.comboBoxBelegthema.Location = new System.Drawing.Point(126, 78);
+            this.comboBoxBelegthema.Name = "comboBoxBelegthema";
+            this.comboBoxBelegthema.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxBelegthema.TabIndex = 1;
             // 
-            // comboBox3
+            // comboBoxGruppe
             // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(126, 122);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(121, 21);
-            this.comboBox3.TabIndex = 2;
+            this.comboBoxGruppe.FormattingEnabled = true;
+            this.comboBoxGruppe.Location = new System.Drawing.Point(126, 122);
+            this.comboBoxGruppe.Name = "comboBoxGruppe";
+            this.comboBoxGruppe.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxGruppe.TabIndex = 2;
             // 
-            // comboBox4
+            // comboBoxRolle
             // 
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Location = new System.Drawing.Point(126, 165);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(121, 21);
-            this.comboBox4.TabIndex = 3;
+            this.comboBoxRolle.FormattingEnabled = true;
+            this.comboBoxRolle.Location = new System.Drawing.Point(126, 165);
+            this.comboBoxRolle.Name = "comboBoxRolle";
+            this.comboBoxRolle.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxRolle.TabIndex = 3;
             // 
             // label1
             // 
@@ -137,10 +138,10 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBox4);
-            this.Controls.Add(this.comboBox3);
-            this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.comboBoxRolle);
+            this.Controls.Add(this.comboBoxGruppe);
+            this.Controls.Add(this.comboBoxBelegthema);
+            this.Controls.Add(this.comboBoxBeleg);
             this.Name = "kontaktForm";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -150,10 +151,10 @@
 
         #endregion
 
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.ComboBox comboBoxBeleg;
+        private System.Windows.Forms.ComboBox comboBoxBelegthema;
+        private System.Windows.Forms.ComboBox comboBoxGruppe;
+        private System.Windows.Forms.ComboBox comboBoxRolle;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;

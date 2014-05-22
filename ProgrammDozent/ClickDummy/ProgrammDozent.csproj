@@ -86,11 +86,11 @@
     <Compile Include="Eingabe.Designer.cs">
       <DependentUpon>Eingabe.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="kontaktForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="kontaktForm.Designer.cs">
+      <DependentUpon>kontaktForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Gruppe.cs" />
     <Compile Include="gruppeBearbeiten.cs">
@@ -140,8 +140,8 @@
     <EmbeddedResource Include="Eingabe.resx">
       <DependentUpon>Eingabe.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="kontaktForm.resx">
+      <DependentUpon>kontaktForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gruppeBearbeiten.resx">
       <DependentUpon>gruppeBearbeiten.cs</DependentUpon>
