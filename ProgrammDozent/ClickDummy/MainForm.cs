@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace ProgrammDozent
@@ -74,18 +75,25 @@ namespace ProgrammDozent
         private void gruppenListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (gruppenListBox.SelectedItem == null) return;
-            var selected = (Gruppe)gruppenListBox.SelectedItem;
-            selected.Studenten = null;
+            Gruppe selected = (Gruppe)gruppenListBox.SelectedItem;
+            selected.studenten = null;
             foreach (var info2 in _database.ExecuteQuery("select * from Student where sNummer in (select sNummer from Zuordnung_GruppeStudent where Gruppenkennung=\"" + selected.GruppenKennung + "\")"))
             {
-                selected.AddStudent(new Student(info2[2], info2[1], info2[0], info2[3], info2[4]));
+                selected.addStudent(new Student(info2[2], info2[1], info2[0], info2[3], info2[4]));
             }
+            int studentenCount = selected.studenten.Count;
+            if (selected.studenten.Count < ((Beleg)belegListBox.SelectedItem).MaxMitglieder)
+            {
+                for (int i = 0; i < ((Beleg)belegListBox.SelectedItem).MaxMitglieder - studentenCount; i++)
+                    selected.addStudent(new Student("na", "na", "na", "na", "na"));
+            }
+
             mitgliederDataGridView.Rows.Clear();
             (mitgliederDataGridView.Columns[4] as DataGridViewComboBoxColumn).DataSource = _rollen;
             (mitgliederDataGridView.Columns[4] as DataGridViewComboBoxColumn).MinimumWidth = 150;
             (mitgliederDataGridView.Columns[3] as DataGridViewTextBoxColumn).MinimumWidth = 250;
-            if (selected.Studenten != null)
-                foreach (var info in selected.Studenten)
+            if (selected.studenten != null)
+                foreach (var info in selected.studenten)
                 {
                     var number = mitgliederDataGridView.Rows.Add();
                     mitgliederDataGridView.Rows[number].Cells[0].Value = info.Name;
@@ -94,6 +102,9 @@ namespace ProgrammDozent
                     if (info.SNummer != "na") mitgliederDataGridView.Rows[number].Cells[2].ReadOnly = true;
                     mitgliederDataGridView.Rows[number].Cells[3].Value = info.Mail;
                     mitgliederDataGridView.Rows[number].Cells[4].Value = info.Rolle;
+
+                    if (info.SNummer == "na" && number < ((Beleg)belegListBox.SelectedItem).MinMitglieder)
+                        mitgliederDataGridView.Rows[number].DefaultCellStyle.BackColor = Color.Yellow;
                 }
         }
 
@@ -128,11 +139,14 @@ namespace ProgrammDozent
 
         private void mitgliedAnlegen_Click(object sender, EventArgs e)
         {
-            var neu = new Student("na", "na", "na", "na@na.de", "na");
-            var grup = (Gruppe)gruppenListBox.SelectedItem;
-            grup.AddStudent(neu);
-            mitgliederDataGridView.DataSource = null;
-            mitgliederDataGridView.DataSource = grup.Studenten;
+            Student info = new Student("na", "na", "na", "na", "na");
+            var number = mitgliederDataGridView.Rows.Add();
+            mitgliederDataGridView.Rows[number].Cells[0].Value = info.Name;
+            mitgliederDataGridView.Rows[number].Cells[1].Value = info.Vorname;
+            mitgliederDataGridView.Rows[number].Cells[2].Value = info.SNummer;
+            if (info.SNummer != "na") mitgliederDataGridView.Rows[number].Cells[2].ReadOnly = true;
+            mitgliederDataGridView.Rows[number].Cells[3].Value = info.Mail;
+            mitgliederDataGridView.Rows[number].Cells[4].Value = info.Rolle;
         }
 
         private void dataGridViewFreigebenButton_Click(object sender, EventArgs e)
