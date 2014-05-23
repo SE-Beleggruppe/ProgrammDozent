@@ -7,7 +7,7 @@ namespace ProgrammDozent
 {
     public partial class MainForm : Form
     {
-        readonly List<Beleg> _belege = new List<Beleg>();
+        List<Beleg> _belege = new List<Beleg>();
         List<Gruppe> _gruppen = new List<Gruppe>();
         List<string> _rollen = new List<string>();
         List<Student> _tempStudent;
@@ -17,18 +17,24 @@ namespace ProgrammDozent
         {
             InitializeComponent();
             
-            foreach (var array in _database.ExecuteQuery("select * from Beleg"))
-            {
-                var beleg = new Beleg(array[0], array[1], Convert.ToDateTime(array[2]), Convert.ToDateTime(array[3]), Convert.ToInt32(array[4]), Convert.ToInt32(array[5]), array[6] );
-                _belege.Add(beleg);
-            }
+            UpdateBelege(null);
 
             mitgliederDataGridView.AllowUserToAddRows = false;
-            belegListBox.DataSource = _belege;
-            belegListBox.DisplayMember = "Belegkennung";
 
             belegListBox.DoubleClick += belegListBox_DoubleClicked;
             gruppenListBox.DoubleClick += gruppenListBox_DoubleClicked;
+        }
+
+        private void UpdateBelege(object sender)
+        {
+            _belege = new List<Beleg>();
+            foreach (var array in _database.ExecuteQuery("select * from Beleg"))
+            {
+                var beleg = new Beleg(array[0], array[1], Convert.ToDateTime(array[2]), Convert.ToDateTime(array[3]), Convert.ToInt32(array[4]), Convert.ToInt32(array[5]), array[6]);
+                _belege.Add(beleg);
+            }
+            belegListBox.DataSource = _belege;
+            belegListBox.DisplayMember = "Belegkennung";
         }
 
          
@@ -120,13 +126,13 @@ namespace ProgrammDozent
 
         private void belegAnlegenButton_Click(object sender, EventArgs e)
         {
-            //Beleg newBeleg = new Beleg();
-            //Belege.Add(newBeleg);
-
-            //belegListBox.DataSource = null;
-            //belegListBox.DataSource = Belege;
-            //belegListBox.DisplayMember = "Semester";
+            BelegBearbeiten dest = new BelegBearbeiten("na")
+            {
+                saved = new BelegBearbeiten.isSavedHandler(UpdateBelege)
+            };
+            dest.Show();
         }
+
 
         private void gruppeAnlegenButton_Click(object sender, EventArgs e)
         {

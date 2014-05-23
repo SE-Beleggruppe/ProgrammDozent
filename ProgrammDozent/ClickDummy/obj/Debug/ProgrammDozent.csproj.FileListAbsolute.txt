@@ -37,8 +37,6 @@ C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\obj\
 C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\ProgrammDozent.pdb
 C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\bin\Debug\ProgrammDozent.exe
 C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\bin\Debug\ProgrammDozent.pdb
-C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\bin\Debug\ja\Sybase.AdoNet4.AseClient.resources.dll
-C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\bin\Debug\zh-CHS\Sybase.AdoNet4.AseClient.resources.dll
 C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\ProgrammDozent.csprojResolveAssemblyReference.cache
 C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\ProgrammDozent.belegBearbeiten.resources
 C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\ProgrammDozent.Eingabe.resources

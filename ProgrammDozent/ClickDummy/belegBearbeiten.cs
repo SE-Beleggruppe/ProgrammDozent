@@ -7,6 +7,11 @@ namespace ProgrammDozent
 {
     public partial class BelegBearbeiten : Form
     {
+        public delegate void isSavedHandler(object sender);
+        public isSavedHandler saved;
+
+        private bool isNeuerBeleg;
+
         public List<Thema> AlleThemen = new List<Thema>();
         public List<Thema> VerfThemen = new List<Thema>();
         public List<Rolle> AlleRollen = new List<Rolle>();
@@ -22,8 +27,17 @@ namespace ProgrammDozent
         public BelegBearbeiten(string belegKennung)
         {
             InitializeComponent();
-            this.Beleg = GetBelegFromKennung(belegKennung);
-            kennungTextBox.Text = Beleg.BelegKennung;
+            isNeuerBeleg = belegKennung == "na";
+
+
+            if (!isNeuerBeleg) this.Beleg = GetBelegFromKennung(belegKennung);
+            else
+            {
+                this.Beleg = new Beleg("na", "na", DateTime.Today, DateTime.Today.AddDays(1), 1, 1, "passwort");
+                kennungTextBox.Enabled = true;
+            }
+
+        kennungTextBox.Text = Beleg.BelegKennung;
             passwortTextBox.Text = Beleg.Passwort;
             semesterTextBox.Text = Beleg.Semester;
             startDateTimePicker.Value = Beleg.StartDatum;
@@ -41,17 +55,6 @@ namespace ProgrammDozent
             allThemen.DataSource = AlleThemen;
             allThemen.DisplayMember = "aufgabenName";
 
-            //Verfügbare Themen füllen
-            foreach (var array in _database.ExecuteQuery("select * from Thema where Themennummer in (select Themennummer from Zuordnung_BelegThema where Belegkennung = \"" + Beleg.BelegKennung + "\")"))
-            {
-                var thema = new Thema(Convert.ToInt32(array[0]), array[1]);
-                VerfThemen.Add(thema);
-            }
-
-            VerfThemen.Sort((t1, t2) => t1.AufgabenName.CompareTo(t2.AufgabenName));
-            verThemen.DataSource = VerfThemen;
-            verThemen.DisplayMember = "aufgabenName";
-
             //Alle Rollen füllen
             foreach (var array in _database.ExecuteQuery("select * from Rolle where Rolle not in(select Rolle from Zuordnung_BelegRolle where Belegkennung = \"" + Beleg.BelegKennung + "\")"))
             {
@@ -63,17 +66,6 @@ namespace ProgrammDozent
             allRollen.DataSource = AlleRollen;
             allRollen.DisplayMember = "rolle";
 
-            //Verfügbare Rollen füllen
-            foreach (var array in _database.ExecuteQuery("select * from Rolle where Rolle in(select Rolle from Zuordnung_BelegRolle where Belegkennung = \"" + Beleg.BelegKennung + "\")"))
-            {
-                var rolle = new Rolle(array[0]);
-                VerfRollen.Add(rolle);
-            }
-
-            VerfRollen.Sort((t1, t2) => t1.rolle.CompareTo(t2.rolle));
-            verRollen.DataSource = VerfRollen;
-            verRollen.DisplayMember = "rolle";
-
             //Alle Cases füllen
             foreach (var array in _database.ExecuteQuery("select Cases.Casekennung from Cases where Cases.Casekennung not in (select Casekennung from Zuordnung_BelegCases)"))
             {
@@ -83,16 +75,52 @@ namespace ProgrammDozent
             AlleCases.Sort();
             allCases.DataSource = AlleCases;
 
-            //Verfügbare Cases füllen
-            foreach (var array in _database.ExecuteQuery("select Cases.Casekennung from Cases where Cases.Casekennung in (select Casekennung from Zuordnung_BelegCases where Belegkennung = \"" + Beleg.BelegKennung + "\")"))
+            if (!isNeuerBeleg)
             {
-                var oneCase = array[0];
-                VerfCases.Add(oneCase);
-            }
-            VerfCases.Sort();
-            verCases.DataSource = VerfCases;
+                //Verfügbare Themen füllen
+                foreach (
+                    var array in
+                        _database.ExecuteQuery(
+                            "select * from Thema where Themennummer in (select Themennummer from Zuordnung_BelegThema where Belegkennung = \"" +
+                            Beleg.BelegKennung + "\")"))
+                {
+                    var thema = new Thema(Convert.ToInt32(array[0]), array[1]);
+                    VerfThemen.Add(thema);
+                }
 
-           
+                VerfThemen.Sort((t1, t2) => t1.AufgabenName.CompareTo(t2.AufgabenName));
+                verThemen.DataSource = VerfThemen;
+                verThemen.DisplayMember = "aufgabenName";
+
+                //Verfügbare Rollen füllen
+                foreach (
+                    var array in
+                        _database.ExecuteQuery(
+                            "select * from Rolle where Rolle in(select Rolle from Zuordnung_BelegRolle where Belegkennung = \"" +
+                            Beleg.BelegKennung + "\")"))
+                {
+                    var rolle = new Rolle(array[0]);
+                    VerfRollen.Add(rolle);
+                }
+
+                VerfRollen.Sort((t1, t2) => t1.rolle.CompareTo(t2.rolle));
+                verRollen.DataSource = VerfRollen;
+                verRollen.DisplayMember = "rolle";
+
+
+                //Verfügbare Cases füllen
+                foreach (
+                    var array in
+                        _database.ExecuteQuery(
+                            "select Cases.Casekennung from Cases where Cases.Casekennung in (select Casekennung from Zuordnung_BelegCases where Belegkennung = \"" +
+                            Beleg.BelegKennung + "\")"))
+                {
+                    var oneCase = array[0];
+                    VerfCases.Add(oneCase);
+                }
+                VerfCases.Sort();
+                verCases.DataSource = VerfCases;
+            }
         }
 
         private void belegBearbeiten_Load(object sender, EventArgs e)
@@ -117,6 +145,15 @@ namespace ProgrammDozent
 
         private void speichernbutton_Click(object sender, EventArgs e)
         {
+            if(isNeuerBeleg) insertBeleg();
+            else updateBeleg();
+
+            if (saved != null) saved(this);
+            Close();
+        }
+
+        void updateBeleg()
+        {
             //Beleg updaten
             var startdatum = startDateTimePicker.Value.Year + "-" + startDateTimePicker.Value.Month + "-" + startDateTimePicker.Value.Day;
             var enddatum = endDateTimePicker.Value.Year + "-" + endDateTimePicker.Value.Month + "-" + endDateTimePicker.Value.Day;
@@ -127,11 +164,11 @@ namespace ProgrammDozent
 
                 //Zuordnung_BelegThema updaten
                 //Alle zugehörigen Datensätze löschen
-                _database.ExecuteQuery("delete from Zuordnung_BelegThema where Belegkennung = \""+Beleg.BelegKennung+"\"");
+                _database.ExecuteQuery("delete from Zuordnung_BelegThema where Belegkennung = \"" + Beleg.BelegKennung + "\"");
                 //Inhalt von verfthemen inserten
                 foreach (var thema in VerfThemen)
                 {
-                    _database.ExecuteQuery("insert into Zuordnung_BelegThema values(\""+Beleg.BelegKennung+"\", "+thema.ThemenNummer+")");
+                    _database.ExecuteQuery("insert into Zuordnung_BelegThema values(\"" + Beleg.BelegKennung + "\", " + thema.ThemenNummer + ")");
                 }
 
                 //Zuordnung_BelegRolle
@@ -152,9 +189,45 @@ namespace ProgrammDozent
                     _database.ExecuteQuery("insert into Zuordnung_BelegCases values(\"" + Beleg.BelegKennung + "\", \"" + onecase + "\")");
                 }
             }
+        }
 
-            MessageBox.Show("Daten erfolgreich gespeichert.");
-            Close();
+        void insertBeleg()
+        {
+            //Beleg einfügen
+            var startdatum = startDateTimePicker.Value.Year + "-" + startDateTimePicker.Value.Month + "-" + startDateTimePicker.Value.Day;
+            var enddatum = endDateTimePicker.Value.Year + "-" + endDateTimePicker.Value.Month + "-" + endDateTimePicker.Value.Day;
+            var query = "insert into Beleg values(\"" + kennungTextBox.Text + "\",\"" + semesterTextBox.Text + "\",\"" + startdatum + "\",\"" + enddatum + "\"," + minGR.Value + "," + maxGR.Value + ",\"" + passwortTextBox.Text + "\")";
+            if (_database != null)
+            {
+                _database.ExecuteQuery(query);
+
+                //Zuordnung_BelegThema updaten
+                //Alle zugehörigen Datensätze löschen
+                _database.ExecuteQuery("delete from Zuordnung_BelegThema where Belegkennung = \"" + kennungTextBox.Text + "\"");
+                //Inhalt von verfthemen inserten
+                foreach (var thema in VerfThemen)
+                {
+                    _database.ExecuteQuery("insert into Zuordnung_BelegThema values(\"" + kennungTextBox.Text + "\", " + thema.ThemenNummer + ")");
+                }
+
+                //Zuordnung_BelegRolle
+                //Alle zugehörigen Datensätze löschen
+                _database.ExecuteQuery("delete from Zuordnung_BelegRolle where Belegkennung = \"" + kennungTextBox.Text + "\"");
+                //Inhalt von verfthemen inserten
+                foreach (var rolle in VerfRollen)
+                {
+                    _database.ExecuteQuery("insert into Zuordnung_BelegRolle values(\"" + kennungTextBox.Text + "\", \"" + rolle.rolle + "\")");
+                }
+
+                //Zuordnung_BelegCase
+                //Alle zugehörigen Datensätze löschen
+                _database.ExecuteQuery("delete from Zuordnung_BelegCases where Belegkennung = \"" + kennungTextBox.Text + "\"");
+                //Inhalt von verfthemen inserten
+                foreach (var onecase in VerfCases)
+                {
+                    _database.ExecuteQuery("insert into Zuordnung_BelegCases values(\"" + kennungTextBox.Text + "\", \"" + onecase + "\")");
+                }
+            }
         }
 
         private void addButtonThema_Click(object sender, EventArgs e)
