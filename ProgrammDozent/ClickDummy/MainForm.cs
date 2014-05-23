@@ -139,9 +139,31 @@ namespace ProgrammDozent
         {
             Gruppe temp = new Gruppe("na", 0, "na");
             temp.Belegkennung = ((Beleg) belegListBox.SelectedItem).BelegKennung;
+
+            if (getFreieCases(temp) == null)
+            {
+                MessageBox.Show("Für diesen Beleg können keine weiteren Gruppen hinzugefügt werden.");
+                return;
+            }
+
             gruppeBearbeiten dest = new gruppeBearbeiten(temp);
             dest.SavedG = new gruppeBearbeiten.GIsSavedHandler(belegListBox_SelectedIndexChanged);
             dest.Show();
+        }
+
+        List<string> getFreieCases(Gruppe gruppe)
+        {
+            Database database = new Database();
+            List<string[]> ergDB = database.ExecuteQuery(
+                "select Casekennung from Zuordnung_BelegCases where Casekennung not in(select Gruppenkennung from Zuordnung_GruppeBeleg where Belegkennung=\"" +
+                gruppe.Belegkennung + "\") and Belegkennung=\"" + gruppe.Belegkennung + "\"");
+            if (ergDB.Count == 0) return null;
+            List<string> erg = new List<string>();
+            foreach (string[] strings in ergDB)
+            {
+                erg.Add(strings[0]);
+            }
+            return erg;
         }
 
         private void mitgliedAnlegen_Click(object sender, EventArgs e)

@@ -25,12 +25,26 @@ namespace ProgrammDozent
             InitializeComponent();
             if (gruppe.GruppenKennung == "na") isNeueGruppe = true;
             this.gruppe = gruppe;
-            kennungTextBox.Text = this.gruppe.GruppenKennung;
+            kennungComboBox.DataSource = getFreieCases();
             passwortTextBox.Text = this.gruppe.Password;
             getThemen();
             leiterLabel.Text = getLeiter();
 
-            if (isNeueGruppe) kennungTextBox.ReadOnly = false;
+            if (isNeueGruppe) kennungComboBox.Enabled = true;
+        }
+
+        List<string> getFreieCases()
+        {
+            List<string[]> ergDB = database.ExecuteQuery(
+                "select Casekennung from Zuordnung_BelegCases where Casekennung not in(select Gruppenkennung from Zuordnung_GruppeBeleg where Belegkennung=\"" +
+                gruppe.Belegkennung + "\") and Belegkennung=\"" + gruppe.Belegkennung + "\"");
+            if (ergDB == null) return null;
+            List<string> erg = new List<string>();
+            foreach (string[] strings in ergDB)
+            {
+                erg.Add(strings[0]);
+            }
+            return erg;
         }
 
         void getThemen()
@@ -78,8 +92,8 @@ namespace ProgrammDozent
         void insertGruppe()
         {
             int Themennummer = Convert.ToInt32(database.ExecuteQuery("select Themennummer from Thema where Aufgabe=\"" + themenComboBox.SelectedItem + "\"").First()[0]);
-            database.ExecuteQuery("insert into Gruppe values(\"" + kennungTextBox.Text + "\"," + Themennummer + ",\"" + passwortTextBox.Text + "\")");
-            database.ExecuteQuery("insert into Zuordnung_GruppeBeleg values(\"" + kennungTextBox.Text + "\",\"" + gruppe.Belegkennung + "\")");
+            database.ExecuteQuery("insert into Gruppe values(\"" + kennungComboBox.SelectedItem + "\"," + Themennummer + ",\"" + passwortTextBox.Text + "\")");
+            database.ExecuteQuery("insert into Zuordnung_GruppeBeleg values(\"" + kennungComboBox.SelectedItem + "\",\"" + gruppe.Belegkennung + "\")");
         }
     }
 }
