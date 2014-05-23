@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,13 @@ namespace ProgrammDozent
         List<Student> tempStudent;
         Database database = new Database();
 
+        // member for filter funct
+        List<Gruppe> filterGroups = new List<Gruppe>();
+        List<Student> filterStudents = new List<Student>();
+
+        Beleg selBeleg;
+        Gruppe selGruppe;
+        Thema selThema;
         public kontaktForm()
         {
             InitializeComponent();
@@ -61,10 +69,12 @@ namespace ProgrammDozent
             * fill 'Thema' combo box
             * first item is '*'
             */
+            comboBoxBelegthema.DataSource = null;
+            comboBoxBelegthema.Items.Clear();
+            Themen.Clear();
+
             if (comboBoxBeleg.SelectedItem == null || comboBoxBeleg.SelectedIndex == 0)
             {
-                comboBoxBelegthema.DataSource = null;
-                comboBoxBelegthema.Items.Clear();
                 comboBoxBelegthema.Enabled = false;
                 return;
             }
@@ -74,7 +84,11 @@ namespace ProgrammDozent
             Thema dummyThema = new Thema(9999, "*");
             Themen.Add(dummyThema);
 
-            foreach (string[] array in database.ExecuteQuery("select * from Thema"))
+            Beleg selectedBeleg = (Beleg)comboBoxBeleg.SelectedItem;
+            selBeleg = selectedBeleg;
+
+
+            foreach (string[] array in database.ExecuteQuery("select * from Thema where Themennummer in (select Themennummer from Zuordnung_BelegThema where Belegkennung=\"" + selectedBeleg.BelegKennung + "\")"))
             {
                 Thema thema = new Thema(Convert.ToInt32(array[0]), array[1]);
                 Themen.Add(thema);
@@ -124,7 +138,7 @@ namespace ProgrammDozent
         }
 
         private void updateFilterBtn() {
-            if ((comboBoxBelegthema.SelectedItem == null || comboBoxBelegthema.SelectedIndex == 0) ||
+            if ((comboBoxBeleg.SelectedItem == null || comboBoxBeleg.SelectedIndex == 0) ||
                 (comboBoxBelegthema.SelectedItem == null || comboBoxBelegthema.SelectedIndex == 0))
             {
                 btnFilter.Enabled = false;
@@ -132,12 +146,68 @@ namespace ProgrammDozent
             }
             btnFilter.Enabled = true;
             
+            /*
+             * information we have: 
+             *  - Beleg
+             *  - Belegthema
+             *  
+             * information we __need__:
+             *  - Gruppen[] which match Beleg and Belegthema
+             *  - Rollen[] which match Beleg and Belegthema
+             */
+
+
+
+            // lets query all groups...
+            foreach (var groupData in database.ExecuteQuery("select * from Gruppe where Themennummer=" + selThema.ThemenNummer + " and Gruppenkennung in (select Gruppenkennung from Zuordnung_GruppeBeleg where Belegkennung=\"" + selBeleg.BelegKennung + "\")"))
+            {
+                Gruppe temp = new Gruppe(groupData[0], Convert.ToInt32(groupData[1]), groupData[2]);
+                temp.Belegkennung = selBeleg.BelegKennung;
+                filterGroups.Add(temp);
+            }
+
+            
+            if ((comboBoxGruppe.SelectedItem == null || comboBoxGruppe.SelectedIndex == 0) ||
+               (comboBoxRolle.SelectedItem == null || comboBoxRolle.SelectedIndex == 0))
+            {
+                foreach (var group in filterGroups)
+                {
+                    foreach (var info2 in database.ExecuteQuery("select * from Student where sNummer in (select sNummer from Zuordnung_GruppeStudent where Gruppenkennung=\"" + group.GruppenKennung + "\")"))
+                    {
+                        Student tmpStud = new Student(info2[2], info2[1], info2[0], info2[3], info2[4]);
+                        filterStudents.Add(tmpStud);
+                    }
+                }
+
+            }
+            
         }
 
         private void comboBoxBeleg_SelectedIndexChanged(object sender, EventArgs e)
         {
             // refresh 'themen' information
             updateThemenData();
+        }
+
+        private void comboBoxBelegthema_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Thema tmpTema = (Thema)comboBoxBelegthema.SelectedItem;
+            selThema = tmpTema;
+
+            // enable filter btn
+            updateFilterBtn();
+        }
+
+        private void btnFilter_Click(object sender, EventArgs e)
+        {
+            String mailString = "";
+ 
+            foreach(var studi in filterStudents) {
+                
+                mailString = String.Concat(mailString,studi.Mail,',');
+            }
+          
+            Process.Start("mailto: " + mailString + "?subject="+selBeleg.BelegKennung);
         }
 
 

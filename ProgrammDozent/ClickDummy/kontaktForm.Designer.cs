@@ -56,6 +56,7 @@
             this.comboBoxBelegthema.Name = "comboBoxBelegthema";
             this.comboBoxBelegthema.Size = new System.Drawing.Size(121, 21);
             this.comboBoxBelegthema.TabIndex = 1;
+            this.comboBoxBelegthema.SelectedIndexChanged += new System.EventHandler(this.comboBoxBelegthema_SelectedIndexChanged);
             // 
             // comboBoxGruppe
             // 
@@ -117,6 +118,7 @@
             this.btnFilter.TabIndex = 8;
             this.btnFilter.Text = "Filtern";
             this.btnFilter.UseVisualStyleBackColor = true;
+            this.btnFilter.Click += new System.EventHandler(this.btnFilter_Click);
             // 
             // btnMail
             // 
