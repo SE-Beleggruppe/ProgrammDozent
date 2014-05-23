@@ -12,17 +12,25 @@ namespace ProgrammDozent
 {
     public partial class gruppeBearbeiten : Form
     {
+        public delegate void GIsSavedHandler(object sender, EventArgs e);
+        public GIsSavedHandler SavedG;
+
+        private bool isNeueGruppe;
+
         public Gruppe gruppe;
         List<string> Themen = new List<string>();
         Database database = new Database();
         public gruppeBearbeiten(Gruppe gruppe)
         {
             InitializeComponent();
+            if (gruppe.GruppenKennung == "na") isNeueGruppe = true;
             this.gruppe = gruppe;
             kennungTextBox.Text = this.gruppe.GruppenKennung;
             passwortTextBox.Text = this.gruppe.Password;
             getThemen();
             leiterLabel.Text = getLeiter();
+
+            if (isNeueGruppe) kennungTextBox.ReadOnly = false;
         }
 
         void getThemen()
@@ -33,7 +41,8 @@ namespace ProgrammDozent
             }
             themenComboBox.DataSource = null;
             themenComboBox.DataSource = Themen;
-            themenComboBox.SelectedItem = database.ExecuteQuery("select Aufgabe from Thema where Themennummer in (select Themennummer from Gruppe where Gruppenkennung=\"" + gruppe.GruppenKennung + "\")").First()[0];
+            if(!isNeueGruppe)
+                themenComboBox.SelectedItem = database.ExecuteQuery("select Aufgabe from Thema where Themennummer in (select Themennummer from Gruppe where Gruppenkennung=\"" + gruppe.GruppenKennung + "\")").First()[0];
         }
 
         string getLeiter()
@@ -52,10 +61,25 @@ namespace ProgrammDozent
 
         private void speichernbutton_Click(object sender, EventArgs e)
         {
+            if (!isNeueGruppe) updateGruppe();
+            else insertGruppe();
+
+            if (SavedG != null) SavedG(null, null);
+
+            Close();
+        }
+
+        void updateGruppe()
+        {
             int Themennummer = Convert.ToInt32(database.ExecuteQuery("select Themennummer from Thema where Aufgabe=\"" + themenComboBox.SelectedItem + "\"").First()[0]);
             database.ExecuteQuery("update Gruppe set Themennummer=" + Themennummer + ", Passwort=\"" + passwortTextBox.Text + "\" where Gruppenkennung=\"" + gruppe.GruppenKennung + "\"");
-            MessageBox.Show("Änderungen erfolgreich gespeichert.");
-            Close();
+        }
+
+        void insertGruppe()
+        {
+            int Themennummer = Convert.ToInt32(database.ExecuteQuery("select Themennummer from Thema where Aufgabe=\"" + themenComboBox.SelectedItem + "\"").First()[0]);
+            database.ExecuteQuery("insert into Gruppe values(\"" + kennungTextBox.Text + "\"," + Themennummer + ",\"" + passwortTextBox.Text + "\")");
+            database.ExecuteQuery("insert into Zuordnung_GruppeBeleg values(\"" + kennungTextBox.Text + "\",\"" + gruppe.Belegkennung + "\")");
         }
     }
 }

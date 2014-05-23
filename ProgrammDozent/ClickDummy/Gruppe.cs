@@ -5,7 +5,7 @@ namespace ProgrammDozent
     public class Gruppe
     {
         public string GruppenKennung { get; set; }
-        public List<Student> studenten { get; set; }
+        public List<Student> Studenten { get; set; }
         public int ThemenNummer { get; set; }
         public string Password { get; set; }
         public string Belegkennung { get; set; }
@@ -15,13 +15,13 @@ namespace ProgrammDozent
             GruppenKennung = kennung;
             ThemenNummer = ThemenNummer;
             Password = password;
-            studenten = new List<Student>();
+            Studenten = new List<Student>();
         }
 
-        public void addStudent(Student student)
+        public void AddStudent(Student student)
         {
-            if (studenten == null) studenten = new List<Student>();
-            if (student != null) studenten.Add(student);
+            if (Studenten == null) Studenten = new List<Student>();
+            if (student != null) Studenten.Add(student);
         }
     }
 }

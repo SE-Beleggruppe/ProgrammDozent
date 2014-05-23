@@ -7,8 +7,8 @@ namespace ProgrammDozent
 {
     public partial class BelegBearbeiten : Form
     {
-        public delegate void isSavedHandler(object sender);
-        public isSavedHandler saved;
+        public delegate void IsSavedHandler(object sender);
+        public IsSavedHandler Saved;
 
         private bool isNeuerBeleg;
 
@@ -145,14 +145,14 @@ namespace ProgrammDozent
 
         private void speichernbutton_Click(object sender, EventArgs e)
         {
-            if(isNeuerBeleg) insertBeleg();
-            else updateBeleg();
+            if(isNeuerBeleg) InsertBeleg();
+            else UpdateBeleg();
 
-            if (saved != null) saved(this);
+            if (Saved != null) Saved(this);
             Close();
         }
 
-        void updateBeleg()
+        void UpdateBeleg()
         {
             //Beleg updaten
             var startdatum = startDateTimePicker.Value.Year + "-" + startDateTimePicker.Value.Month + "-" + startDateTimePicker.Value.Day;
@@ -191,7 +191,7 @@ namespace ProgrammDozent
             }
         }
 
-        void insertBeleg()
+        void InsertBeleg()
         {
             //Beleg einfügen
             var startdatum = startDateTimePicker.Value.Year + "-" + startDateTimePicker.Value.Month + "-" + startDateTimePicker.Value.Day;

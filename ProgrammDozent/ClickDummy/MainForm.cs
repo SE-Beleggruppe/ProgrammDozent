@@ -82,24 +82,25 @@ namespace ProgrammDozent
         {
             if (gruppenListBox.SelectedItem == null) return;
             Gruppe selected = (Gruppe)gruppenListBox.SelectedItem;
-            selected.studenten = null;
+            selected.Studenten = null;
             foreach (var info2 in _database.ExecuteQuery("select * from Student where sNummer in (select sNummer from Zuordnung_GruppeStudent where Gruppenkennung=\"" + selected.GruppenKennung + "\")"))
             {
-                selected.addStudent(new Student(info2[2], info2[1], info2[0], info2[3], info2[4]));
+                selected.AddStudent(new Student(info2[2], info2[1], info2[0], info2[3], info2[4]));
             }
-            int studentenCount = selected.studenten.Count;
-            if (selected.studenten.Count < ((Beleg)belegListBox.SelectedItem).MaxMitglieder)
+            int studentenCount = 0;
+            if (selected.Studenten != null) studentenCount = selected.Studenten.Count;
+            if (studentenCount < ((Beleg)belegListBox.SelectedItem).MaxMitglieder)
             {
                 for (int i = 0; i < ((Beleg)belegListBox.SelectedItem).MaxMitglieder - studentenCount; i++)
-                    selected.addStudent(new Student("na", "na", "na", "na", "na"));
+                    selected.AddStudent(new Student("na", "na", "na", "na", "na"));
             }
 
             mitgliederDataGridView.Rows.Clear();
             (mitgliederDataGridView.Columns[4] as DataGridViewComboBoxColumn).DataSource = _rollen;
             (mitgliederDataGridView.Columns[4] as DataGridViewComboBoxColumn).MinimumWidth = 150;
             (mitgliederDataGridView.Columns[3] as DataGridViewTextBoxColumn).MinimumWidth = 250;
-            if (selected.studenten != null)
-                foreach (var info in selected.studenten)
+            if (selected.Studenten != null)
+                foreach (var info in selected.Studenten)
                 {
                     var number = mitgliederDataGridView.Rows.Add();
                     mitgliederDataGridView.Rows[number].Cells[0].Value = info.Name;
@@ -128,7 +129,7 @@ namespace ProgrammDozent
         {
             BelegBearbeiten dest = new BelegBearbeiten("na")
             {
-                saved = new BelegBearbeiten.isSavedHandler(UpdateBelege)
+                Saved = new BelegBearbeiten.IsSavedHandler(UpdateBelege)
             };
             dest.Show();
         }
@@ -136,11 +137,11 @@ namespace ProgrammDozent
 
         private void gruppeAnlegenButton_Click(object sender, EventArgs e)
         {
-            var selected = (Beleg)belegListBox.SelectedItem;
-
-            gruppenListBox.DataSource = null;
-            gruppenListBox.DataSource = selected.Gruppen;
-            gruppenListBox.DisplayMember = "gruppenKennung";
+            Gruppe temp = new Gruppe("na", 0, "na");
+            temp.Belegkennung = ((Beleg) belegListBox.SelectedItem).BelegKennung;
+            gruppeBearbeiten dest = new gruppeBearbeiten(temp);
+            dest.SavedG = new gruppeBearbeiten.GIsSavedHandler(belegListBox_SelectedIndexChanged);
+            dest.Show();
         }
 
         private void mitgliedAnlegen_Click(object sender, EventArgs e)
