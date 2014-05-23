@@ -29,6 +29,8 @@ namespace ProgrammDozent
         Beleg selBeleg;
         Gruppe selGruppe;
         Thema selThema;
+        Rolle selRolle;
+
         public kontaktForm()
         {
             InitializeComponent();
@@ -104,30 +106,45 @@ namespace ProgrammDozent
              * fill 'Gruppen' combo box
              * first item is '*'
              */
+            comboBoxGruppe.DataSource = null;
+            comboBoxGruppe.Items.Clear();
+            Gruppen.Clear();
+
             if (comboBoxBelegthema.SelectedItem == null || comboBoxBelegthema.SelectedIndex == 0)
-            {
-                comboBoxGruppe.DataSource = null;
-                comboBoxGruppe.Items.Clear();
+            {                
                 comboBoxGruppe.Enabled = false;
                 return;
             }
             comboBoxGruppe.Enabled = true;
             Beleg selected = (Beleg)comboBoxBeleg.SelectedItem;
 
-            foreach (string[] info in database.ExecuteQuery("select * from Gruppe where Gruppenkennung in (select Gruppenkennung from Zuordnung_GruppeBeleg where Belegkennung=\"" + selected.BelegKennung + "\")"))
+
+            Gruppe dummyGruppe = new Gruppe("*", 919199, "");
+            Gruppen.Add(dummyGruppe);
+            foreach (string[] info in database.ExecuteQuery("select * from Gruppe where Themennummer= " 
+                + selThema.ThemenNummer +" and Gruppenkennung in (select Gruppenkennung from Zuordnung_GruppeBeleg where Belegkennung=\"" + selected.BelegKennung + "\")"))
             {
                 Gruppe temp = new Gruppe(info[0], Convert.ToInt32(info[1]), info[2]);
                 temp.Belegkennung = selected.BelegKennung;
                 Gruppen.Add(temp);
             }
-            comboBoxGruppe.DataSource = null;
+       
             comboBoxGruppe.DataSource = Gruppen;
             comboBoxGruppe.DisplayMember = "gruppenKennung";
         }
 
         private void updateRollenData()
         {
+            if ((comboBoxBeleg.SelectedItem == null || comboBoxBeleg.SelectedIndex == 0) ||
+            (comboBoxBelegthema.SelectedItem == null || comboBoxBelegthema.SelectedIndex == 0))
+            {
+                comboBoxRolle.Enabled = false;
+                return;
+            }
+            comboBoxRolle.Enabled = true;
 
+            Rolle dummyRolle = new Rolle("*");
+            Rollen.Add(dummyRolle);
             foreach (string[] array in database.ExecuteQuery("select * from Rolle"))
             {
                 Rolle rolle = new Rolle(array[0]);
@@ -143,8 +160,7 @@ namespace ProgrammDozent
             {
                 btnFilter.Enabled = false;
                 return;
-            }
-            btnFilter.Enabled = true;
+            }   
             
             /*
              * information we have: 
@@ -156,7 +172,9 @@ namespace ProgrammDozent
              *  - Rollen[] which match Beleg and Belegthema
              */
 
-
+            // reset
+            filterGroups.Clear();
+            filterStudents.Clear();
 
             // lets query all groups...
             foreach (var groupData in database.ExecuteQuery("select * from Gruppe where Themennummer=" + selThema.ThemenNummer + " and Gruppenkennung in (select Gruppenkennung from Zuordnung_GruppeBeleg where Belegkennung=\"" + selBeleg.BelegKennung + "\")"))
@@ -166,13 +184,17 @@ namespace ProgrammDozent
                 filterGroups.Add(temp);
             }
 
-            
-            if ((comboBoxGruppe.SelectedItem == null || comboBoxGruppe.SelectedIndex == 0) ||
+            // selection state: 
+            //  Beleg: x
+            //  Belegthema: x
+            //  Gruppe/Rolle: -
+            if ((comboBoxGruppe.SelectedItem == null || comboBoxGruppe.SelectedIndex == 0) &&
                (comboBoxRolle.SelectedItem == null || comboBoxRolle.SelectedIndex == 0))
             {
-                foreach (var group in filterGroups)
+                
+                foreach (var group1 in filterGroups)
                 {
-                    foreach (var info2 in database.ExecuteQuery("select * from Student where sNummer in (select sNummer from Zuordnung_GruppeStudent where Gruppenkennung=\"" + group.GruppenKennung + "\")"))
+                    foreach (var info2 in database.ExecuteQuery("select * from Student where sNummer in (select sNummer from Zuordnung_GruppeStudent where Gruppenkennung=\"" + group1.GruppenKennung + "\")"))
                     {
                         Student tmpStud = new Student(info2[2], info2[1], info2[0], info2[3], info2[4]);
                         filterStudents.Add(tmpStud);
@@ -180,6 +202,65 @@ namespace ProgrammDozent
                 }
 
             }
+
+            // selection state: 
+            //  Beleg: x
+            //  Belegthema: x
+            //  Gruppe: -
+            //  Rolle: x
+            else if (comboBoxRolle.SelectedItem != null && comboBoxGruppe.SelectedItem == null)
+            {
+                
+                foreach (var group in filterGroups)
+                {
+                    string sqlQuery;
+                    if (!selRolle.rolle.Equals("*"))
+                        sqlQuery = "select * from Student where Rolle=\"" + selRolle.rolle + "\" and sNummer in (select sNummer from Zuordnung_GruppeStudent where Gruppenkennung=\"" + group.GruppenKennung + "\")";
+
+                    else
+                        sqlQuery = "select * from Student where sNummer in (select sNummer from Zuordnung_GruppeStudent where Gruppenkennung=\"" + group.GruppenKennung + "\")";
+
+                    foreach (var info2 in database.ExecuteQuery(sqlQuery))
+                    {
+                        Student tmpStud = new Student(info2[2], info2[1], info2[0], info2[3], info2[4]);
+                        filterStudents.Add(tmpStud);
+                    }
+                }
+            }
+
+            // selection state: 
+            //  Beleg: x
+            //  Belegthema: x
+            //  Gruppe: x
+            //  Rolle: -
+            else if (comboBoxRolle.SelectedItem == null && comboBoxGruppe.SelectedItem != null)
+            {
+
+                foreach (var group in filterGroups)
+                {
+                    string sqlQuery;
+                    if (!selGruppe.GruppenKennung.Equals("*"))
+                        sqlQuery = "select * from Student where sNummer in (select sNummer from Zuordnung_GruppeStudent where Gruppenkennung=\"" + selGruppe.GruppenKennung + "\")";
+
+                    else
+                        sqlQuery = "select * from Student where sNummer in (select sNummer from Zuordnung_GruppeStudent)";
+
+                    foreach (var info2 in database.ExecuteQuery(sqlQuery))
+                    {
+                        Student tmpStud = new Student(info2[2], info2[1], info2[0], info2[3], info2[4]);
+                        filterStudents.Add(tmpStud);
+                    }
+                }
+            }
+
+
+            if (filterStudents.Count() == 0)
+                labelHint.Text = "*Plichtfelder, keine Resultate";
+
+            else
+                btnFilter.Enabled = true;
+
+
             
         }
 
@@ -193,6 +274,12 @@ namespace ProgrammDozent
         {
             Thema tmpTema = (Thema)comboBoxBelegthema.SelectedItem;
             selThema = tmpTema;
+
+            // enable Group ComboBox
+            updateGroupData();
+
+            // enable Rollen ComboBox
+            updateRollenData();
 
             // enable filter btn
             updateFilterBtn();
@@ -208,6 +295,14 @@ namespace ProgrammDozent
             }
           
             Process.Start("mailto: " + mailString + "?subject="+selBeleg.BelegKennung);
+        }
+
+        private void comboBoxRolle_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            selRolle = (Rolle)comboBoxRolle.SelectedItem;
+
+            // enable filter btn
+            updateFilterBtn();
         }
 
 

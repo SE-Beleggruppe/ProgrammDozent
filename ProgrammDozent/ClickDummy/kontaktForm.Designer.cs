@@ -37,7 +37,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.btnFilter = new System.Windows.Forms.Button();
-            this.btnMail = new System.Windows.Forms.Button();
+            this.labelHint = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // comboBoxBeleg
@@ -73,6 +73,7 @@
             this.comboBoxRolle.Name = "comboBoxRolle";
             this.comboBoxRolle.Size = new System.Drawing.Size(121, 21);
             this.comboBoxRolle.TabIndex = 3;
+            this.comboBoxRolle.SelectedIndexChanged += new System.EventHandler(this.comboBoxRolle_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -112,29 +113,29 @@
             // 
             // btnFilter
             // 
-            this.btnFilter.Location = new System.Drawing.Point(171, 215);
+            this.btnFilter.Location = new System.Drawing.Point(154, 215);
             this.btnFilter.Name = "btnFilter";
-            this.btnFilter.Size = new System.Drawing.Size(75, 23);
+            this.btnFilter.Size = new System.Drawing.Size(92, 23);
             this.btnFilter.TabIndex = 8;
-            this.btnFilter.Text = "Filtern";
+            this.btnFilter.Text = "E-Mail senden";
             this.btnFilter.UseVisualStyleBackColor = true;
             this.btnFilter.Click += new System.EventHandler(this.btnFilter_Click);
             // 
-            // btnMail
+            // labelHint
             // 
-            this.btnMail.Location = new System.Drawing.Point(45, 215);
-            this.btnMail.Name = "btnMail";
-            this.btnMail.Size = new System.Drawing.Size(91, 23);
-            this.btnMail.TabIndex = 9;
-            this.btnMail.Text = "E-Mail senden";
-            this.btnMail.UseVisualStyleBackColor = true;
+            this.labelHint.AutoSize = true;
+            this.labelHint.Location = new System.Drawing.Point(22, 251);
+            this.labelHint.Name = "labelHint";
+            this.labelHint.Size = new System.Drawing.Size(69, 13);
+            this.labelHint.TabIndex = 10;
+            this.labelHint.Text = "* Pflichtfelder";
             // 
             // kontaktForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(488, 258);
-            this.Controls.Add(this.btnMail);
+            this.ClientSize = new System.Drawing.Size(488, 273);
+            this.Controls.Add(this.labelHint);
             this.Controls.Add(this.btnFilter);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -162,6 +163,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnFilter;
-        private System.Windows.Forms.Button btnMail;
+        private System.Windows.Forms.Label labelHint;
     }
 }
