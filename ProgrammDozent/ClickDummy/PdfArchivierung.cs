@@ -26,6 +26,9 @@ namespace ProgrammDozent
         public PdfArchivierung(Database database)
         {
             InitializeComponent();
+            this.Text = "Archivierung";
+            this.StartPosition = FormStartPosition.CenterScreen;
+
             this.database = database;
         }
 

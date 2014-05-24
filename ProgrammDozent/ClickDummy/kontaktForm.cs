@@ -34,6 +34,8 @@ namespace ProgrammDozent
         public kontaktForm()
         {
             InitializeComponent();
+            this.Text = "Kontaktieren";
+            this.StartPosition = FormStartPosition.CenterScreen;
 
             updateBelegData();
 

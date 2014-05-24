@@ -19,6 +19,8 @@ namespace ProgrammDozent
         public Eingabe()
         {
             InitializeComponent();
+            this.Text = "Bitte geben Sie etwas ein";
+            this.StartPosition = FormStartPosition.CenterScreen;
 
         }
 

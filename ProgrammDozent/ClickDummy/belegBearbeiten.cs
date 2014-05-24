@@ -27,6 +27,9 @@ namespace ProgrammDozent
         public BelegBearbeiten(string belegKennung, bool neu)
         {
             InitializeComponent();
+            this.Text = "Beleg";
+            this.StartPosition = FormStartPosition.CenterScreen;
+
             isNeuerBeleg = neu;
 
 

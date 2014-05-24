@@ -13,6 +13,9 @@ namespace ProgrammDozent
         public RolleVerwalten()
         {
             InitializeComponent();
+            this.Text = "Rollen";
+            this.StartPosition = FormStartPosition.CenterScreen;
+
             RefreshRollen();
         }
 

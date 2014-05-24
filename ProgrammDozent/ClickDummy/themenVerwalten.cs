@@ -12,6 +12,9 @@ namespace ProgrammDozent
         public ThemenVerwalten()
         {
             InitializeComponent();
+            this.Text = "Themen";
+            this.StartPosition = FormStartPosition.CenterScreen;
+
             RefreshThemen();
         }
 

@@ -24,6 +24,9 @@ namespace ProgrammDozent
         public gruppeBearbeiten(Gruppe gruppe, bool neu)
         {
             InitializeComponent();
+            this.Text = "Gruppe";
+            this.StartPosition = FormStartPosition.CenterScreen;
+
             if (neu) isNeueGruppe = true;
             this.gruppe = gruppe;
             kennungComboBox.DataSource = getFreieCases();
