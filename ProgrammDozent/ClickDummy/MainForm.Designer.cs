@@ -46,6 +46,8 @@
             this.rolleTextBox = new System.Windows.Forms.Button();
             this.buttonArchivieren = new System.Windows.Forms.Button();
             this.btnKontaktiern = new System.Windows.Forms.Button();
+            this.gruppeLoeschenButton = new System.Windows.Forms.Button();
+            this.belegLoeschenButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.mitgliederDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -171,7 +173,7 @@
             // 
             // themenVerwaltenButton
             // 
-            this.themenVerwaltenButton.Location = new System.Drawing.Point(21, 273);
+            this.themenVerwaltenButton.Location = new System.Drawing.Point(393, 273);
             this.themenVerwaltenButton.Name = "themenVerwaltenButton";
             this.themenVerwaltenButton.Size = new System.Drawing.Size(180, 23);
             this.themenVerwaltenButton.TabIndex = 12;
@@ -181,7 +183,7 @@
             // 
             // rolleTextBox
             // 
-            this.rolleTextBox.Location = new System.Drawing.Point(207, 272);
+            this.rolleTextBox.Location = new System.Drawing.Point(579, 272);
             this.rolleTextBox.Name = "rolleTextBox";
             this.rolleTextBox.Size = new System.Drawing.Size(180, 23);
             this.rolleTextBox.TabIndex = 13;
@@ -209,11 +211,31 @@
             this.btnKontaktiern.UseVisualStyleBackColor = true;
             this.btnKontaktiern.Click += new System.EventHandler(this.button1_Click);
             // 
+            // gruppeLoeschenButton
+            // 
+            this.gruppeLoeschenButton.Location = new System.Drawing.Point(207, 272);
+            this.gruppeLoeschenButton.Name = "gruppeLoeschenButton";
+            this.gruppeLoeschenButton.Size = new System.Drawing.Size(180, 23);
+            this.gruppeLoeschenButton.TabIndex = 17;
+            this.gruppeLoeschenButton.Text = "Gruppe löschen";
+            this.gruppeLoeschenButton.UseVisualStyleBackColor = true;
+            // 
+            // belegLoeschenButton
+            // 
+            this.belegLoeschenButton.Location = new System.Drawing.Point(21, 272);
+            this.belegLoeschenButton.Name = "belegLoeschenButton";
+            this.belegLoeschenButton.Size = new System.Drawing.Size(180, 23);
+            this.belegLoeschenButton.TabIndex = 16;
+            this.belegLoeschenButton.Text = "Beleg löschen";
+            this.belegLoeschenButton.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1190, 310);
+            this.Controls.Add(this.gruppeLoeschenButton);
+            this.Controls.Add(this.belegLoeschenButton);
             this.Controls.Add(this.btnKontaktiern);
             this.Controls.Add(this.buttonArchivieren);
             this.Controls.Add(this.rolleTextBox);
@@ -257,6 +279,8 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn rolle;
         private System.Windows.Forms.Button buttonArchivieren;
         private System.Windows.Forms.Button btnKontaktiern;
+        private System.Windows.Forms.Button gruppeLoeschenButton;
+        private System.Windows.Forms.Button belegLoeschenButton;
 
 
     }

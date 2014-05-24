@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace ProgrammDozent
@@ -16,6 +17,8 @@ namespace ProgrammDozent
         public MainForm()
         {
             InitializeComponent();
+            this.Text = "Übersicht";
+            this.StartPosition = FormStartPosition.CenterScreen;
             
             UpdateBelege(null);
 
@@ -166,18 +169,6 @@ namespace ProgrammDozent
             return erg;
         }
 
-        private void mitgliedAnlegen_Click(object sender, EventArgs e)
-        {
-            Student info = new Student("na", "na", "na", "na", "na");
-            var number = mitgliederDataGridView.Rows.Add();
-            mitgliederDataGridView.Rows[number].Cells[0].Value = info.Name;
-            mitgliederDataGridView.Rows[number].Cells[1].Value = info.Vorname;
-            mitgliederDataGridView.Rows[number].Cells[2].Value = info.SNummer;
-            if (info.SNummer != "na") mitgliederDataGridView.Rows[number].Cells[2].ReadOnly = true;
-            mitgliederDataGridView.Rows[number].Cells[3].Value = info.Mail;
-            mitgliederDataGridView.Rows[number].Cells[4].Value = info.Rolle;
-        }
-
         private void dataGridViewFreigebenButton_Click(object sender, EventArgs e)
         {
             _tempStudent = (List<Student>)mitgliederDataGridView.DataSource;
@@ -192,19 +183,32 @@ namespace ProgrammDozent
 
         private void saveDataGridViewButton_Click(object sender, EventArgs e)
         {
-            SaveMitglieder();
+            if (SaveMitglieder())
+            {
+                mitgliederDataGridView.Enabled = false;
+                saveDataGridViewButton.Enabled = false;
+                cancelDataGridViewButton.Enabled = false;
+                dataGridViewFreigebenButton.Enabled = true;
 
-            mitgliederDataGridView.Enabled = false;
-            saveDataGridViewButton.Enabled = false;
-            cancelDataGridViewButton.Enabled = false;
-            dataGridViewFreigebenButton.Enabled = true;
-
-            gruppenListBox_SelectedIndexChanged(this, null);
+                gruppenListBox_SelectedIndexChanged(this, null);
+            }
         }
 
-        private void SaveMitglieder()
+        private bool SaveMitglieder()
         {
             var gruppe = (Gruppe)gruppenListBox.SelectedItem;
+
+            for (var i = 0; i < mitgliederDataGridView.Rows.Count; i++)
+            {
+                var mail = (string) mitgliederDataGridView.Rows[i].Cells[3].Value;
+                if (mitgliederDataGridView.Rows[i].Cells[2].ReadOnly && !checkMail(mail))
+                {
+                    MessageBox.Show(mail + " ist keine gültige Mail-Adresse. Die Daten wurden nicht gespeichert.",
+                        "Fehler");
+                    return false;
+                }
+            }
+
             for (var i = 0; i < mitgliederDataGridView.Rows.Count; i++)
             {
                 var name = (string)mitgliederDataGridView.Rows[i].Cells[0].Value;
@@ -219,6 +223,18 @@ namespace ProgrammDozent
                     else insertStudent(new Student(name, vorname, sNummer, mail, rolle), gruppe);
                 }
             }
+            return true;
+        }
+
+        private bool checkMail(string mail)
+        {
+            Regex regExp = new Regex("\\b[!#$%&'*+./0-9=?_`a-z{|}~^-]+@[.0-9a-z-]+\\.[a-z]{2,6}\\b");
+            Match match = regExp.Match(mail);
+            if (match.Success)
+            {
+                return true;
+            }
+            else return false;
         }
 
         private void updateStudent(Student student)
