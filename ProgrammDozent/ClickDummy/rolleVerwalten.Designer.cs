@@ -61,8 +61,9 @@
             this.deleteRolleButton.UseVisualStyleBackColor = true;
             this.deleteRolleButton.Click += new System.EventHandler(this.deleteRolleButton_Click);
             // 
-            // rolleVerwalten
+            // RolleVerwalten
             // 
+            this.AcceptButton = this.newRolleButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(337, 225);

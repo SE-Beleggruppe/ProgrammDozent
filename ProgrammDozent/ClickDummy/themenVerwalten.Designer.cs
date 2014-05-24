@@ -61,8 +61,9 @@
             this.addThemaButton.UseVisualStyleBackColor = true;
             this.addThemaButton.Click += new System.EventHandler(this.addThemaButton_Click_1);
             // 
-            // themenVerwalten
+            // ThemenVerwalten
             // 
+            this.AcceptButton = this.newThemaButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(337, 225);

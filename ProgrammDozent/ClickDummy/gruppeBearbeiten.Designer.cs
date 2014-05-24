@@ -40,6 +40,7 @@
             // 
             // cancelButton
             // 
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelButton.Location = new System.Drawing.Point(260, 86);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
@@ -111,8 +112,10 @@
             // 
             // gruppeBearbeiten
             // 
+            this.AcceptButton = this.speichernbutton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(346, 125);
             this.Controls.Add(this.kennungComboBox);
             this.Controls.Add(this.passwortTextBox);

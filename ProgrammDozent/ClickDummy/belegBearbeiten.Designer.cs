@@ -219,6 +219,7 @@
             // 
             // cancelButton
             // 
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelButton.Location = new System.Drawing.Point(320, 630);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
@@ -377,8 +378,10 @@
             // 
             // BelegBearbeiten
             // 
+            this.AcceptButton = this.speichernbutton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(410, 658);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label16);
