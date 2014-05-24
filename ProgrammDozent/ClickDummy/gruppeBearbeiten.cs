@@ -65,6 +65,7 @@ namespace ProgrammDozent
             {
                 return info[0] + ", " + info[1];
             }
+            contactLeiterButton.Enabled = false;
             return "Kein Leiter angegeben.";
         }
 

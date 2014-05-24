@@ -156,11 +156,33 @@ namespace ProgrammDozent
 
         private void speichernbutton_Click(object sender, EventArgs e)
         {
-            if(isNeuerBeleg) InsertBeleg();
-            else UpdateBeleg();
+            if (isNeuerBeleg)
+            {
+                Database database = new Database();
+                List<string[]> ergDB = database.ExecuteQuery(
+                    "select * from Beleg where Belegkennung =\"" +
+                    kennungTextBox.Text + "\"");
+                if (ergDB.Count == 0)
+                {
+                    InsertBeleg();
+                    if (Saved != null) Saved(this);
+                    Close();
+                }
 
-            if (Saved != null) Saved(this);
-            Close();
+                else
+                {
+                    MessageBox.Show("Ungültige oder bereits vergebene Belegkennung!");
+                }
+                    
+            }
+
+            else
+            {
+                UpdateBeleg();
+                if (Saved != null) Saved(this);
+                Close();
+            }
+
         }
 
         void UpdateBeleg()
@@ -211,28 +233,18 @@ namespace ProgrammDozent
             if (_database != null)
             {
                 _database.ExecuteQuery(query);
-
-                //Zuordnung_BelegThema updaten
-                //Alle zugehörigen Datensätze löschen
-                _database.ExecuteQuery("delete from Zuordnung_BelegThema where Belegkennung = \"" + kennungTextBox.Text + "\"");
                 //Inhalt von verfthemen inserten
                 foreach (var thema in VerfThemen)
                 {
                     _database.ExecuteQuery("insert into Zuordnung_BelegThema values(\"" + kennungTextBox.Text + "\", " + thema.ThemenNummer + ")");
                 }
 
-                //Zuordnung_BelegRolle
-                //Alle zugehörigen Datensätze löschen
-                _database.ExecuteQuery("delete from Zuordnung_BelegRolle where Belegkennung = \"" + kennungTextBox.Text + "\"");
                 //Inhalt von verfthemen inserten
                 foreach (var rolle in VerfRollen)
                 {
                     _database.ExecuteQuery("insert into Zuordnung_BelegRolle values(\"" + kennungTextBox.Text + "\", \"" + rolle.rolle + "\")");
                 }
 
-                //Zuordnung_BelegCase
-                //Alle zugehörigen Datensätze löschen
-                _database.ExecuteQuery("delete from Zuordnung_BelegCases where Belegkennung = \"" + kennungTextBox.Text + "\"");
                 //Inhalt von verfthemen inserten
                 foreach (var onecase in VerfCases)
                 {
