@@ -98,6 +98,7 @@ namespace ProgrammDozent
 
             comboBoxBelegthema.DataSource = Themen;
             comboBoxBelegthema.DisplayMember = "aufgabenName";
+            comboBoxBelegthema.SelectedIndex = 0;
         }
 
         private void updateGroupData()
@@ -145,11 +146,14 @@ namespace ProgrammDozent
 
             Rolle dummyRolle = new Rolle("*");
             Rollen.Add(dummyRolle);
-            foreach (string[] array in database.ExecuteQuery("select * from Rolle"))
-            {
-                Rolle rolle = new Rolle(array[0]);
-                Rollen.Add(rolle);
-            }
+
+           
+                foreach (string[] array in database.ExecuteQuery("select * from Rolle"))
+                {
+                    Rolle rolle = new Rolle(array[0]);
+                    Rollen.Add(rolle);
+                }
+           
             comboBoxRolle.DataSource = Rollen;
             comboBoxRolle.DisplayMember = "rolle";
         }
@@ -194,7 +198,11 @@ namespace ProgrammDozent
                 
                 foreach (var group1 in filterGroups)
                 {
-                    foreach (var info2 in database.ExecuteQuery("select * from Student where sNummer in (select sNummer from Zuordnung_GruppeStudent where Gruppenkennung=\"" + group1.GruppenKennung + "\")"))
+                    string sqlQuery;
+                    
+                    sqlQuery = "select * from Student where sNummer in (select sNummer from Zuordnung_GruppeStudent where Gruppenkennung=\"" + group1.GruppenKennung + "\")";
+
+                    foreach (var info2 in database.ExecuteQuery(sqlQuery))
                     {
                         Student tmpStud = new Student(info2[2], info2[1], info2[0], info2[3], info2[4]);
                         filterStudents.Add(tmpStud);
@@ -208,7 +216,7 @@ namespace ProgrammDozent
             //  Belegthema: x
             //  Gruppe: -
             //  Rolle: x
-            else if (comboBoxRolle.SelectedItem != null && comboBoxGruppe.SelectedItem == null)
+            else if (comboBoxRolle.SelectedItem != null && (comboBoxGruppe.SelectedItem == null || comboBoxGruppe.SelectedIndex == 0))
             {
                 
                 foreach (var group in filterGroups)
@@ -252,20 +260,45 @@ namespace ProgrammDozent
                     }
                 }
             }
+            // selection state: 
+            //  Beleg: x
+            //  Belegthema: x
+            //  Gruppe: x
+            //  Rolle: x
+            else
+            {
+
+                string sqlString = "";
+                if (selRolle.rolle.Equals("*"))
+                    sqlString = "select * from Student where sNummer in (select sNummer from Zuordnung_GruppeStudent where Gruppenkennung=\"" + selGruppe.GruppenKennung + "\")";
+                else
+                    sqlString = "select * from Student where Rolle=\"" + selRolle.rolle +"\" and sNummer in (select sNummer from Zuordnung_GruppeStudent where Gruppenkennung=\"" + selGruppe.GruppenKennung + "\")";
+
+                foreach (var info2 in database.ExecuteQuery(sqlString))
+                {
+                    Student tmpStud = new Student(info2[2], info2[1], info2[0], info2[3], info2[4]);
+                    filterStudents.Add(tmpStud);
+                }
+
+            }
 
 
             if (filterStudents.Count() == 0)
+            {
                 labelHint.Text = "*Plichtfelder, keine Resultate";
+                btnFilter.Enabled = false;
+            }
 
             else
-                btnFilter.Enabled = true;
+                labelHint.Text = "*Plichtfelder"; btnFilter.Enabled = true;
 
 
             
         }
 
         private void comboBoxBeleg_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        {           
+
             // refresh 'themen' information
             updateThemenData();
         }
@@ -302,6 +335,13 @@ namespace ProgrammDozent
             selRolle = (Rolle)comboBoxRolle.SelectedItem;
 
             // enable filter btn
+            updateFilterBtn();
+        }
+
+        private void comboBoxGruppe_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            selGruppe = (Gruppe)comboBoxGruppe.SelectedItem;
+
             updateFilterBtn();
         }
 

@@ -65,6 +65,7 @@
             this.comboBoxGruppe.Name = "comboBoxGruppe";
             this.comboBoxGruppe.Size = new System.Drawing.Size(121, 21);
             this.comboBoxGruppe.TabIndex = 2;
+            this.comboBoxGruppe.SelectedIndexChanged += new System.EventHandler(this.comboBoxGruppe_SelectedIndexChanged);
             // 
             // comboBoxRolle
             // 
@@ -134,7 +135,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(488, 273);
+            this.ClientSize = new System.Drawing.Size(278, 273);
             this.Controls.Add(this.labelHint);
             this.Controls.Add(this.btnFilter);
             this.Controls.Add(this.label4);
