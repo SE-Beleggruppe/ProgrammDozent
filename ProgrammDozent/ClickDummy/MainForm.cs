@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace ProgrammDozent
 {
     public partial class MainForm : Form
     {
-        readonly List<Beleg> _belege = new List<Beleg>();
+        List<Beleg> _belege = new List<Beleg>();
         List<Gruppe> _gruppen = new List<Gruppe>();
         List<string> _rollen = new List<string>();
         List<Student> _tempStudent;
@@ -16,18 +17,24 @@ namespace ProgrammDozent
         {
             InitializeComponent();
             
-            foreach (var array in _database.ExecuteQuery("select * from Beleg"))
-            {
-                var beleg = new Beleg(array[0], array[1], Convert.ToDateTime(array[2]), Convert.ToDateTime(array[3]), Convert.ToInt32(array[4]), Convert.ToInt32(array[5]), array[6] );
-                _belege.Add(beleg);
-            }
+            UpdateBelege(null);
 
             mitgliederDataGridView.AllowUserToAddRows = false;
-            belegListBox.DataSource = _belege;
-            belegListBox.DisplayMember = "Belegkennung";
 
             belegListBox.DoubleClick += belegListBox_DoubleClicked;
             gruppenListBox.DoubleClick += gruppenListBox_DoubleClicked;
+        }
+
+        private void UpdateBelege(object sender)
+        {
+            _belege = new List<Beleg>();
+            foreach (var array in _database.ExecuteQuery("select * from Beleg"))
+            {
+                var beleg = new Beleg(array[0], array[1], Convert.ToDateTime(array[2]), Convert.ToDateTime(array[3]), Convert.ToInt32(array[4]), Convert.ToInt32(array[5]), array[6]);
+                _belege.Add(beleg);
+            }
+            belegListBox.DataSource = _belege;
+            belegListBox.DisplayMember = "Belegkennung";
         }
 
          
@@ -74,12 +81,20 @@ namespace ProgrammDozent
         private void gruppenListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (gruppenListBox.SelectedItem == null) return;
-            var selected = (Gruppe)gruppenListBox.SelectedItem;
+            Gruppe selected = (Gruppe)gruppenListBox.SelectedItem;
             selected.Studenten = null;
             foreach (var info2 in _database.ExecuteQuery("select * from Student where sNummer in (select sNummer from Zuordnung_GruppeStudent where Gruppenkennung=\"" + selected.GruppenKennung + "\")"))
             {
                 selected.AddStudent(new Student(info2[2], info2[1], info2[0], info2[3], info2[4]));
             }
+            int studentenCount = 0;
+            if (selected.Studenten != null) studentenCount = selected.Studenten.Count;
+            if (studentenCount < ((Beleg)belegListBox.SelectedItem).MaxMitglieder)
+            {
+                for (int i = 0; i < ((Beleg)belegListBox.SelectedItem).MaxMitglieder - studentenCount; i++)
+                    selected.AddStudent(new Student("na", "na", "na", "na", "na"));
+            }
+
             mitgliederDataGridView.Rows.Clear();
             (mitgliederDataGridView.Columns[4] as DataGridViewComboBoxColumn).DataSource = _rollen;
             (mitgliederDataGridView.Columns[4] as DataGridViewComboBoxColumn).MinimumWidth = 150;
@@ -94,6 +109,9 @@ namespace ProgrammDozent
                     if (info.SNummer != "na") mitgliederDataGridView.Rows[number].Cells[2].ReadOnly = true;
                     mitgliederDataGridView.Rows[number].Cells[3].Value = info.Mail;
                     mitgliederDataGridView.Rows[number].Cells[4].Value = info.Rolle;
+
+                    if (info.SNummer == "na" && number < ((Beleg)belegListBox.SelectedItem).MinMitglieder)
+                        mitgliederDataGridView.Rows[number].DefaultCellStyle.BackColor = Color.Yellow;
                 }
         }
 
@@ -109,30 +127,55 @@ namespace ProgrammDozent
 
         private void belegAnlegenButton_Click(object sender, EventArgs e)
         {
-            //Beleg newBeleg = new Beleg();
-            //Belege.Add(newBeleg);
-
-            //belegListBox.DataSource = null;
-            //belegListBox.DataSource = Belege;
-            //belegListBox.DisplayMember = "Semester";
+            BelegBearbeiten dest = new BelegBearbeiten("na")
+            {
+                Saved = new BelegBearbeiten.IsSavedHandler(UpdateBelege)
+            };
+            dest.Show();
         }
+
 
         private void gruppeAnlegenButton_Click(object sender, EventArgs e)
         {
-            var selected = (Beleg)belegListBox.SelectedItem;
+            Gruppe temp = new Gruppe("na", 0, "na");
+            temp.Belegkennung = ((Beleg) belegListBox.SelectedItem).BelegKennung;
 
-            gruppenListBox.DataSource = null;
-            gruppenListBox.DataSource = selected.Gruppen;
-            gruppenListBox.DisplayMember = "gruppenKennung";
+            if (getFreieCases(temp) == null)
+            {
+                MessageBox.Show("Für diesen Beleg können keine weiteren Gruppen hinzugefügt werden.");
+                return;
+            }
+
+            gruppeBearbeiten dest = new gruppeBearbeiten(temp);
+            dest.SavedG = new gruppeBearbeiten.GIsSavedHandler(belegListBox_SelectedIndexChanged);
+            dest.Show();
+        }
+
+        List<string> getFreieCases(Gruppe gruppe)
+        {
+            Database database = new Database();
+            List<string[]> ergDB = database.ExecuteQuery(
+                "select Casekennung from Zuordnung_BelegCases where Casekennung not in(select Gruppenkennung from Zuordnung_GruppeBeleg where Belegkennung=\"" +
+                gruppe.Belegkennung + "\") and Belegkennung=\"" + gruppe.Belegkennung + "\"");
+            if (ergDB.Count == 0) return null;
+            List<string> erg = new List<string>();
+            foreach (string[] strings in ergDB)
+            {
+                erg.Add(strings[0]);
+            }
+            return erg;
         }
 
         private void mitgliedAnlegen_Click(object sender, EventArgs e)
         {
-            var neu = new Student("na", "na", "na", "na@na.de", "na");
-            var grup = (Gruppe)gruppenListBox.SelectedItem;
-            grup.AddStudent(neu);
-            mitgliederDataGridView.DataSource = null;
-            mitgliederDataGridView.DataSource = grup.Studenten;
+            Student info = new Student("na", "na", "na", "na", "na");
+            var number = mitgliederDataGridView.Rows.Add();
+            mitgliederDataGridView.Rows[number].Cells[0].Value = info.Name;
+            mitgliederDataGridView.Rows[number].Cells[1].Value = info.Vorname;
+            mitgliederDataGridView.Rows[number].Cells[2].Value = info.SNummer;
+            if (info.SNummer != "na") mitgliederDataGridView.Rows[number].Cells[2].ReadOnly = true;
+            mitgliederDataGridView.Rows[number].Cells[3].Value = info.Mail;
+            mitgliederDataGridView.Rows[number].Cells[4].Value = info.Rolle;
         }
 
         private void dataGridViewFreigebenButton_Click(object sender, EventArgs e)
@@ -225,6 +268,12 @@ namespace ProgrammDozent
         {
             var archivierung = new PdfArchivierung(_database);
             archivierung.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            kontaktForm kForm = new kontaktForm();
+            kForm.Show();
         }
 
 

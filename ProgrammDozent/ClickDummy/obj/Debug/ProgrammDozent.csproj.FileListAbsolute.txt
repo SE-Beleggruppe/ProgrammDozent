@@ -37,8 +37,6 @@ C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\obj\
 C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\ProgrammDozent.pdb
 C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\bin\Debug\ProgrammDozent.exe
 C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\bin\Debug\ProgrammDozent.pdb
-C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\bin\Debug\ja\Sybase.AdoNet4.AseClient.resources.dll
-C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\bin\Debug\zh-CHS\Sybase.AdoNet4.AseClient.resources.dll
 C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\ProgrammDozent.csprojResolveAssemblyReference.cache
 C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\ProgrammDozent.belegBearbeiten.resources
 C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\ProgrammDozent.Eingabe.resources
@@ -78,3 +76,5 @@ C:\Users\Maggo\Documents\ProgrammDozent\ProgrammDozent\ClickDummy\bin\Debug\itex
 C:\Users\Maggo\Documents\ProgrammDozent\ProgrammDozent\ClickDummy\bin\Debug\itextsharp.pdfa.dll
 C:\Users\Maggo\Documents\ProgrammDozent\ProgrammDozent\ClickDummy\bin\Debug\itextsharp.xtra.dll
 C:\Users\Maggo\Documents\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\ProgrammDozent.PdfArchivierung.resources
+C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\ProgrammDozent.kontaktForm.resources
+C:\Users\Felix\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\ProgrammDozent.kontaktForm.resources

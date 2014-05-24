@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="file:///C:/PROGRAM FILES (X86)/MICROSOFT VISUAL STUDIO 12.0/COMMON7/IDE/EXTENSIONS/MICROSOFT/ARCHITECTURE TOOLS/EXTENSIBILITY/Logging/ReverseEngineeringLog.xslt"?>
+<Log xmlns="http://schemas.microsoft.com/VisualStudio/2010/CodeGen.RE.Log" Label="Codegenerierungs-/Texttransformationsprotokoll">
+  <MessageClass Name="Message" Label="Meldung" Option="Informationsmeldungen anzeigen" />
+  <MessageClass Name="Warning" Label="Warnung" Option="Warnungen anzeigen" />
+  <MessageClass Name="Error" Label="Fehler" Option="Fehler anzeigen" />
+  <MessageClass Name="Property" Label="Eigenschaft" Option="Metadaten anzeigen" />
+  <MessageClass Name="Diagnostic" Label="Meldung" Option="Diagnosemeldungen anzeigen" />
+  <Message Timestamp="2014-05-24T12:58:35" Importance="High" Text="Reverse Engineering gestartet." />
+  <Message Timestamp="2014-05-24T12:58:35" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent' -  (Package)" />
+  <Message Timestamp="2014-05-24T12:58:35" Importance="Medium" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Student' -  (Class)" />
+  <Message Timestamp="2014-05-24T12:58:35" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Student::Mail' -  (Property)" />
+  <Message Timestamp="2014-05-24T12:58:35" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Student::Name' -  (Property)" />
+  <Message Timestamp="2014-05-24T12:58:35" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Student::Rolle' -  (Property)" />
+  <Message Timestamp="2014-05-24T12:58:35" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Student::SNummer' -  (Property)" />
+  <Message Timestamp="2014-05-24T12:58:35" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Student::Student' -  (Operation)" />
+  <Message Timestamp="2014-05-24T12:58:35" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Student::Student::mail' -  (Parameter)" />
+  <Message Timestamp="2014-05-24T12:58:35" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Student::Student::name' -  (Parameter)" />
+  <Message Timestamp="2014-05-24T12:58:35" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Student::Student::rolle' -  (Parameter)" />
+  <Message Timestamp="2014-05-24T12:58:35" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Student::Student::sNummer' -  (Parameter)" />
+  <Message Timestamp="2014-05-24T12:58:35" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Student::Student::vorname' -  (Parameter)" />
+  <Message Timestamp="2014-05-24T12:58:35" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Student::Vorname' -  (Property)" />
+  <Message Timestamp="2014-05-24T12:58:35" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'String' -  (PrimitiveType)" />
+  <Message Timestamp="2014-05-24T12:58:35" Importance="High" Text="Vollständiges Reverse Engineering für (1) Type(n)." />
+  <Message Timestamp="2014-05-24T12:58:35" Importance="High" Text="Der Reverse Engineering-Vorgang wurde mit (0) Fehler(n) und (0) Warnung(en) abgeschlossen." />
+</Log>

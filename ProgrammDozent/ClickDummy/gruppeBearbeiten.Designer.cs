@@ -31,7 +31,6 @@
             this.cancelButton = new System.Windows.Forms.Button();
             this.speichernbutton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.kennungTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.leiterLabel = new System.Windows.Forms.Label();
             this.contactLeiterButton = new System.Windows.Forms.Button();
@@ -39,6 +38,7 @@
             this.themenComboBox = new System.Windows.Forms.ComboBox();
             this.passwortTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.kennungComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -69,14 +69,6 @@
             this.label2.Size = new System.Drawing.Size(33, 13);
             this.label2.TabIndex = 24;
             this.label2.Text = "Leiter";
-            // 
-            // kennungTextBox
-            // 
-            this.kennungTextBox.Location = new System.Drawing.Point(134, 12);
-            this.kennungTextBox.Name = "kennungTextBox";
-            this.kennungTextBox.ReadOnly = true;
-            this.kennungTextBox.Size = new System.Drawing.Size(200, 20);
-            this.kennungTextBox.TabIndex = 23;
             // 
             // label1
             // 
@@ -138,11 +130,20 @@
             this.label4.TabIndex = 46;
             this.label4.Text = "Passwort";
             // 
+            // kennungComboBox
+            // 
+            this.kennungComboBox.FormattingEnabled = true;
+            this.kennungComboBox.Location = new System.Drawing.Point(134, 6);
+            this.kennungComboBox.Name = "kennungComboBox";
+            this.kennungComboBox.Size = new System.Drawing.Size(200, 21);
+            this.kennungComboBox.TabIndex = 48;
+            // 
             // gruppeBearbeiten
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(346, 183);
+            this.Controls.Add(this.kennungComboBox);
             this.Controls.Add(this.passwortTextBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.themenComboBox);
@@ -152,7 +153,6 @@
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.speichernbutton);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.kennungTextBox);
             this.Controls.Add(this.label1);
             this.Name = "gruppeBearbeiten";
             this.Text = "gruppeBearbeiten";
@@ -166,7 +166,6 @@
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button speichernbutton;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox kennungTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label leiterLabel;
         private System.Windows.Forms.Button contactLeiterButton;
@@ -174,5 +173,6 @@
         private System.Windows.Forms.ComboBox themenComboBox;
         private System.Windows.Forms.TextBox passwortTextBox;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox kennungComboBox;
     }
 }

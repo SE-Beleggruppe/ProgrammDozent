@@ -39,13 +39,13 @@
             this.mail = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.rolle = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.gruppeAnlegenButton = new System.Windows.Forms.Button();
-            this.mitgliedAnlegen = new System.Windows.Forms.Button();
             this.dataGridViewFreigebenButton = new System.Windows.Forms.Button();
             this.saveDataGridViewButton = new System.Windows.Forms.Button();
             this.cancelDataGridViewButton = new System.Windows.Forms.Button();
             this.themenVerwaltenButton = new System.Windows.Forms.Button();
             this.rolleTextBox = new System.Windows.Forms.Button();
             this.buttonArchivieren = new System.Windows.Forms.Button();
+            this.btnKontaktiern = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.mitgliederDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -137,16 +137,6 @@
             this.gruppeAnlegenButton.UseVisualStyleBackColor = true;
             this.gruppeAnlegenButton.Click += new System.EventHandler(this.gruppeAnlegenButton_Click);
             // 
-            // mitgliedAnlegen
-            // 
-            this.mitgliedAnlegen.Location = new System.Drawing.Point(393, 243);
-            this.mitgliedAnlegen.Name = "mitgliedAnlegen";
-            this.mitgliedAnlegen.Size = new System.Drawing.Size(180, 23);
-            this.mitgliedAnlegen.TabIndex = 8;
-            this.mitgliedAnlegen.Text = "Mitglied anlegen";
-            this.mitgliedAnlegen.UseVisualStyleBackColor = true;
-            this.mitgliedAnlegen.Click += new System.EventHandler(this.mitgliedAnlegen_Click);
-            // 
             // dataGridViewFreigebenButton
             // 
             this.dataGridViewFreigebenButton.Location = new System.Drawing.Point(579, 243);
@@ -209,18 +199,28 @@
             this.buttonArchivieren.UseVisualStyleBackColor = true;
             this.buttonArchivieren.Click += new System.EventHandler(this.buttonArchivieren_Click);
             // 
+            // btnKontaktiern
+            // 
+            this.btnKontaktiern.Location = new System.Drawing.Point(393, 244);
+            this.btnKontaktiern.Name = "btnKontaktiern";
+            this.btnKontaktiern.Size = new System.Drawing.Size(179, 23);
+            this.btnKontaktiern.TabIndex = 15;
+            this.btnKontaktiern.Text = "Kontaktieren";
+            this.btnKontaktiern.UseVisualStyleBackColor = true;
+            this.btnKontaktiern.Click += new System.EventHandler(this.button1_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1190, 310);
+            this.Controls.Add(this.btnKontaktiern);
             this.Controls.Add(this.buttonArchivieren);
             this.Controls.Add(this.rolleTextBox);
             this.Controls.Add(this.themenVerwaltenButton);
             this.Controls.Add(this.cancelDataGridViewButton);
             this.Controls.Add(this.saveDataGridViewButton);
             this.Controls.Add(this.dataGridViewFreigebenButton);
-            this.Controls.Add(this.mitgliedAnlegen);
             this.Controls.Add(this.gruppeAnlegenButton);
             this.Controls.Add(this.mitgliederDataGridView);
             this.Controls.Add(this.gruppenListBox);
@@ -245,7 +245,6 @@
         private System.Windows.Forms.ListBox gruppenListBox;
         private System.Windows.Forms.DataGridView mitgliederDataGridView;
         private System.Windows.Forms.Button gruppeAnlegenButton;
-        private System.Windows.Forms.Button mitgliedAnlegen;
         private System.Windows.Forms.Button dataGridViewFreigebenButton;
         private System.Windows.Forms.Button saveDataGridViewButton;
         private System.Windows.Forms.Button cancelDataGridViewButton;
@@ -257,6 +256,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn mail;
         private System.Windows.Forms.DataGridViewComboBoxColumn rolle;
         private System.Windows.Forms.Button buttonArchivieren;
+        private System.Windows.Forms.Button btnKontaktiern;
 
 
     }
