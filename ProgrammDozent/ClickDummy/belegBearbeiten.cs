@@ -237,6 +237,13 @@ namespace ProgrammDozent
 
         private void remButtonCase_Click(object sender, EventArgs e)
         {
+
+            if (_database.ExecuteQuery("select * from Gruppe where Gruppenkennung = \"" + verCases.SelectedItem + "\"").Count != 0)
+            {
+                MessageBox.Show("Case ist noch Gruppe zugeordnet!");
+                return;
+            }
+
             var onecase = (string)verCases.SelectedItem;
             VerfCases.Remove(onecase);
             verCases.DataSource = null;
@@ -270,6 +277,31 @@ namespace ProgrammDozent
             {
                 endDateTimePicker.Value = startDateTimePicker.Value.AddDays(1);
             }
+        }
+
+        private void allThemen_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            addButtonThema.Enabled = allThemen.Items.Count != 0;
+        }
+
+        private void allThemen_SelectedValueChanged(object sender, EventArgs e)
+        {
+            addButtonThema.Enabled = allThemen.Items.Count != 0;
+        }
+
+        private void allRollen_SelectedValueChanged(object sender, EventArgs e)
+        {
+            addButtonRolle.Enabled = allRollen.Items.Count != 0;
+        }
+
+        private void allCases_SelectedValueChanged(object sender, EventArgs e)
+        {
+            addButtonCase.Enabled = allCases.Items.Count != 0;
+        }
+
+        private void verThemen_SelectedValueChanged(object sender, EventArgs e)
+        {
+            remButtonThema.Enabled = verThemen.Items.Count != 0;
         }
     }
 }
