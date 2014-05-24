@@ -160,7 +160,6 @@
             this.verThemen.Name = "verThemen";
             this.verThemen.Size = new System.Drawing.Size(154, 108);
             this.verThemen.TabIndex = 14;
-            this.verThemen.SelectedValueChanged += new System.EventHandler(this.verThemen_SelectedValueChanged);
             // 
             // label7
             // 
@@ -187,8 +186,6 @@
             this.allThemen.Name = "allThemen";
             this.allThemen.Size = new System.Drawing.Size(149, 108);
             this.allThemen.TabIndex = 17;
-            this.allThemen.SelectedIndexChanged += new System.EventHandler(this.allThemen_SelectedIndexChanged);
-            this.allThemen.SelectedValueChanged += new System.EventHandler(this.allThemen_SelectedValueChanged);
             // 
             // addButtonThema
             // 
@@ -281,7 +278,6 @@
             this.allRollen.Name = "allRollen";
             this.allRollen.Size = new System.Drawing.Size(149, 108);
             this.allRollen.TabIndex = 25;
-            this.allRollen.SelectedValueChanged += new System.EventHandler(this.allRollen_SelectedValueChanged);
             // 
             // verRollen
             // 
@@ -370,7 +366,6 @@
             this.allCases.Name = "allCases";
             this.allCases.Size = new System.Drawing.Size(149, 108);
             this.allCases.TabIndex = 37;
-            this.allCases.SelectedValueChanged += new System.EventHandler(this.allCases_SelectedValueChanged);
             // 
             // verCases
             // 

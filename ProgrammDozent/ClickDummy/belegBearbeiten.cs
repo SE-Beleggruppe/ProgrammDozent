@@ -37,7 +37,7 @@ namespace ProgrammDozent
                 kennungTextBox.Enabled = true;
             }
 
-        kennungTextBox.Text = Beleg.BelegKennung;
+            kennungTextBox.Text = Beleg.BelegKennung;
             passwortTextBox.Text = Beleg.Passwort;
             semesterTextBox.Text = Beleg.Semester;
             startDateTimePicker.Value = Beleg.StartDatum;
@@ -121,6 +121,17 @@ namespace ProgrammDozent
                 VerfCases.Sort();
                 verCases.DataSource = VerfCases;
             }
+
+            //Buttons ausgrauen falls nötig
+            addButtonThema.Enabled = allThemen.Items.Count != 0;
+            remButtonThema.Enabled = verThemen.Items.Count != 0;
+
+            addButtonRolle.Enabled = allRollen.Items.Count != 0;
+            remButtonRolle.Enabled = verRollen.Items.Count != 0;
+
+            addButtonCase.Enabled = allCases.Items.Count != 0;
+            remButtonCase.Enabled = verCases.Items.Count != 0;
+            
         }
 
         private void belegBearbeiten_Load(object sender, EventArgs e)
@@ -243,6 +254,19 @@ namespace ProgrammDozent
             verThemen.DataSource = null;
             verThemen.DataSource = VerfThemen;
             verThemen.DisplayMember = "aufgabenName";
+
+            if (allThemen.Items.Count != 0)
+            {
+                allThemen.SelectedIndex = 0;
+            }
+
+            if (verThemen.Items.Count != 0)
+            {
+                verThemen.SelectedIndex = 0;
+            }
+
+            addButtonThema.Enabled = allThemen.Items.Count != 0;
+            remButtonThema.Enabled = verThemen.Items.Count != 0;
         }
 
         private void remButtonThema_Click(object sender, EventArgs e)
@@ -258,12 +282,21 @@ namespace ProgrammDozent
             allThemen.DataSource = null;
             allThemen.DataSource = AlleThemen;
             allThemen.DisplayMember = "aufgabenName";
+
+            if (allThemen.Items.Count != 0)
+            {
+                allThemen.SelectedIndex = 0;
+            }
+
+            if (verThemen.Items.Count != 0)
+            {
+                verThemen.SelectedIndex = 0;
+            }
+
+            addButtonThema.Enabled = allThemen.Items.Count != 0;
+            remButtonThema.Enabled = verThemen.Items.Count != 0;
         }
 
-        private void trackBar1_Scroll(object sender, EventArgs e)
-        {
-
-        }
 
         private void addButtonRolle_Click(object sender, EventArgs e)
         {
@@ -278,6 +311,19 @@ namespace ProgrammDozent
             verRollen.DataSource = null;
             verRollen.DataSource = VerfRollen;
             verRollen.DisplayMember = "rolle";
+
+            addButtonRolle.Enabled = allRollen.Items.Count != 0;
+            remButtonRolle.Enabled = verRollen.Items.Count != 0;
+
+            if (allRollen.Items.Count != 0)
+            {
+                allRollen.SelectedIndex = 0;
+            }
+
+            if (verRollen.Items.Count != 0)
+            {
+                verRollen.SelectedIndex = 0;
+            }
         }
 
         private void remButtonRolle_Click(object sender, EventArgs e)
@@ -293,6 +339,19 @@ namespace ProgrammDozent
             allRollen.DataSource = null;
             allRollen.DataSource = AlleRollen;
             allRollen.DisplayMember = "rolle";
+            
+            if (allRollen.Items.Count != 0)
+            {
+               allRollen.SelectedIndex = 0; 
+            }
+
+            if (verRollen.Items.Count != 0)
+            {
+                verRollen.SelectedIndex = 0;
+            }
+
+            addButtonRolle.Enabled = allRollen.Items.Count != 0;
+            remButtonRolle.Enabled = verRollen.Items.Count != 0;
         }
 
         private void addButtonCase_Click(object sender, EventArgs e)
@@ -306,6 +365,19 @@ namespace ProgrammDozent
             VerfCases.Sort();
             verCases.DataSource = null;
             verCases.DataSource = VerfCases;
+
+            if (allCases.Items.Count != 0)
+            {
+                allCases.SelectedIndex = 0;
+            }
+
+            if (verCases.Items.Count != 0)
+            {
+                verCases.SelectedIndex = 0;
+            }
+
+            addButtonCase.Enabled = allCases.Items.Count != 0;
+            remButtonCase.Enabled = verCases.Items.Count != 0;
         }
 
         private void remButtonCase_Click(object sender, EventArgs e)
@@ -326,6 +398,19 @@ namespace ProgrammDozent
             AlleCases.Sort();
             allCases.DataSource = null;
             allCases.DataSource = AlleCases;
+
+            if (allCases.Items.Count != 0)
+            {
+                allCases.SelectedIndex = 0;
+            }
+
+            if (verCases.Items.Count != 0)
+            {
+                verCases.SelectedIndex = 0;
+            }
+
+            addButtonCase.Enabled = allCases.Items.Count != 0;
+            remButtonCase.Enabled = verCases.Items.Count != 0;
         }
 
         private Beleg GetBelegFromKennung(string belegKennung)
@@ -350,31 +435,6 @@ namespace ProgrammDozent
             {
                 endDateTimePicker.Value = startDateTimePicker.Value.AddDays(1);
             }
-        }
-
-        private void allThemen_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            addButtonThema.Enabled = allThemen.Items.Count != 0;
-        }
-
-        private void allThemen_SelectedValueChanged(object sender, EventArgs e)
-        {
-            addButtonThema.Enabled = allThemen.Items.Count != 0;
-        }
-
-        private void allRollen_SelectedValueChanged(object sender, EventArgs e)
-        {
-            addButtonRolle.Enabled = allRollen.Items.Count != 0;
-        }
-
-        private void allCases_SelectedValueChanged(object sender, EventArgs e)
-        {
-            addButtonCase.Enabled = allCases.Items.Count != 0;
-        }
-
-        private void verThemen_SelectedValueChanged(object sender, EventArgs e)
-        {
-            remButtonThema.Enabled = verThemen.Items.Count != 0;
         }
     }
 }
