@@ -23,9 +23,29 @@ namespace ProgrammDozent
             UpdateBelege(null);
 
             mitgliederDataGridView.AllowUserToAddRows = false;
+            mitgliederDataGridView.UserDeletingRow += mitgliederDataGridView_UserDeletingRow;
 
             belegListBox.DoubleClick += belegListBox_DoubleClicked;
             gruppenListBox.DoubleClick += gruppenListBox_DoubleClicked;
+        }
+
+        void mitgliederDataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            DataGridViewRow rowToDelete = e.Row;
+            string sNummerToDelete = (string)rowToDelete.Cells[2].Value;
+            if (sNummerToDelete == "na") e.Cancel = true;
+
+            DialogResult dialogResult = MessageBox.Show("Wollen Sie den Studenten " + sNummerToDelete + " wirklich löschen?", "Achtung", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                Database db = new Database();
+                db.ExecuteQuery("delete from Student where sNummer=\"" + sNummerToDelete + "\"");
+                db.ExecuteQuery("delete from Zuordnung_GruppeStudent where sNummer=\"" + sNummerToDelete + "\"");
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
         }
 
         private void UpdateBelege(object sender)
@@ -71,13 +91,13 @@ namespace ProgrammDozent
 
         private void belegListBox_DoubleClicked(object sender, EventArgs e)
         {
-            var belegB = new BelegBearbeiten(((Beleg)belegListBox.SelectedItem).BelegKennung);
+            var belegB = new BelegBearbeiten(((Beleg)belegListBox.SelectedItem).BelegKennung, false);
             belegB.Show();
         }
 
         private void gruppenListBox_DoubleClicked(object sender, EventArgs e)
         {
-            var gruppeB = new gruppeBearbeiten((Gruppe)gruppenListBox.SelectedItem);
+            var gruppeB = new gruppeBearbeiten((Gruppe)gruppenListBox.SelectedItem, false);
             gruppeB.Show();
         }
 
@@ -130,7 +150,7 @@ namespace ProgrammDozent
 
         private void belegAnlegenButton_Click(object sender, EventArgs e)
         {
-            BelegBearbeiten dest = new BelegBearbeiten("na")
+            BelegBearbeiten dest = new BelegBearbeiten("na", true)
             {
                 Saved = new BelegBearbeiten.IsSavedHandler(UpdateBelege)
             };
@@ -149,7 +169,7 @@ namespace ProgrammDozent
                 return;
             }
 
-            gruppeBearbeiten dest = new gruppeBearbeiten(temp);
+            gruppeBearbeiten dest = new gruppeBearbeiten(temp, true);
             dest.SavedG = new gruppeBearbeiten.GIsSavedHandler(belegListBox_SelectedIndexChanged);
             dest.Show();
         }
@@ -290,6 +310,57 @@ namespace ProgrammDozent
         {
             kontaktForm kForm = new kontaktForm();
             kForm.Show();
+        }
+
+        private void belegLoeschenButton_Click(object sender, EventArgs e)
+        {
+            Beleg temp = (Beleg)belegListBox.SelectedItem;
+            if (temp != null)
+            {
+                DialogResult dialogResult = MessageBox.Show("Wollen Sie den Beleg " + temp.BelegKennung + " wirklich löschen?", "Achtung", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    Database db = new Database();
+                    if (db.ExecuteQuery("select * from Zuordnung_GruppeBeleg where Belegkennung=\"" + temp.BelegKennung + "\"").Count != 0)
+                    {
+                        MessageBox.Show("Dieser Beleg hat noch aktive Gruppen, bitte löschen Sie diese zunächst.");
+                        return;
+                    }
+
+                    db.ExecuteQuery("delete from Beleg where Belegkennung=\"" + temp.BelegKennung + "\"");
+                    db.ExecuteQuery("delete from Zuordnung_BelegCases where Belegkennung=\"" + temp.BelegKennung + "\"");
+                    db.ExecuteQuery("delete from Zuordnung_BelegThema where Belegkennung=\"" + temp.BelegKennung + "\"");
+                    db.ExecuteQuery("delete from Zuordnung_BelegRolle where Belegkennung=\"" + temp.BelegKennung + "\"");
+                    db.ExecuteQuery("delete from Zuordnung_GruppeBeleg where Belegkennung=\"" + temp.BelegKennung + "\"");
+                    UpdateBelege(null);
+                }
+            }
+        }
+
+        private void gruppeLoeschenButton_Click(object sender, EventArgs e)
+        {
+            Gruppe temp = (Gruppe) gruppenListBox.SelectedItem;
+            if (temp != null)
+            {
+                DialogResult dialogResult = MessageBox.Show("Wollen Sie die Gruppe " + temp.GruppenKennung + " wirklich löschen?", "Achtung", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    Database db = new Database();
+                    if (db.ExecuteQuery("select * from Zuordnung_GruppeStudent where Gruppenkennung=\"" + temp.GruppenKennung + "\"").Count != 0)
+                    {
+                        MessageBox.Show("Dieser Beleg hat noch aktive Studenten, bitte löschen Sie diese zunächst.");
+                        return;
+                    }
+
+                    db.ExecuteQuery("delete from Gruppe where Gruppenkennung=\"" + temp.GruppenKennung + "\"");
+                    db.ExecuteQuery("delete from Zuordnung_GruppeStudent where Gruppenkennung=\"" + temp.GruppenKennung + "\"");
+                    db.ExecuteQuery("delete from Zuordnung_GruppeBeleg where Gruppenkennung=\"" + temp.GruppenKennung + "\"");
+
+                    belegListBox_SelectedIndexChanged(this, null);
+                }
+
+                
+            }
         }
 
 

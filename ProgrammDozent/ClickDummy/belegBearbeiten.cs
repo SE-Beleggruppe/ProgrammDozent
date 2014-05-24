@@ -24,10 +24,10 @@ namespace ProgrammDozent
 
         readonly Database _database = new Database();
 
-        public BelegBearbeiten(string belegKennung)
+        public BelegBearbeiten(string belegKennung, bool neu)
         {
             InitializeComponent();
-            isNeuerBeleg = belegKennung == "na";
+            isNeuerBeleg = neu;
 
 
             if (!isNeuerBeleg) this.Beleg = GetBelegFromKennung(belegKennung);

@@ -20,30 +20,42 @@ namespace ProgrammDozent
         public Gruppe gruppe;
         List<string> Themen = new List<string>();
         Database database = new Database();
-        public gruppeBearbeiten(Gruppe gruppe)
+
+        public gruppeBearbeiten(Gruppe gruppe, bool neu)
         {
             InitializeComponent();
-            if (gruppe.GruppenKennung == "na") isNeueGruppe = true;
+            if (neu) isNeueGruppe = true;
             this.gruppe = gruppe;
             kennungComboBox.DataSource = getFreieCases();
+            kennungComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             passwortTextBox.Text = this.gruppe.Password;
             getThemen();
-            leiterLabel.Text = getLeiter();
 
             if (isNeueGruppe) kennungComboBox.Enabled = true;
+            if (!isNeueGruppe) kennungComboBox.SelectedItem = gruppe.GruppenKennung;
         }
 
         List<string> getFreieCases()
         {
-            List<string[]> ergDB = database.ExecuteQuery(
+            
+            List<string> erg = new List<string>();
+            if (isNeueGruppe)
+            {
+                List<string[]> ergDB = database.ExecuteQuery(
                 "select Casekennung from Zuordnung_BelegCases where Casekennung not in(select Gruppenkennung from Zuordnung_GruppeBeleg where Belegkennung=\"" +
                 gruppe.Belegkennung + "\") and Belegkennung=\"" + gruppe.Belegkennung + "\"");
-            if (ergDB == null) return null;
-            List<string> erg = new List<string>();
-            foreach (string[] strings in ergDB)
-            {
-                erg.Add(strings[0]);
+                if (ergDB == null) return null;
+                
+                foreach (string[] strings in ergDB)
+                {
+                    erg.Add(strings[0]);
+                }
             }
+            else
+            {
+                erg.Add(gruppe.GruppenKennung);
+            }
+            
             return erg;
         }
 
@@ -55,18 +67,9 @@ namespace ProgrammDozent
             }
             themenComboBox.DataSource = null;
             themenComboBox.DataSource = Themen;
+            themenComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             if(!isNeueGruppe)
                 themenComboBox.SelectedItem = database.ExecuteQuery("select Aufgabe from Thema where Themennummer in (select Themennummer from Gruppe where Gruppenkennung=\"" + gruppe.GruppenKennung + "\")").First()[0];
-        }
-
-        string getLeiter()
-        {
-            foreach (string[] info in database.ExecuteQuery("select Nachname, Vorname from Student where sNummer in (select sNummer from Zuordnung_GruppeStudent where Gruppenkennung=\"" + gruppe.GruppenKennung + "\") and Rolle=\"Leitung\""))
-            {
-                return info[0] + ", " + info[1];
-            }
-            contactLeiterButton.Enabled = false;
-            return "Kein Leiter angegeben.";
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -76,6 +79,11 @@ namespace ProgrammDozent
 
         private void speichernbutton_Click(object sender, EventArgs e)
         {
+            if (passwortTextBox.Text == "")
+            {
+                MessageBox.Show("Bitte geben Sie ein Passwort ein.", "Fehler");
+                return;
+            }
             if (!isNeueGruppe) updateGruppe();
             else insertGruppe();
 

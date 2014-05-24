@@ -42,7 +42,6 @@ C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\obj\
 C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\ProgrammDozent.Eingabe.resources
 C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\ProgrammDozent.gruppeBearbeiten.resources
 C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\ProgrammDozent.rolleVerwalten.resources
-C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\ProgrammDozent.loginForm.resources
 C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\ProgrammDozent.MainForm.resources
 C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\ProgrammDozent.Properties.Resources.resources
 C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\ProgrammDozent.themenVerwalten.resources

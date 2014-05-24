@@ -219,6 +219,7 @@
             this.gruppeLoeschenButton.TabIndex = 17;
             this.gruppeLoeschenButton.Text = "Gruppe löschen";
             this.gruppeLoeschenButton.UseVisualStyleBackColor = true;
+            this.gruppeLoeschenButton.Click += new System.EventHandler(this.gruppeLoeschenButton_Click);
             // 
             // belegLoeschenButton
             // 
@@ -228,6 +229,7 @@
             this.belegLoeschenButton.TabIndex = 16;
             this.belegLoeschenButton.Text = "Beleg löschen";
             this.belegLoeschenButton.UseVisualStyleBackColor = true;
+            this.belegLoeschenButton.Click += new System.EventHandler(this.belegLoeschenButton_Click);
             // 
             // MainForm
             // 
