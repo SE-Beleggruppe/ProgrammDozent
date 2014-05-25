@@ -38,12 +38,12 @@
             this.themenListBox.FormattingEnabled = true;
             this.themenListBox.Location = new System.Drawing.Point(13, 13);
             this.themenListBox.Name = "themenListBox";
-            this.themenListBox.Size = new System.Drawing.Size(149, 199);
+            this.themenListBox.Size = new System.Drawing.Size(439, 199);
             this.themenListBox.TabIndex = 0;
             // 
             // newThemaButton
             // 
-            this.newThemaButton.Location = new System.Drawing.Point(168, 42);
+            this.newThemaButton.Location = new System.Drawing.Point(458, 42);
             this.newThemaButton.Name = "newThemaButton";
             this.newThemaButton.Size = new System.Drawing.Size(164, 23);
             this.newThemaButton.TabIndex = 2;
@@ -53,7 +53,7 @@
             // 
             // addThemaButton
             // 
-            this.addThemaButton.Location = new System.Drawing.Point(168, 13);
+            this.addThemaButton.Location = new System.Drawing.Point(458, 13);
             this.addThemaButton.Name = "addThemaButton";
             this.addThemaButton.Size = new System.Drawing.Size(164, 23);
             this.addThemaButton.TabIndex = 3;
@@ -66,12 +66,13 @@
             this.AcceptButton = this.newThemaButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(337, 225);
+            this.ClientSize = new System.Drawing.Size(634, 221);
             this.Controls.Add(this.addThemaButton);
             this.Controls.Add(this.newThemaButton);
             this.Controls.Add(this.themenListBox);
             this.Name = "ThemenVerwalten";
             this.Text = "themenVerwalten";
+            this.Load += new System.EventHandler(this.ThemenVerwalten_Load);
             this.ResumeLayout(false);
 
         }

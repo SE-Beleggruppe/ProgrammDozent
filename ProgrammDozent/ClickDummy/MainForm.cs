@@ -220,10 +220,19 @@ namespace ProgrammDozent
 
             for (var i = 0; i < mitgliederDataGridView.Rows.Count; i++)
             {
+                var sNummer = (string)mitgliederDataGridView.Rows[i].Cells[2].Value;
                 var mail = (string) mitgliederDataGridView.Rows[i].Cells[3].Value;
-                if (mitgliederDataGridView.Rows[i].Cells[2].ReadOnly && !checkMail(mail))
+                if (sNummer != "na" && mail != "na" && !checkMail(mail))
                 {
                     MessageBox.Show(mail + " ist keine gültige Mail-Adresse. Die Daten wurden nicht gespeichert.",
+                        "Fehler");
+                    return false;
+                }
+                else if (!mitgliederDataGridView.Rows[i].Cells[2].ReadOnly && sNummer != "na" && !checkSNummer(sNummer))
+                {
+                    MessageBox.Show(
+                        sNummer +
+                        " ist keine gültige S-Nummer oder der betreffende Student steht schon in der Datenbank. Die Daten wurden nicht gespeichert.",
                         "Fehler");
                     return false;
                 }
@@ -255,6 +264,26 @@ namespace ProgrammDozent
                 return true;
             }
             else return false;
+        }
+
+        private bool checkSNummer(string sNummer)
+        {
+            Database db = new Database();
+            if (sNummer == "") return false;
+            if (sNummer.Length != 6) return false;
+            if (!sNummer.StartsWith("s")) return false;
+            string nummer = sNummer.Substring(1);
+            int n;
+            bool isNummer = int.TryParse(nummer, out n);
+            if (!isNummer) return false;
+
+            List<string[]> output = db.ExecuteQuery("select * from Student");
+            foreach (string[] info in output)
+            {
+                if (info[0] == sNummer) return false;
+            }
+
+            return true;
         }
 
         private void updateStudent(Student student)

@@ -48,5 +48,10 @@ namespace ProgrammDozent
             _database.ExecuteQuery("insert into Thema values(\"" + ((TextBox)sender).Text + "\")");
             RefreshThemen();
         }
+
+        private void ThemenVerwalten_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

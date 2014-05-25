@@ -77,3 +77,4 @@ C:\Users\Maggo\Documents\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\Prog
 C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\ProgrammDozent.kontaktForm.resources
 C:\Users\Felix\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\ProgrammDozent.kontaktForm.resources
 C:\Users\Maggo\Documents\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\ProgrammDozent.kontaktForm.resources
+C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\ProgrammDozent.csprojResolveAssemblyReference.cache

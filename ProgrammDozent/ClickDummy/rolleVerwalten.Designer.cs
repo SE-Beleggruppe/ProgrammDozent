@@ -38,12 +38,12 @@
             this.rollenListBox.FormattingEnabled = true;
             this.rollenListBox.Location = new System.Drawing.Point(13, 13);
             this.rollenListBox.Name = "rollenListBox";
-            this.rollenListBox.Size = new System.Drawing.Size(149, 199);
+            this.rollenListBox.Size = new System.Drawing.Size(443, 199);
             this.rollenListBox.TabIndex = 0;
             // 
             // newRolleButton
             // 
-            this.newRolleButton.Location = new System.Drawing.Point(168, 13);
+            this.newRolleButton.Location = new System.Drawing.Point(462, 13);
             this.newRolleButton.Name = "newRolleButton";
             this.newRolleButton.Size = new System.Drawing.Size(164, 23);
             this.newRolleButton.TabIndex = 1;
@@ -53,7 +53,7 @@
             // 
             // deleteRolleButton
             // 
-            this.deleteRolleButton.Location = new System.Drawing.Point(168, 42);
+            this.deleteRolleButton.Location = new System.Drawing.Point(462, 42);
             this.deleteRolleButton.Name = "deleteRolleButton";
             this.deleteRolleButton.Size = new System.Drawing.Size(164, 23);
             this.deleteRolleButton.TabIndex = 2;
@@ -66,7 +66,7 @@
             this.AcceptButton = this.newRolleButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(337, 225);
+            this.ClientSize = new System.Drawing.Size(634, 221);
             this.Controls.Add(this.deleteRolleButton);
             this.Controls.Add(this.newRolleButton);
             this.Controls.Add(this.rollenListBox);
