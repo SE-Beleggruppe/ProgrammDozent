@@ -43,6 +43,7 @@ namespace ProgrammDozent
             kennungTextBox.Text = Beleg.BelegKennung;
             passwortTextBox.Text = Beleg.Passwort;
             semesterTextBox.Text = Beleg.Semester;
+            semesterTextBox.ReadOnly = true;
             startDateTimePicker.Value = Beleg.StartDatum;
             endDateTimePicker.Value = Beleg.EndDatum;
             minGR.Value = Beleg.MinMitglieder;
