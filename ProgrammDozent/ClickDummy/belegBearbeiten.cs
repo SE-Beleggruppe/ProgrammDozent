@@ -442,6 +442,9 @@ namespace ProgrammDozent
             {
                 endDateTimePicker.Value = startDateTimePicker.Value.AddDays(1);
             }
+            DateTime startTime = startDateTimePicker.Value;
+            if (startTime.Month >= 3 && startTime.Month <= 9) semesterTextBox.Text = "SS " + (startTime.Year-2000);
+            else semesterTextBox.Text = "WS " + (startTime.Year - 2000) + "/" + (startTime.Year - 2000 + 1);
         }
 
         private void endDateTimePicker_ValueChanged(object sender, EventArgs e)
