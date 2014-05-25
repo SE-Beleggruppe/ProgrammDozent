@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -352,11 +353,23 @@ namespace ProgrammDozent
                     Database db = new Database();
                     if (db.ExecuteQuery("select * from Zuordnung_GruppeBeleg where Belegkennung=\"" + temp.BelegKennung + "\"").Count != 0)
                     {
-                        DialogResult result = MessageBox.Show("Dieser Beleg hat noch aktive Gruppen, bitte löschen Sie diese zunächst.", "Achtung", MessageBoxButtons.YesNo);
+                        DialogResult result = MessageBox.Show("Dieser Beleg hat noch aktive Gruppen, sollen diese ebenfalls gelöscht werden? (Das betrifft auch die Mitglieder der Gruppen)", "Achtung", MessageBoxButtons.YesNo);
                         if (result == DialogResult.Yes)
                         {
                             // Alle Belege + Gruppen + Mitglieder löschen
-#warning muss noch ergänzt werden!!
+                            List<string[]> gruppenliste =
+                                db.ExecuteQuery(
+                                    "select Gruppenkennung from Zuordnung_GruppeBeleg where Belegkennung=\"" +
+                                    temp.BelegKennung + "\"");
+                            for (int i = 0; i < gruppenliste.Count; i++)
+                            {
+                                db.ExecuteQuery(
+                                "delete from Student where sNummer in (select sNummer from Zuordnung_GruppeStudent where Gruppenkennung=\"" +
+                                gruppenliste[i][0] + "\")");
+                                db.ExecuteQuery("delete from Gruppe where Gruppenkennung=\"" + gruppenliste[i][0] + "\"");
+                                db.ExecuteQuery("delete from Zuordnung_GruppeStudent where Gruppenkennung=\"" + gruppenliste[i][0] + "\"");
+                                db.ExecuteQuery("delete from Zuordnung_GruppeBeleg where Gruppenkennung=\"" + gruppenliste[i][0] + "\"");
+                            }
                         }
                         else 
                             return;
@@ -368,6 +381,13 @@ namespace ProgrammDozent
                     db.ExecuteQuery("delete from Zuordnung_BelegRolle where Belegkennung=\"" + temp.BelegKennung + "\"");
                     db.ExecuteQuery("delete from Zuordnung_GruppeBeleg where Belegkennung=\"" + temp.BelegKennung + "\"");
                     UpdateBelege(null);
+                    if (_belege.Count == 0)
+                    {
+                        gruppenListBox.DataSource = null;
+                        mitgliederDataGridView.Rows.Clear();
+                    }
+                    else belegListBox.SelectedIndex = 0;
+                    
                 }
             }
         }
@@ -390,9 +410,6 @@ namespace ProgrammDozent
                             db.ExecuteQuery(
                                 "delete from Student where sNummer in (select sNummer from Zuordnung_GruppeStudent where Gruppenkennung=\"" +
                                 temp.GruppenKennung + "\")");
-                            db.ExecuteQuery("delete from Gruppe where Gruppenkennung=\"" + temp.GruppenKennung + "\"");
-                            db.ExecuteQuery("delete from Zuordnung_GruppeStudent where Gruppenkennung=\"" + temp.GruppenKennung + "\"");
-                            db.ExecuteQuery("delete from Zuordnung_GruppeBeleg where Gruppenkennung=\"" + temp.GruppenKennung + "\"");
                         }
                         else 
                             return;
