@@ -10,17 +10,24 @@ namespace ProgrammDozent
         public string Password { get; set; }
         public string Belegkennung { get; set; }
 
+        public Gruppe(string password, string belegkennung)
+        {
+            this.Password = password;
+            this.Belegkennung = belegkennung;
+            this.Studenten = new List<Student>();
+        }
+
         public Gruppe(string kennung, int themennummer, string password)
         {
             GruppenKennung = kennung;
-            ThemenNummer = ThemenNummer;
+            ThemenNummer = themennummer;
             Password = password;
             Studenten = new List<Student>();
         }
 
         public void AddStudent(Student student)
         {
-            if (Studenten == null) Studenten = new List<Student>();
+            if (this.Studenten == null) Studenten = new List<Student>();
             if (student != null) Studenten.Add(student);
         }
     }
