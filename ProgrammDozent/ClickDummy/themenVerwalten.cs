@@ -20,7 +20,19 @@ namespace ProgrammDozent
 
         private void deleteThemaButton_Click(object sender, EventArgs e)
         {
+            // Überprüfen, ob Thema in Benutzung ist
             var thema = (Thema)themenListBox.SelectedItem;
+            if (
+                _database.ExecuteQuery(
+                    "select * from Thema where Themennummer in(select Themennummer from Zuordnung_BelegThema) and Themennummer=" +
+                    thema.ThemenNummer).Count != 0)
+            {
+                MessageBox.Show("Das Thema " + thema.AufgabenName +
+                                " ist noch in Verwendung und kann nicht gelöscht werden.");
+                return;
+            }
+
+            
             _database.ExecuteQuery("delete from Thema where Themennummer =" + thema.ThemenNummer + "");
             RefreshThemen();
         }
@@ -35,6 +47,8 @@ namespace ProgrammDozent
             }
             themenListBox.DataSource = _themen;
             themenListBox.DisplayMember = "aufgabenName";
+            if (_themen.Count == 0) deleteThemaButton.Enabled = false;
+            else deleteThemaButton.Enabled = true;
         }
 
         private void addThemaButton_Click_1(object sender, EventArgs e)

@@ -57,7 +57,7 @@
             this.tboEingabe.Location = new System.Drawing.Point(88, 6);
             this.tboEingabe.Name = "tboEingabe";
             this.tboEingabe.Size = new System.Drawing.Size(177, 20);
-            this.tboEingabe.TabIndex = 2;
+            this.tboEingabe.TabIndex = 1;
             // 
             // Eingabe
             // 

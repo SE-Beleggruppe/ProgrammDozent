@@ -23,6 +23,17 @@ namespace ProgrammDozent
         private void deleteRolleButton_Click(object sender, EventArgs e)
         {
             var rolle = (Rolle)rollenListBox.SelectedItem;
+
+            if (
+                _database.ExecuteQuery(
+                    "select * from Rolle where Rolle in(select Rolle from Zuordnung_BelegRolle) and Rolle=\"" +
+                    rolle.rolle + "\"").Count != 0)
+            {
+                MessageBox.Show("Die Rolle " + rolle.rolle +
+                                " ist noch in Verwendung und kann nicht gelöscht werden.");
+                return;
+            }
+
             _database.ExecuteQuery("delete from Rolle where Rolle =\""+rolle.rolle+"\"");
             RefreshRollen();
         }
@@ -37,15 +48,14 @@ namespace ProgrammDozent
             }
             rollenListBox.DataSource = _rollen;
             rollenListBox.DisplayMember = "rolle";
+            if (_rollen.Count == 0) deleteRolleButton.Enabled = false;
+            else deleteRolleButton.Enabled = true;
         }
 
         private void newRolleButton_Click(object sender, EventArgs e)
         {
             var eingabe = new Eingabe {textEingabe = new Eingabe.textEingabeHandler(EingabeF)};
             eingabe.Show();
-            
-            
-   
         }
 
         public void EingabeF(object sender)

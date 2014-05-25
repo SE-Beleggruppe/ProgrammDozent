@@ -119,9 +119,9 @@ namespace ProgrammDozent
             }
 
             mitgliederDataGridView.Rows.Clear();
-            (mitgliederDataGridView.Columns[4] as DataGridViewComboBoxColumn).DataSource = _rollen;
-            (mitgliederDataGridView.Columns[4] as DataGridViewComboBoxColumn).MinimumWidth = 150;
-            (mitgliederDataGridView.Columns[3] as DataGridViewTextBoxColumn).MinimumWidth = 250;
+            ((DataGridViewComboBoxColumn) mitgliederDataGridView.Columns[4]).DataSource = _rollen;
+            ((DataGridViewComboBoxColumn) mitgliederDataGridView.Columns[4]).MinimumWidth = 150;
+            ((DataGridViewTextBoxColumn) mitgliederDataGridView.Columns[3]).MinimumWidth = 250;
             if (selected.Studenten != null)
                 foreach (var info in selected.Studenten)
                 {
