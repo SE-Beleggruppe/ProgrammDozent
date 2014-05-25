@@ -451,5 +451,21 @@ namespace ProgrammDozent
                 endDateTimePicker.Value = startDateTimePicker.Value.AddDays(1);
             }
         }
+
+        private void minGR_ValueChanged(object sender, EventArgs e)
+        {
+            if (minGR.Value > maxGR.Value)
+            {
+                maxGR.Value = minGR.Value;
+            }
+        }
+
+        private void maxGR_ValueChanged(object sender, EventArgs e)
+        {
+            if (minGR.Value > maxGR.Value)
+            {
+                maxGR.Value = minGR.Value;
+            }
+        }
     }
 }
