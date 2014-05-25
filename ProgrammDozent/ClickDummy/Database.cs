@@ -59,7 +59,7 @@ namespace ProgrammDozent
             catch (InvalidOperationException exception)
             {
                 MessageBox.Show(
-                    "Es kann leider keine Verbindung zum Datenbank-Server augebaut werden. Bitte überprüfen Sie, ob Sie im Intranet sind, bzw. ob die VPN-Verbindung noch besteht.");
+                    "Es kann leider keine Verbindung zum Datenbank-Server augebaut werden. Bitte überprüfen Sie, ob Sie im Intranet sind, bzw. ob die VPN-Verbindung noch besteht.","Fehler");
                 System.Environment.Exit(1);
             }
 

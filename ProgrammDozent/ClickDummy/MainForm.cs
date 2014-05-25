@@ -352,8 +352,14 @@ namespace ProgrammDozent
                     Database db = new Database();
                     if (db.ExecuteQuery("select * from Zuordnung_GruppeBeleg where Belegkennung=\"" + temp.BelegKennung + "\"").Count != 0)
                     {
-                        MessageBox.Show("Dieser Beleg hat noch aktive Gruppen, bitte löschen Sie diese zunächst.");
-                        return;
+                        DialogResult result = MessageBox.Show("Dieser Beleg hat noch aktive Gruppen, bitte löschen Sie diese zunächst.", "Achtung", MessageBoxButtons.YesNo);
+                        if (result == DialogResult.Yes)
+                        {
+                            // Alle Belege + Gruppen + Mitglieder löschen
+#warning muss noch ergänzt werden!!
+                        }
+                        else 
+                            return;
                     }
 
                     db.ExecuteQuery("delete from Beleg where Belegkennung=\"" + temp.BelegKennung + "\"");
@@ -377,8 +383,19 @@ namespace ProgrammDozent
                     Database db = new Database();
                     if (db.ExecuteQuery("select * from Zuordnung_GruppeStudent where Gruppenkennung=\"" + temp.GruppenKennung + "\"").Count != 0)
                     {
-                        MessageBox.Show("Dieser Beleg hat noch aktive Studenten, bitte löschen Sie diese zunächst.");
-                        return;
+                        DialogResult result = MessageBox.Show("Dieser Beleg hat noch aktive Studenten, sollen diese auch gelöscht werden?", "Achtung", MessageBoxButtons.YesNo);
+                        if (result == DialogResult.Yes)
+                        {
+                            // Alle Studenten rekursiv löschen
+                            db.ExecuteQuery(
+                                "delete from Student where sNummer in (select sNummer from Zuordnung_GruppeStudent where Gruppenkennung=\"" +
+                                temp.GruppenKennung + "\")");
+                            db.ExecuteQuery("delete from Gruppe where Gruppenkennung=\"" + temp.GruppenKennung + "\"");
+                            db.ExecuteQuery("delete from Zuordnung_GruppeStudent where Gruppenkennung=\"" + temp.GruppenKennung + "\"");
+                            db.ExecuteQuery("delete from Zuordnung_GruppeBeleg where Gruppenkennung=\"" + temp.GruppenKennung + "\"");
+                        }
+                        else 
+                            return;
                     }
 
                     db.ExecuteQuery("delete from Gruppe where Gruppenkennung=\"" + temp.GruppenKennung + "\"");
