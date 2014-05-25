@@ -54,7 +54,7 @@
             // belegListBox
             // 
             this.belegListBox.FormattingEnabled = true;
-            this.belegListBox.Location = new System.Drawing.Point(21, 38);
+            this.belegListBox.Location = new System.Drawing.Point(12, 38);
             this.belegListBox.Name = "belegListBox";
             this.belegListBox.Size = new System.Drawing.Size(180, 199);
             this.belegListBox.TabIndex = 0;
@@ -63,7 +63,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 13);
+            this.label1.Location = new System.Drawing.Point(12, 13);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(119, 13);
             this.label1.TabIndex = 1;
@@ -71,7 +71,7 @@
             // 
             // belegAnlegenButton
             // 
-            this.belegAnlegenButton.Location = new System.Drawing.Point(21, 243);
+            this.belegAnlegenButton.Location = new System.Drawing.Point(12, 243);
             this.belegAnlegenButton.Name = "belegAnlegenButton";
             this.belegAnlegenButton.Size = new System.Drawing.Size(180, 23);
             this.belegAnlegenButton.TabIndex = 2;
@@ -82,7 +82,7 @@
             // gruppenListBox
             // 
             this.gruppenListBox.FormattingEnabled = true;
-            this.gruppenListBox.Location = new System.Drawing.Point(207, 38);
+            this.gruppenListBox.Location = new System.Drawing.Point(198, 38);
             this.gruppenListBox.Name = "gruppenListBox";
             this.gruppenListBox.Size = new System.Drawing.Size(180, 199);
             this.gruppenListBox.TabIndex = 4;
@@ -98,9 +98,9 @@
             this.mail,
             this.rolle});
             this.mitgliederDataGridView.Enabled = false;
-            this.mitgliederDataGridView.Location = new System.Drawing.Point(393, 38);
+            this.mitgliederDataGridView.Location = new System.Drawing.Point(384, 38);
             this.mitgliederDataGridView.Name = "mitgliederDataGridView";
-            this.mitgliederDataGridView.Size = new System.Drawing.Size(785, 199);
+            this.mitgliederDataGridView.Size = new System.Drawing.Size(742, 199);
             this.mitgliederDataGridView.TabIndex = 6;
             this.mitgliederDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.studentenDataGridView_CellContentClick);
             // 
@@ -131,7 +131,7 @@
             // 
             // gruppeAnlegenButton
             // 
-            this.gruppeAnlegenButton.Location = new System.Drawing.Point(207, 243);
+            this.gruppeAnlegenButton.Location = new System.Drawing.Point(198, 243);
             this.gruppeAnlegenButton.Name = "gruppeAnlegenButton";
             this.gruppeAnlegenButton.Size = new System.Drawing.Size(180, 23);
             this.gruppeAnlegenButton.TabIndex = 7;
@@ -141,7 +141,7 @@
             // 
             // dataGridViewFreigebenButton
             // 
-            this.dataGridViewFreigebenButton.Location = new System.Drawing.Point(579, 243);
+            this.dataGridViewFreigebenButton.Location = new System.Drawing.Point(570, 243);
             this.dataGridViewFreigebenButton.Name = "dataGridViewFreigebenButton";
             this.dataGridViewFreigebenButton.Size = new System.Drawing.Size(180, 23);
             this.dataGridViewFreigebenButton.TabIndex = 9;
@@ -152,7 +152,7 @@
             // saveDataGridViewButton
             // 
             this.saveDataGridViewButton.Enabled = false;
-            this.saveDataGridViewButton.Location = new System.Drawing.Point(765, 243);
+            this.saveDataGridViewButton.Location = new System.Drawing.Point(756, 243);
             this.saveDataGridViewButton.Name = "saveDataGridViewButton";
             this.saveDataGridViewButton.Size = new System.Drawing.Size(87, 23);
             this.saveDataGridViewButton.TabIndex = 10;
@@ -163,7 +163,7 @@
             // cancelDataGridViewButton
             // 
             this.cancelDataGridViewButton.Enabled = false;
-            this.cancelDataGridViewButton.Location = new System.Drawing.Point(858, 243);
+            this.cancelDataGridViewButton.Location = new System.Drawing.Point(849, 243);
             this.cancelDataGridViewButton.Name = "cancelDataGridViewButton";
             this.cancelDataGridViewButton.Size = new System.Drawing.Size(87, 23);
             this.cancelDataGridViewButton.TabIndex = 11;
@@ -173,7 +173,7 @@
             // 
             // themenVerwaltenButton
             // 
-            this.themenVerwaltenButton.Location = new System.Drawing.Point(393, 273);
+            this.themenVerwaltenButton.Location = new System.Drawing.Point(384, 273);
             this.themenVerwaltenButton.Name = "themenVerwaltenButton";
             this.themenVerwaltenButton.Size = new System.Drawing.Size(180, 23);
             this.themenVerwaltenButton.TabIndex = 12;
@@ -183,7 +183,7 @@
             // 
             // rolleTextBox
             // 
-            this.rolleTextBox.Location = new System.Drawing.Point(579, 272);
+            this.rolleTextBox.Location = new System.Drawing.Point(570, 272);
             this.rolleTextBox.Name = "rolleTextBox";
             this.rolleTextBox.Size = new System.Drawing.Size(180, 23);
             this.rolleTextBox.TabIndex = 13;
@@ -193,7 +193,7 @@
             // 
             // buttonArchivieren
             // 
-            this.buttonArchivieren.Location = new System.Drawing.Point(1054, 244);
+            this.buttonArchivieren.Location = new System.Drawing.Point(1002, 243);
             this.buttonArchivieren.Name = "buttonArchivieren";
             this.buttonArchivieren.Size = new System.Drawing.Size(124, 22);
             this.buttonArchivieren.TabIndex = 14;
@@ -203,7 +203,7 @@
             // 
             // btnKontaktiern
             // 
-            this.btnKontaktiern.Location = new System.Drawing.Point(393, 244);
+            this.btnKontaktiern.Location = new System.Drawing.Point(384, 244);
             this.btnKontaktiern.Name = "btnKontaktiern";
             this.btnKontaktiern.Size = new System.Drawing.Size(179, 23);
             this.btnKontaktiern.TabIndex = 15;
@@ -213,7 +213,7 @@
             // 
             // gruppeLoeschenButton
             // 
-            this.gruppeLoeschenButton.Location = new System.Drawing.Point(207, 272);
+            this.gruppeLoeschenButton.Location = new System.Drawing.Point(198, 272);
             this.gruppeLoeschenButton.Name = "gruppeLoeschenButton";
             this.gruppeLoeschenButton.Size = new System.Drawing.Size(180, 23);
             this.gruppeLoeschenButton.TabIndex = 17;
@@ -223,7 +223,7 @@
             // 
             // belegLoeschenButton
             // 
-            this.belegLoeschenButton.Location = new System.Drawing.Point(21, 272);
+            this.belegLoeschenButton.Location = new System.Drawing.Point(12, 272);
             this.belegLoeschenButton.Name = "belegLoeschenButton";
             this.belegLoeschenButton.Size = new System.Drawing.Size(180, 23);
             this.belegLoeschenButton.TabIndex = 16;
@@ -236,7 +236,7 @@
             this.AcceptButton = this.belegAnlegenButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1190, 310);
+            this.ClientSize = new System.Drawing.Size(1136, 310);
             this.Controls.Add(this.gruppeLoeschenButton);
             this.Controls.Add(this.belegLoeschenButton);
             this.Controls.Add(this.btnKontaktiern);
