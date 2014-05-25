@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using Sybase.Data.AseClient;
 
 namespace ProgrammDozent
@@ -35,25 +36,35 @@ namespace ProgrammDozent
         public List<string[]> ExecuteQuery(string query)
         {
             Connect();
+            var strings = new List<string[]>();
             var command = new AseCommand(query, _conn);
-            using (var dataReader = command.ExecuteReader())
+            try
             {
-                var col = dataReader.FieldCount;
-                var strings = new List<string[]>();
-
-                while (dataReader.Read())
+                using (var dataReader = command.ExecuteReader())
                 {
-                    var array = new string[col];
-                    for (var i = 0; i < col; i++)
+                    var col = dataReader.FieldCount;
+                    
+
+                    while (dataReader.Read())
                     {
-                        array[i] = dataReader.GetString(i).Trim();
+                        var array = new string[col];
+                        for (var i = 0; i < col; i++)
+                        {
+                            array[i] = dataReader.GetString(i).Trim();
+                        }
+                        strings.Add(array);
                     }
-                    strings.Add(array);
                 }
-                _conn.Close();
-                return strings;
             }
-            
+            catch (InvalidOperationException exception)
+            {
+                MessageBox.Show(
+                    "Es kann leider keine Verbindung zum Datenbank-Server augebaut werden. Bitte überprüfen Sie, ob Sie im Intranet sind, bzw. ob die VPN-Verbindung noch besteht.");
+                System.Environment.Exit(1);
+            }
+
+            _conn.Close();
+            return strings;
         }
     }
 }
