@@ -22,6 +22,7 @@ namespace ProgrammDozent
         List<Gruppe> Gruppen = new List<Gruppe>();
         List<string> rollen = new List<string>();
         List<Student> tempStudent;
+        public string semester;
 
         public PdfArchivierung(Database database)
         {
@@ -45,21 +46,6 @@ namespace ProgrammDozent
                 header.Font.SetStyle("underline");
                 pdfArchiv.Add(header);
 
-                /*PdfPTable table = new PdfPTable(2) { WidthPercentage = 60, HorizontalAlignment = 0 };
-                PdfPCell head = new PdfPCell(new Phrase("Your Heading"));
-                head.Colspan = 2;
-                head.HorizontalAlignment = 1; //0=Left, 1=Centre, 2=Right
-                table.AddCell(head);
-                table.AddCell(new PdfPCell(new Phrase("Beispieltext")));
-                table.AddCell(new PdfPCell(new Phrase("Beispieltext")));
-                table.AddCell(new PdfPCell(new Phrase("Beispieltext")));
-                table.AddCell(new PdfPCell(new Phrase("Beispieltext")));
-                table.AddCell(new PdfPCell(new Phrase("Beispieltext")));
-                table.AddCell(new PdfPCell(new Phrase("Beispieltext")));
-                table.AddCell(new PdfPCell(new Phrase("Beispieltext")));
-                table.CompleteRow();
-                pdfArchiv.Add(table);
-                */
 
                 foreach (string[] array in database.ExecuteQuery("select * from Beleg"))
                 {
@@ -69,7 +55,7 @@ namespace ProgrammDozent
                     //string kennung, string semester, DateTime startDatum, DateTime endDatum, int minM, int maxM
                     Paragraph belegabsatz = new Paragraph("Belegkennung: " + array[0] + "\nSemester: " + array[1] + "\nStartdatum: " + array[2] + "\nEnddatum: " + array[3] + "\nMinimale bis maximale Gruppengröße: " + array[4] + "-" + array[5] + "\n");
                     pdfArchiv.Add(belegabsatz);
-
+                    semester = array[1];
                     PdfPTable nestedtable = new PdfPTable(2) { WidthPercentage = 90, HorizontalAlignment = 0, SpacingBefore = 10, SpacingAfter = 10 };
 
                     PdfPTable roletable = new PdfPTable(1) { WidthPercentage = 40, HorizontalAlignment = 0 };
@@ -145,44 +131,18 @@ namespace ProgrammDozent
                 //tbd
                 //database.ExecuteQuery("delete * from ...");
 
-
-                //PDF mit Inhalt füllen
-
-
-                /*
-                PdfPTable table = new PdfPTable(2) { WidthPercentage = 60, HorizontalAlignment = 0 };
-                PdfPCell header = new PdfPCell(new Phrase("Your Heading"));
-                header.Colspan = 2;
-                header.HorizontalAlignment = 1; //0=Left, 1=Centre, 2=Right
-                //Int32[] widths = { 150, 100 };
-                //table.SetWidths(widths);
-                table.AddCell(header);
-                table.AddCell(new PdfPCell(new Phrase("Beispieltext")));
-                table.AddCell(new PdfPCell(new Phrase("Beispieltext")));
-                table.AddCell(new PdfPCell(new Phrase("Beispieltext")));
-                table.AddCell(new PdfPCell(new Phrase("Beispieltext")));
-                table.AddCell(new PdfPCell(new Phrase("Beispieltext")));
-                table.AddCell(new PdfPCell(new Phrase("Beispieltext")));
-                table.AddCell(new PdfPCell(new Phrase("Beispieltext")));
-                table.CompleteRow();
-                pdfArchiv.Add(table);
-
-                Paragraph p = new Paragraph("Ein weiterer Beispieltext.\r\nMit 2 Zeilen!");
-                pdfArchiv.Add(p);
-
-                */
                 pdfArchiv.Close();
 
                 byte[] content = myMemoryStream.ToArray();
 
                 //PDF aus Stream schreiben
-                FileStream fs = File.Create("archivierung.pdf");
+                FileStream fs = File.Create("archivierung" + semester + ".pdf");
                 fs.Write(content, 0, (int)content.Length);
 
                 fs.Close();
                 myMemoryStream.Close();
 
-                Process.Start("archivierung.pdf");
+                Process.Start("archivierung" + semester + ".pdf");
                 //Application.Exit();
             }
         }
