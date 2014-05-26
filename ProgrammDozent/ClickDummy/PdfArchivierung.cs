@@ -128,9 +128,6 @@ namespace ProgrammDozent
                     pdfArchiv.NewPage();
                 }
 
-                //tbd
-                //database.ExecuteQuery("delete * from ...");
-
                 pdfArchiv.Close();
 
                 byte[] content = myMemoryStream.ToArray();
@@ -143,6 +140,18 @@ namespace ProgrammDozent
                 myMemoryStream.Close();
 
                 Process.Start("archivierung" + semester + ".pdf");
+
+                //Tabellen reinigen
+                database.ExecuteQuery("delete from Student");
+                database.ExecuteQuery("delete from Zuordnung_GruppeStudent");
+                database.ExecuteQuery("delete from Gruppe");
+                database.ExecuteQuery("delete from Zuordnung_GruppeBeleg");
+                database.ExecuteQuery("delete from Beleg");
+                database.ExecuteQuery("delete from Zuordnung_BelegThema");
+                database.ExecuteQuery("delete from Zuordnung_BelegRolle");
+                database.ExecuteQuery("delete from Zuordnung_BelegCase");
+
+
                 //Application.Exit();
             }
         }
