@@ -149,11 +149,16 @@ namespace ProgrammDozent
                 database.ExecuteQuery("delete from Beleg");
                 database.ExecuteQuery("delete from Zuordnung_BelegThema");
                 database.ExecuteQuery("delete from Zuordnung_BelegRolle");
-                database.ExecuteQuery("delete from Zuordnung_BelegCase");
+                database.ExecuteQuery("delete from Zuordnung_BelegCases");
 
 
                 //Application.Exit();
             }
+        }
+
+        private void abbrechenButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
