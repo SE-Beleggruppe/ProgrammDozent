@@ -92,7 +92,8 @@ namespace ProgrammDozent
 
         private void belegListBox_DoubleClicked(object sender, EventArgs e)
         {
-            var belegB = new BelegBearbeiten(((Beleg)belegListBox.SelectedItem).BelegKennung, false);
+            var belegB = new BelegBearbeiten(((Beleg) belegListBox.SelectedItem).BelegKennung, false)
+            {Saved = UpdateBelege};
             belegB.Show();
         }
 

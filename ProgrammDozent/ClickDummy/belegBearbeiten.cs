@@ -160,8 +160,15 @@ namespace ProgrammDozent
 
         private void speichernbutton_Click(object sender, EventArgs e)
         {
+            if (minGR.Text == "") minGR.Value = 1;
+            if (maxGR.Text == "") minGR.Value = 1;
             if (isNeuerBeleg)
             {
+                if (kennungTextBox.Text == "")
+                {
+                    MessageBox.Show("Bitte geben Sie eine Belegkennung ein.");
+                    return;
+                }
                 Database database = new Database();
                 List<string[]> ergDB = database.ExecuteQuery(
                     "select * from Beleg where Belegkennung =\"" +
@@ -458,6 +465,7 @@ namespace ProgrammDozent
 
         private void minGR_ValueChanged(object sender, EventArgs e)
         {
+            if (minGR.Text == "") minGR.Value = 1;
             if (minGR.Value > maxGR.Value)
             {
                 maxGR.Value = minGR.Value;
@@ -466,6 +474,8 @@ namespace ProgrammDozent
 
         private void maxGR_ValueChanged(object sender, EventArgs e)
         {
+            if (minGR.Text == "") minGR.Value = 1;
+            if (maxGR.Text == "") minGR.Value = 1;
             if (minGR.Value > maxGR.Value)
             {
                 maxGR.Value = minGR.Value;
