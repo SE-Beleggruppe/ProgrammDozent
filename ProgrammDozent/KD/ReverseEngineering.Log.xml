@@ -6,21 +6,27 @@
   <MessageClass Name="Error" Label="Fehler" Option="Fehler anzeigen" />
   <MessageClass Name="Property" Label="Eigenschaft" Option="Metadaten anzeigen" />
   <MessageClass Name="Diagnostic" Label="Meldung" Option="Diagnosemeldungen anzeigen" />
-  <Message Timestamp="2014-05-24T12:58:35" Importance="High" Text="Reverse Engineering gestartet." />
-  <Message Timestamp="2014-05-24T12:58:35" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent' -  (Package)" />
-  <Message Timestamp="2014-05-24T12:58:35" Importance="Medium" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Student' -  (Class)" />
-  <Message Timestamp="2014-05-24T12:58:35" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Student::Mail' -  (Property)" />
-  <Message Timestamp="2014-05-24T12:58:35" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Student::Name' -  (Property)" />
-  <Message Timestamp="2014-05-24T12:58:35" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Student::Rolle' -  (Property)" />
-  <Message Timestamp="2014-05-24T12:58:35" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Student::SNummer' -  (Property)" />
-  <Message Timestamp="2014-05-24T12:58:35" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Student::Student' -  (Operation)" />
-  <Message Timestamp="2014-05-24T12:58:35" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Student::Student::mail' -  (Parameter)" />
-  <Message Timestamp="2014-05-24T12:58:35" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Student::Student::name' -  (Parameter)" />
-  <Message Timestamp="2014-05-24T12:58:35" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Student::Student::rolle' -  (Parameter)" />
-  <Message Timestamp="2014-05-24T12:58:35" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Student::Student::sNummer' -  (Parameter)" />
-  <Message Timestamp="2014-05-24T12:58:35" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Student::Student::vorname' -  (Parameter)" />
-  <Message Timestamp="2014-05-24T12:58:35" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Student::Vorname' -  (Property)" />
-  <Message Timestamp="2014-05-24T12:58:35" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'String' -  (PrimitiveType)" />
-  <Message Timestamp="2014-05-24T12:58:35" Importance="High" Text="Vollständiges Reverse Engineering für (1) Type(n)." />
-  <Message Timestamp="2014-05-24T12:58:35" Importance="High" Text="Der Reverse Engineering-Vorgang wurde mit (0) Fehler(n) und (0) Warnung(en) abgeschlossen." />
+  <Message Timestamp="2014-05-28T09:30:15" Importance="High" Text="Reverse Engineering gestartet." />
+  <Message Timestamp="2014-05-28T09:30:16" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: '0ff1c386-2865-4926-9be4-53796adae5ec' -  (ClassifierTemplateParameter)" />
+  <Message Timestamp="2014-05-28T09:30:16" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent' -  (Package)" />
+  <Message Timestamp="2014-05-28T09:30:16" Importance="Medium" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Database' -  (Class)" />
+  <Message Timestamp="2014-05-28T09:30:16" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Database::_conn' -  (Property)" />
+  <Message Timestamp="2014-05-28T09:30:16" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Database::Connect' -  (Operation)" />
+  <Message Timestamp="2014-05-28T09:30:16" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Database::ConnectionString' -  (Property)" />
+  <Message Timestamp="2014-05-28T09:30:16" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Database::Database' -  (Operation)" />
+  <Message Timestamp="2014-05-28T09:30:16" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Database::ExecuteQuery' -  (Operation)" />
+  <Message Timestamp="2014-05-28T09:30:16" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::ProgrammDozent::Database::ExecuteQuery::query' -  (Parameter)" />
+  <Message Timestamp="2014-05-28T09:30:16" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::Sybase' -  (Package)" />
+  <Message Timestamp="2014-05-28T09:30:16" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::Sybase::Data' -  (Package)" />
+  <Message Timestamp="2014-05-28T09:30:16" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::Sybase::Data::AseClient' -  (Package)" />
+  <Message Timestamp="2014-05-28T09:30:16" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::Sybase::Data::AseClient::AseConnection' -  (Class) (Reverse Engineering teilweise durchgeführt - Definition nicht aktualisiert) " />
+  <Message Timestamp="2014-05-28T09:30:16" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::System' -  (Package)" />
+  <Message Timestamp="2014-05-28T09:30:16" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::System::Collections' -  (Package)" />
+  <Message Timestamp="2014-05-28T09:30:16" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::System::Collections::Generic' -  (Package)" />
+  <Message Timestamp="2014-05-28T09:30:16" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::System::Collections::Generic::List' -  (Class) (Reverse Engineering teilweise durchgeführt - Definition nicht aktualisiert) " />
+  <Message Timestamp="2014-05-28T09:30:16" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'KD::System::Collections::Generic::List&lt;String‎[]‎&gt;' -  (Class) (Reverse Engineering teilweise durchgeführt - Definition nicht aktualisiert) " />
+  <Message Timestamp="2014-05-28T09:30:16" Importance="Diagnostic" Text="Reverse Engineering des Elements in das UML-Modell: 'String' -  (PrimitiveType)" />
+  <Message Timestamp="2014-05-28T09:30:16" Importance="High" Text="Vollständiges Reverse Engineering für (1) Type(n)." />
+  <Message Timestamp="2014-05-28T09:30:16" Importance="High" Text="Reverse Engineering für (3) Type(n) teilweise durchgeführt. Diese Typen waren nicht in der ursprünglichen Auswahl enthalten, sodass kein Reverse Engineering für deren vollständige Definitionen durchgeführt wurde. Stattdessen wurde bei diesem oberflächlichen Vorgang lediglich sichergestellt, dass diese Typen im UML-Modell vorhanden sind, da diese erforderlich sind, um andere Elemente vollständig zu beschreiben." />
+  <Message Timestamp="2014-05-28T09:30:16" Importance="High" Text="Der Reverse Engineering-Vorgang wurde mit (0) Fehler(n) und (0) Warnung(en) abgeschlossen." />
 </Log>

@@ -1,25 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="e7c2b8d4-114b-408a-b007-62e760a2f84c" name="KD_Typen" linkedPackageId="6314956c-5206-4226-b051-f35adf630138" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
-  <profileInstances>
-    <packageHasProfileInstances Id="00b2a8fe-7bc3-43bf-b7e9-11c4dae8a6e6">
-      <profileInstance Id="367d3b5e-80f2-4c7c-b72b-39dc726677fd" name="StandardProfileL2">
-        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
-      </profileInstance>
-      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
-    </packageHasProfileInstances>
-    <packageHasProfileInstances Id="4eabd839-12de-49d2-8020-75a54d45c8b3">
-      <profileInstance Id="aa2674d6-33ff-4a83-bfef-ae5a39e5341a" name="StandardProfileL3">
-        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
-      </profileInstance>
-      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
-    </packageHasProfileInstances>
-    <packageHasProfileInstances Id="d2c7fc48-698b-487d-9556-ea5b114e7d1b">
-      <profileInstance Id="2d6b7857-bb6b-4ccf-9084-9a33e2dde615" name="CSharpProfile">
-        <elementDefinition Id="7d1c2e11-12d3-4838-a8aa-edfba0032862" />
-      </profileInstance>
-      <elementDefinition Id="e98dc302-0478-43e1-bc47-e803336e0993" />
-    </packageHasProfileInstances>
-  </profileInstances>
   <packagedElements>
     <logicalClassDesignerModelHasTypes>
       <class Id="ce45d6dd-50a9-4b96-bfa6-731b619ddb44" name="Beleg" isAbstract="false" isLeaf="false" isActiveClass="false">
@@ -2459,5 +2439,25 @@
   </packagedElements>
   <package Id="6314956c-5206-4226-b051-f35adf630138" name="KD">
     <elementDefinition Id="d27bc923-55c2-4d37-b0c9-7748424d0b7b" />
+    <profileInstances>
+      <packageHasProfileInstances Id="00b2a8fe-7bc3-43bf-b7e9-11c4dae8a6e6">
+        <profileInstance Id="367d3b5e-80f2-4c7c-b72b-39dc726677fd" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="4eabd839-12de-49d2-8020-75a54d45c8b3">
+        <profileInstance Id="aa2674d6-33ff-4a83-bfef-ae5a39e5341a" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="d2c7fc48-698b-487d-9556-ea5b114e7d1b">
+        <profileInstance Id="2d6b7857-bb6b-4ccf-9084-9a33e2dde615" name="CSharpProfile">
+          <elementDefinition Id="7d1c2e11-12d3-4838-a8aa-edfba0032862" />
+        </profileInstance>
+        <elementDefinition Id="e98dc302-0478-43e1-bc47-e803336e0993" />
+      </packageHasProfileInstances>
+    </profileInstances>
   </package>
 </logicalClassDesignerModel>

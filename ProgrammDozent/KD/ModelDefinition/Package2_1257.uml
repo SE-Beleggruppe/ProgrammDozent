@@ -775,5 +775,63 @@
         </appliedStereotypesInternal>
       </class>
     </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="a4aa6cea-9986-4a3f-a8bc-4126bf203275"
+        name="DataGridViewRowCancelEventArgs"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="2064fec1-9c29-4499-aaad-4a9e578dab7c"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5%2FSystem.Windows.Forms.dll&quot; Namespace%3DSystem.Windows.Forms Type%3DDataGridViewRowCancelEventArgs"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="2646e69d-5b20-4b6d-b063-e69699d54c39"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="4f0c546f-746c-4721-a974-d9818a41c962">
+                <propertyInstance
+                  Id="b96fb3f7-7adb-46e9-9201-96b38208edbc"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="d52d1ee7-83f6-4d15-99ff-754308b24003">
+                <propertyInstance
+                  Id="173de2a0-b042-45a8-ac89-3c014744646b"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="5058d59b-e76c-4e99-89c6-ada68080a01b">
+                <propertyInstance
+                  Id="c4b02451-08a9-45b0-9718-8305b6b98f52"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="198282cd-aa26-4580-95a5-232747e6b2b8">
+                <propertyInstance
+                  Id="7c5cd95e-45cc-49d5-bbff-1c23918b85eb"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="75eb9eb0-bb2b-452d-b01d-6227f9de6052">
+                <propertyInstance
+                  Id="994496d9-b53f-4eb3-9a2e-417c9db3f6b1"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
   </packagedElements>
 </package>
