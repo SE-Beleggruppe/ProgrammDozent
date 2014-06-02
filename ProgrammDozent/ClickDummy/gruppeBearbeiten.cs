@@ -31,7 +31,8 @@ namespace ProgrammDozent
             this.gruppe = gruppe;
             kennungComboBox.DataSource = getFreieCases();
             kennungComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            passwortTextBox.Text = this.gruppe.Password;
+            //passwortTextBox.Text = this.gruppe.Password;
+            passwortTextBox.Text = "";
             getThemen();
 
             if (isNeueGruppe) kennungComboBox.Enabled = true;
@@ -82,29 +83,35 @@ namespace ProgrammDozent
 
         private void speichernbutton_Click(object sender, EventArgs e)
         {
-            if (passwortTextBox.Text == "")
+            if (!isNeueGruppe) updateGruppe(!(passwortTextBox.Text == ""));
+            else
             {
-                MessageBox.Show("Bitte geben Sie ein Passwort ein.", "Fehler");
-                return;
+                if (passwortTextBox.Text == "")
+                {
+                    MessageBox.Show("Sie müssen ein Passwort eingeben, um eine neue Gruppe erstellen zu können.");
+                    return;
+                }
+                insertGruppe();
             }
-            if (!isNeueGruppe) updateGruppe();
-            else insertGruppe();
 
             if (SavedG != null) SavedG(null, null);
 
             Close();
         }
 
-        void updateGruppe()
+        void updateGruppe(bool mitPasswort)
         {
             int Themennummer = Convert.ToInt32(database.ExecuteQuery("select Themennummer from Thema where Aufgabe=\"" + themenComboBox.SelectedItem + "\"").First()[0]);
-            database.ExecuteQuery("update Gruppe set Themennummer=" + Themennummer + ", Passwort=\"" + passwortTextBox.Text + "\" where Gruppenkennung=\"" + gruppe.GruppenKennung + "\"");
+            if(mitPasswort)
+                database.ExecuteQuery("update Gruppe set Themennummer=" + Themennummer + ", Passwort=internal_encrypt(\"" + passwortTextBox.Text + "\") where Gruppenkennung=\"" + gruppe.GruppenKennung + "\"");
+            else
+                database.ExecuteQuery("update Gruppe set Themennummer=" + Themennummer + " where Gruppenkennung=\"" + gruppe.GruppenKennung + "\"");
         }
 
         void insertGruppe()
         {
             int Themennummer = Convert.ToInt32(database.ExecuteQuery("select Themennummer from Thema where Aufgabe=\"" + themenComboBox.SelectedItem + "\"").First()[0]);
-            database.ExecuteQuery("insert into Gruppe values(\"" + kennungComboBox.SelectedItem + "\"," + Themennummer + ",\"" + passwortTextBox.Text + "\")");
+            database.ExecuteQuery("insert into Gruppe values(\"" + kennungComboBox.SelectedItem + "\"," + Themennummer + ",internal_encrypt(\"" + passwortTextBox.Text + "\"))");
             database.ExecuteQuery("insert into Zuordnung_GruppeBeleg values(\"" + kennungComboBox.SelectedItem + "\",\"" + gruppe.Belegkennung + "\")");
         }
     }
