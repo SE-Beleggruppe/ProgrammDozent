@@ -32,7 +32,7 @@ namespace ProgrammDozent
             this.StartPosition = FormStartPosition.CenterScreen;
 
             this.database = database;
-            this.semester = database.ExecuteQuery("select Semester from Beleg").ToString();
+            this.semester = database.ExecuteQuery("select Semester from Beleg").First()[0];
         }
 
         private void buttonArchivieren_Click(object sender, EventArgs e)
