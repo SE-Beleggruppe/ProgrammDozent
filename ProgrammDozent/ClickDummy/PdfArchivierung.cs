@@ -23,6 +23,7 @@ namespace ProgrammDozent
         List<string> rollen = new List<string>();
         List<Student> tempStudent;
         public string semester;
+        public string speicherPfad;
 
         public PdfArchivierung(Database database)
         {
@@ -35,6 +36,18 @@ namespace ProgrammDozent
 
         private void buttonArchivieren_Click(object sender, EventArgs e)
         {
+            FolderBrowserDialog pfadDialog = new FolderBrowserDialog();
+            if (pfadDialog.ShowDialog() == DialogResult.Cancel)
+            {
+                speicherPfad = "";
+            }
+
+            else
+            {
+                speicherPfad = pfadDialog.SelectedPath;
+            }
+
+
             using (MemoryStream myMemoryStream = new MemoryStream())
             {
                 Document pdfArchiv = new Document();
@@ -133,13 +146,13 @@ namespace ProgrammDozent
                 byte[] content = myMemoryStream.ToArray();
 
                 //PDF aus Stream schreiben
-                FileStream fs = File.Create("archivierung" + semester + ".pdf");
+                FileStream fs = File.Create(speicherPfad + "\\archivierung" + semester + ".pdf");
                 fs.Write(content, 0, (int)content.Length);
 
                 fs.Close();
                 myMemoryStream.Close();
 
-                Process.Start("archivierung" + semester + ".pdf");
+                Process.Start(speicherPfad + "\\archivierung" + semester + ".pdf");
 
                 //Tabellen reinigen
                 database.ExecuteQuery("delete from Student");
@@ -152,7 +165,7 @@ namespace ProgrammDozent
                 database.ExecuteQuery("delete from Zuordnung_BelegCases");
 
 
-                //Application.Exit();
+                this.Close();
             }
         }
 
