@@ -32,6 +32,7 @@ namespace ProgrammDozent
             this.StartPosition = FormStartPosition.CenterScreen;
 
             this.database = database;
+            this.semester = database.ExecuteQuery("select Semester from Beleg").ToString();
         }
 
         private void buttonArchivieren_Click(object sender, EventArgs e)
@@ -47,7 +48,7 @@ namespace ProgrammDozent
 
                     pdfArchiv.Open();
 
-                    Paragraph header = new Paragraph(new Phrase("Beleg - Archivierung")) { Alignment = 1, SpacingAfter = 15 };
+                    Paragraph header = new Paragraph(new Phrase("Beleg - Archivierung " + semester)) { Alignment = 1, SpacingAfter = 15 };
                     header.Font.SetStyle("underline");
                     pdfArchiv.Add(header);
 
@@ -60,7 +61,7 @@ namespace ProgrammDozent
                         //string kennung, string semester, DateTime startDatum, DateTime endDatum, int minM, int maxM
                         Paragraph belegabsatz = new Paragraph("Belegkennung: " + array[0] + "\nSemester: " + array[1] + "\nStartdatum: " + array[2] + "\nEnddatum: " + array[3] + "\nMinimale bis maximale Gruppengröße: " + array[4] + "-" + array[5] + "\n");
                         pdfArchiv.Add(belegabsatz);
-                        semester = array[1];
+                        //semester = array[1];
                         PdfPTable nestedtable = new PdfPTable(2) { WidthPercentage = 90, HorizontalAlignment = 0, SpacingBefore = 10, SpacingAfter = 10 };
 
                         PdfPTable roletable = new PdfPTable(1) { WidthPercentage = 40, HorizontalAlignment = 0 };
