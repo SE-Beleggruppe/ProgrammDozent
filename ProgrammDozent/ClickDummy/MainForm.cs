@@ -222,6 +222,8 @@ namespace ProgrammDozent
 
             for (var i = 0; i < mitgliederDataGridView.Rows.Count; i++)
             {
+                var name = (string)mitgliederDataGridView.Rows[i].Cells[0].Value;
+                var vorname = (string)mitgliederDataGridView.Rows[i].Cells[1].Value;
                 var sNummer = (string)mitgliederDataGridView.Rows[i].Cells[2].Value;
                 var mail = (string) mitgliederDataGridView.Rows[i].Cells[3].Value;
                 if (sNummer != "na" && mail != "na" && !checkMail(mail))
@@ -230,12 +232,24 @@ namespace ProgrammDozent
                         "Fehler");
                     return false;
                 }
-                else if (!mitgliederDataGridView.Rows[i].Cells[2].ReadOnly && sNummer != "na" && !checkSNummer(sNummer))
+                if (!mitgliederDataGridView.Rows[i].Cells[2].ReadOnly && sNummer != "na" && !checkSNummer(sNummer))
                 {
                     MessageBox.Show(
                         sNummer +
                         " ist keine gültige S-Nummer oder der betreffende Student steht schon in der Datenbank. Die Daten wurden nicht gespeichert.",
                         "Fehler");
+                    return false;
+                }
+                if (sNummer != "na" && (vorname == "" || vorname.Length > 15))
+                {
+                    MessageBox.Show("Der Vorname " + vorname +
+                                    " ist länger als 15 Zeichen oder leer. Die Daten wurden nicht gespeichert.");
+                    return false;
+                }
+                if (sNummer != "na" && (name == "" || name.Length > 15))
+                {
+                    MessageBox.Show("Der Nachname " + name +
+                                    " ist länger als 15 Zeichen oder leer. Die Daten wurden nicht gespeichert.");
                     return false;
                 }
             }

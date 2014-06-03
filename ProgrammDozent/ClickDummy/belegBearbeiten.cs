@@ -162,13 +162,12 @@ namespace ProgrammDozent
         {
             if (minGR.Text == "") minGR.Value = 1;
             if (maxGR.Text == "") minGR.Value = 1;
+            
+
+
             if (isNeuerBeleg)
             {
-                if (kennungTextBox.Text == "")
-                {
-                    MessageBox.Show("Bitte geben Sie eine Belegkennung ein.");
-                    return;
-                }
+                if(!checkTextFields()) return;
                 Database database = new Database();
                 List<string[]> ergDB = database.ExecuteQuery(
                     "select * from Beleg where Belegkennung =\"" +
@@ -194,6 +193,20 @@ namespace ProgrammDozent
                 Close();
             }
 
+        }
+
+        bool checkTextFields()
+        {
+            if (kennungTextBox.Text == "")
+            {
+               MessageBox.Show("Bitte geben Sie eine Belegkennung ein.");
+               return false;
+            }
+            if (kennungTextBox.Text.Length > 20)
+            {
+                MessageBox.Show("Die Belegkennung darf maximal 20 Zeichen lang sein.");
+                return false;
+            }
         }
 
         void UpdateBeleg()

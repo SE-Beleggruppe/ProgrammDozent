@@ -59,6 +59,11 @@ namespace ProgrammDozent
 
         public void EingabeF(object sender)
         {
+            if (((TextBox) sender).Text == "" || ((TextBox) sender).Text.Length > 80)
+            {
+                MessageBox.Show("Die Aufgabe " + ((TextBox) sender).Text + " ist leer oder länger als 80 Zeichen. Die Daten konnten nicht gespeichert werden.");
+                return;
+            }
             _database.ExecuteQuery("insert into Thema values(\"" + ((TextBox)sender).Text + "\")");
             RefreshThemen();
         }

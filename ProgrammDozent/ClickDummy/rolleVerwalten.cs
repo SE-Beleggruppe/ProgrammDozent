@@ -60,6 +60,11 @@ namespace ProgrammDozent
 
         public void EingabeF(object sender)
         {
+            if (((TextBox)sender).Text == "" || ((TextBox)sender).Text.Length > 25)
+            {
+                MessageBox.Show("Die Rolle " + ((TextBox)sender).Text + " ist leer oder länger als 25 Zeichen. Die Daten konnten nicht gespeichert werden.");
+                return;
+            }
             _database.ExecuteQuery("insert into Rolle values(\""+((TextBox)sender).Text +"\")");
             RefreshRollen();
         }
