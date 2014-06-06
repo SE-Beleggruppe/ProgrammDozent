@@ -32,7 +32,17 @@ namespace ProgrammDozent
             this.StartPosition = FormStartPosition.CenterScreen;
 
             this.database = database;
-            this.semester = database.ExecuteQuery("select Semester from Beleg").First()[0];
+            try
+            {
+                this.semester = database.ExecuteQuery("select Semester from Beleg").First()[0];
+            }
+            catch (InvalidOperationException e)
+            {
+                buttonArchivieren.Enabled = false;
+                label1.Text = "";
+                label2.Text = "Keine archivierbaren Einträge in der Datenbank vorhanden.";
+                label3.Text = "Zum Fortfahren bitte Abbrechen klicken.";
+            }
         }
 
         private void buttonArchivieren_Click(object sender, EventArgs e)
