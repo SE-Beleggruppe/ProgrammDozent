@@ -207,6 +207,7 @@ namespace ProgrammDozent
                 MessageBox.Show("Die Belegkennung darf maximal 20 Zeichen lang sein.");
                 return false;
             }
+            return true;
         }
 
         void UpdateBeleg()
