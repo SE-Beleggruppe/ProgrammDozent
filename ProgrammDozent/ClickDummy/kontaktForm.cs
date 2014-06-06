@@ -160,6 +160,8 @@ namespace ProgrammDozent
             comboBoxRolle.DisplayMember = "rolle";
         }
 
+        
+
         private void updateFilterBtn() {
             if ((comboBoxBeleg.SelectedItem == null || comboBoxBeleg.SelectedIndex == 0) ||
                 (comboBoxBelegthema.SelectedItem == null || comboBoxBelegthema.SelectedIndex == 0))
@@ -294,7 +296,15 @@ namespace ProgrammDozent
             else
                 labelHint.Text = "*Plichtfelder"; btnFilter.Enabled = true;
 
+            // update txtbox with email information
+            String mailString = "";
 
+            foreach (var studi in filterStudents)
+            {                
+                mailString = String.Concat(mailString, studi.Mail, ',');
+            }
+            txtBoxStudents.Clear();
+            txtBoxStudents.Text = txtBoxStudents.Text.Insert(0, mailString);
             
         }
 

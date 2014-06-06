@@ -38,6 +38,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.btnFilter = new System.Windows.Forms.Button();
             this.labelHint = new System.Windows.Forms.Label();
+            this.txtBoxStudents = new System.Windows.Forms.TextBox();
+            this.txtBoxLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // comboBoxBeleg
@@ -114,7 +116,7 @@
             // 
             // btnFilter
             // 
-            this.btnFilter.Location = new System.Drawing.Point(154, 215);
+            this.btnFilter.Location = new System.Drawing.Point(155, 340);
             this.btnFilter.Name = "btnFilter";
             this.btnFilter.Size = new System.Drawing.Size(92, 23);
             this.btnFilter.TabIndex = 8;
@@ -125,18 +127,38 @@
             // labelHint
             // 
             this.labelHint.AutoSize = true;
-            this.labelHint.Location = new System.Drawing.Point(22, 251);
+            this.labelHint.Location = new System.Drawing.Point(12, 371);
             this.labelHint.Name = "labelHint";
             this.labelHint.Size = new System.Drawing.Size(69, 13);
             this.labelHint.TabIndex = 10;
             this.labelHint.Text = "* Pflichtfelder";
+            // 
+            // txtBoxStudents
+            // 
+            this.txtBoxStudents.Location = new System.Drawing.Point(126, 216);
+            this.txtBoxStudents.Multiline = true;
+            this.txtBoxStudents.Name = "txtBoxStudents";
+            this.txtBoxStudents.ReadOnly = true;
+            this.txtBoxStudents.Size = new System.Drawing.Size(121, 106);
+            this.txtBoxStudents.TabIndex = 11;
+            // 
+            // txtBoxLabel
+            // 
+            this.txtBoxLabel.AutoSize = true;
+            this.txtBoxLabel.Location = new System.Drawing.Point(25, 216);
+            this.txtBoxLabel.Name = "txtBoxLabel";
+            this.txtBoxLabel.Size = new System.Drawing.Size(41, 13);
+            this.txtBoxLabel.TabIndex = 12;
+            this.txtBoxLabel.Text = "E-Mails";
             // 
             // kontaktForm
             // 
             this.AcceptButton = this.btnFilter;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(278, 273);
+            this.ClientSize = new System.Drawing.Size(287, 393);
+            this.Controls.Add(this.txtBoxLabel);
+            this.Controls.Add(this.txtBoxStudents);
             this.Controls.Add(this.labelHint);
             this.Controls.Add(this.btnFilter);
             this.Controls.Add(this.label4);
@@ -166,5 +188,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnFilter;
         private System.Windows.Forms.Label labelHint;
+        private System.Windows.Forms.TextBox txtBoxStudents;
+        private System.Windows.Forms.Label txtBoxLabel;
     }
 }
