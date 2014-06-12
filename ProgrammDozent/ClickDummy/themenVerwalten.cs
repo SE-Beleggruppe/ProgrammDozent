@@ -53,13 +53,13 @@ namespace ProgrammDozent
 
         private void addThemaButton_Click_1(object sender, EventArgs e)
         {
-            var eingabe = new Eingabe {textEingabe = new Eingabe.textEingabeHandler(EingabeF)};
+            var eingabe = new Eingabe {textEingabe = EingabeF};
             eingabe.Show();
         }
 
         public void EingabeF(object sender)
         {
-            if (((TextBox) sender).Text == "" || ((TextBox) sender).Text.Length > 80)
+            if (string.IsNullOrEmpty(((TextBox)sender).Text) || ((TextBox)sender).Text.Length > 80)
             {
                 MessageBox.Show("Die Aufgabe " + ((TextBox) sender).Text + " ist leer oder länger als 80 Zeichen. Die Daten konnten nicht gespeichert werden.");
                 return;

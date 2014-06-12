@@ -222,10 +222,10 @@ namespace ProgrammDozent
 
             for (var i = 0; i < mitgliederDataGridView.Rows.Count; i++)
             {
-                var name = (string)mitgliederDataGridView.Rows[i].Cells[0].Value;
-                var vorname = (string)mitgliederDataGridView.Rows[i].Cells[1].Value;
-                var sNummer = (string)mitgliederDataGridView.Rows[i].Cells[2].Value;
-                var mail = (string) mitgliederDataGridView.Rows[i].Cells[3].Value;
+                var name = (String)mitgliederDataGridView.Rows[i].Cells[0].Value;
+                var vorname = (String)mitgliederDataGridView.Rows[i].Cells[1].Value;
+                var sNummer = (String)mitgliederDataGridView.Rows[i].Cells[2].Value;
+                var mail = (String) mitgliederDataGridView.Rows[i].Cells[3].Value;
                 if (sNummer != "na" && mail != "na" && !checkMail(mail))
                 {
                     MessageBox.Show(mail + " ist keine gültige Mail-Adresse. Die Daten wurden nicht gespeichert.",
@@ -240,13 +240,13 @@ namespace ProgrammDozent
                         "Fehler");
                     return false;
                 }
-                if (sNummer != "na" && (vorname == "" || vorname.Length > 15))
+                if (sNummer != "na" && (string.IsNullOrEmpty(vorname) || vorname.Length > 15))
                 {
                     MessageBox.Show("Der Vorname " + vorname +
                                     " ist länger als 15 Zeichen oder leer. Die Daten wurden nicht gespeichert.");
                     return false;
                 }
-                if (sNummer != "na" && (name == "" || name.Length > 15))
+                if (sNummer != "na" && ( string.IsNullOrEmpty(name) || name.Length > 15))
                 {
                     MessageBox.Show("Der Nachname " + name +
                                     " ist länger als 15 Zeichen oder leer. Die Daten wurden nicht gespeichert.");
@@ -256,11 +256,11 @@ namespace ProgrammDozent
 
             for (var i = 0; i < mitgliederDataGridView.Rows.Count; i++)
             {
-                var name = (string)mitgliederDataGridView.Rows[i].Cells[0].Value;
-                var vorname = (string)mitgliederDataGridView.Rows[i].Cells[1].Value;
-                var sNummer = (string)mitgliederDataGridView.Rows[i].Cells[2].Value;
-                var mail = (string)mitgliederDataGridView.Rows[i].Cells[3].Value;
-                var rolle = (string)mitgliederDataGridView.Rows[i].Cells[4].FormattedValue.ToString();
+                var name = (String)mitgliederDataGridView.Rows[i].Cells[0].Value;
+                var vorname = (String)mitgliederDataGridView.Rows[i].Cells[1].Value;
+                var sNummer = (String)mitgliederDataGridView.Rows[i].Cells[2].Value;
+                var mail = (String)mitgliederDataGridView.Rows[i].Cells[3].Value;
+                var rolle = (String)mitgliederDataGridView.Rows[i].Cells[4].FormattedValue.ToString();
 
                 if (sNummer != "na" && !string.IsNullOrEmpty(sNummer))
                 {
