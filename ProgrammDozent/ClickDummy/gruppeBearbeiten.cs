@@ -91,7 +91,7 @@ namespace ProgrammDozent
                     MessageBox.Show("Sie müssen ein Passwort eingeben, um eine neue Gruppe erstellen zu können.");
                     return;
                 }
-                if (passwortTextBox.Text.Length < 25)
+                if (passwortTextBox.Text.Length > 25)
                 {
                     MessageBox.Show("Das Passwort darf maximal 25 Zeichen lang sein, bitte wählen Sie ein anderes.");
                     return;
