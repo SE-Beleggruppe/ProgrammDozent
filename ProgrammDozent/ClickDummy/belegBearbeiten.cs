@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Typen;
+using DB_Services;
 
-namespace ProgrammDozent
+namespace DozentBelegverwaltungUI
 {
     public partial class BelegBearbeiten : Form
     {

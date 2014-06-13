@@ -1,18 +1,15 @@
-﻿using iTextSharp.text;
+﻿using System.Linq;
+using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Typen;
+using DB_Services;
 
-namespace ProgrammDozent
+namespace DozentBelegverwaltungUI
 {
     public partial class PdfArchivierung : Form
     {
@@ -26,7 +23,6 @@ namespace ProgrammDozent
         List<Beleg> Belege = new List<Beleg>();
         List<Gruppe> Gruppen = new List<Gruppe>();
         List<string> rollen = new List<string>();
-        List<Student> tempStudent;
         public string semester;
         public string speicherPfad;
 

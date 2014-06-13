@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ProgrammDozent
+namespace Typen
 {
     public class Gruppe
     {
@@ -29,7 +29,7 @@ namespace ProgrammDozent
         }
 
         //neuen Studenten hinzufügen
-        public void AddStudent(Student student)
+        public void addStudent(Student student)
         {
             if (this.Studenten == null) Studenten = new List<Student>();
             if (student != null) Studenten.Add(student);

@@ -94,3 +94,7 @@ C:\Users\ben\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug
 C:\Users\ben\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\ProgrammDozent.Properties.Resources.resources
 C:\Users\ben\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\ProgrammDozent.ThemenVerwalten.resources
 C:\Users\ben\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\obj\Debug\ProgrammDozent.csproj.GenerateResource.Cache
+C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\bin\Debug\Typen.dll
+C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\bin\Debug\Typen.pdb
+C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\bin\Debug\DB_Services.dll
+C:\Users\Benjamin\Documents\GitHub\ProgrammDozent\ProgrammDozent\ClickDummy\bin\Debug\DB_Services.pdb

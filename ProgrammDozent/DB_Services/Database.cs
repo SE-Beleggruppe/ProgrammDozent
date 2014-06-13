@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Sybase.Data.AseClient;
 
-namespace ProgrammDozent
+namespace DB_Services
 {
    
     public class Database

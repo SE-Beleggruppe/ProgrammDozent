@@ -1,4 +1,4 @@
-﻿namespace ProgrammDozent
+﻿namespace DozentBelegverwaltungUI
 {
     partial class gruppeBearbeiten
     {

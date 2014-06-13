@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using Typen;
+using DB_Services;
 
-namespace ProgrammDozent
+namespace DozentBelegverwaltungUI
 {
     public partial class MainForm : Form
     {
@@ -13,7 +14,7 @@ namespace ProgrammDozent
         List<Gruppe> _gruppen = new List<Gruppe>();
         List<string> _rollen = new List<string>();
         List<Student> _tempStudent;
-        readonly Database _database = new Database();
+        Database _database = new Database();
 
         public MainForm()
         {
@@ -139,7 +140,7 @@ namespace ProgrammDozent
             selected.Studenten = null;
             foreach (var info2 in _database.ExecuteQuery("select * from Student where sNummer in (select sNummer from Zuordnung_GruppeStudent where Gruppenkennung=\"" + selected.GruppenKennung + "\")"))
             {
-                selected.AddStudent(new Student(info2[2], info2[1], info2[0], info2[3], info2[4]));
+                selected.addStudent(new Student(info2[2], info2[1], info2[0], info2[3], info2[4]));
             }
             int studentenCount = 0;
             if (selected.Studenten != null) studentenCount = selected.Studenten.Count;
@@ -148,7 +149,7 @@ namespace ProgrammDozent
             if (studentenCount < ((Beleg)belegListBox.SelectedItem).MaxMitglieder)
             {
                 for (int i = 0; i < ((Beleg)belegListBox.SelectedItem).MaxMitglieder - studentenCount; i++)
-                    selected.AddStudent(new Student("na", "na", "na", "na", "na"));
+                    selected.addStudent(new Student("na", "na", "na", "na", "na"));
             }
 
             // Studenten dieser Gruppe im DataGridView darstellen

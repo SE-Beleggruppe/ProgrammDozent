@@ -7,7 +7,7 @@
     <ProjectGuid>{7CAC541B-62AD-4F27-8156-BBC4362F6DA4}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProgrammDozent</RootNamespace>
+    <RootNamespace>DozentBelegverwaltungUI</RootNamespace>
     <AssemblyName>ProgrammDozent</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -72,14 +72,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Beleg.cs" />
     <Compile Include="belegBearbeiten.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="belegBearbeiten.Designer.cs">
       <DependentUpon>belegBearbeiten.cs</DependentUpon>
     </Compile>
-    <Compile Include="Database.cs" />
     <Compile Include="Eingabe.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,7 +90,6 @@
     <Compile Include="kontaktForm.Designer.cs">
       <DependentUpon>kontaktForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Gruppe.cs" />
     <Compile Include="gruppeBearbeiten.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,9 +116,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rolle.cs" />
-    <Compile Include="Student.cs" />
-    <Compile Include="Thema.cs" />
     <Compile Include="themenVerwalten.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -194,6 +188,16 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DB_Services\DB_Services.csproj">
+      <Project>{34373918-89f2-43a8-ae6b-be1ffaa8e211}</Project>
+      <Name>DB_Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Typen\Typen.csproj">
+      <Project>{06bb9839-f604-4ff7-8f51-50f01424f9c4}</Project>
+      <Name>Typen</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

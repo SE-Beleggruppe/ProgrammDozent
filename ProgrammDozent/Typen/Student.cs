@@ -1,5 +1,5 @@
 ﻿
-namespace ProgrammDozent
+namespace Typen
 {
     public class Student
     {
