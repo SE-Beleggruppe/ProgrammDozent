@@ -67,13 +67,19 @@ namespace ProgrammDozent
             // Listbox mit allen Belegen
             belegListBox.DataSource = _belege;
             belegListBox.DisplayMember = "Belegkennung";
+            belegListBox_SelectedIndexChanged(null,null);
         }
 
          
         // neuer Beleg ausgewählt -> Gruppen und Studenten anpassen
         private void belegListBox_SelectedIndexChanged(object sender, EventArgs e){
             // belegListBox leer?!
-            if (belegListBox.SelectedItem == null) return;
+            if (belegListBox.SelectedItem == null)
+            {
+                gruppenListBox.DataSource = null;
+                gruppenListBox_SelectedIndexChanged(null,null);
+                return;
+            }
             mitgliederDataGridView.Rows.Clear();
             var selected = (Beleg)belegListBox.SelectedItem;
             UpdateRollen(selected);
@@ -122,7 +128,11 @@ namespace ProgrammDozent
         private void gruppenListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             // gruppenListBox leer?!
-            if (gruppenListBox.SelectedItem == null) return;
+            if (gruppenListBox.SelectedItem == null)
+            {
+                mitgliederDataGridView.Rows.Clear();
+                return;
+            }
             Gruppe selected = (Gruppe)gruppenListBox.SelectedItem;
 
             // Studenten neu aus der Datenbank laden
@@ -401,7 +411,10 @@ namespace ProgrammDozent
 
         private void buttonArchivieren_Click(object sender, EventArgs e)
         {
-            var archivierung = new PdfArchivierung(_database);
+            var archivierung = new PdfArchivierung(_database)
+            {
+                SavedG = UpdateBelege
+            };
             archivierung.Show();
         }
 

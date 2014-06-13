@@ -16,6 +16,11 @@ namespace ProgrammDozent
 {
     public partial class PdfArchivierung : Form
     {
+        // Delegate für Nachricht nach Archivierung zum Refreshen
+        public delegate void GIsSavedHandler(object sender);
+        public GIsSavedHandler SavedG;
+
+
         Database database = new Database();
 
         List<Beleg> Belege = new List<Beleg>();
@@ -148,6 +153,12 @@ namespace ProgrammDozent
 
                     byte[] content = myMemoryStream.ToArray();
 
+                    // Überprüfen, ob Datei an der Stelle schon existiert
+                    while (File.Exists(speicherPfad + "\\archivierung" + semester + ".pdf"))
+                    {
+                        semester += " Kopie";
+                    }
+
                     //PDF aus Stream schreiben
                     FileStream fs = File.Create(speicherPfad + "\\archivierung" + semester + ".pdf");
                     fs.Write(content, 0, (int)content.Length);
@@ -168,9 +179,9 @@ namespace ProgrammDozent
                     database.ExecuteQuery("delete from Zuordnung_BelegCases");
 
 
+                    if (SavedG != null) SavedG(null);
 
-
-                    this.Close();
+                    Close();
                 }
             }
 
