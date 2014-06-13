@@ -30,16 +30,19 @@ namespace ProgrammDozent
             gruppenListBox.DoubleClick += gruppenListBox_DoubleClicked;
         }
 
-        //falls Student Zeile zum Entfernen auswählt
+        // Eventhandler, bevor Student gelöscht werden soll
         void mitgliederDataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
             DataGridViewRow rowToDelete = e.Row;
             string sNummerToDelete = (string)rowToDelete.Cells[2].Value;
+
+            // Kein Student, sondern Platzhalter
             if (sNummerToDelete == "na") e.Cancel = true;
 
             DialogResult dialogResult = MessageBox.Show("Wollen Sie den Studenten " + sNummerToDelete + " wirklich löschen?", "Achtung", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
+                // Student wird gelöscht
                 Database db = new Database();
                 db.ExecuteQuery("delete from Student where sNummer=\"" + sNummerToDelete + "\"");
                 db.ExecuteQuery("delete from Zuordnung_GruppeStudent where sNummer=\"" + sNummerToDelete + "\"");
@@ -50,24 +53,32 @@ namespace ProgrammDozent
             }
         }
 
+        // Belege aus Datenbank ziehen
         private void UpdateBelege(object sender)
         {
+            // Datasource für belegListBox
             _belege = new List<Beleg>();
             foreach (var array in _database.ExecuteQuery("select * from Beleg"))
             {
                 var beleg = new Beleg(array[0], array[1], Convert.ToDateTime(array[2]), Convert.ToDateTime(array[3]), Convert.ToInt32(array[4]), Convert.ToInt32(array[5]), array[6]);
                 _belege.Add(beleg);
             }
+
+            // Listbox mit allen Belegen
             belegListBox.DataSource = _belege;
             belegListBox.DisplayMember = "Belegkennung";
         }
 
          
+        // neuer Beleg ausgewählt -> Gruppen und Studenten anpassen
         private void belegListBox_SelectedIndexChanged(object sender, EventArgs e){
+            // belegListBox leer?!
             if (belegListBox.SelectedItem == null) return;
             mitgliederDataGridView.Rows.Clear();
             var selected = (Beleg)belegListBox.SelectedItem;
             UpdateRollen(selected);
+
+            // Datasource für gruppenListBox
             _gruppen = new List<Gruppe>();
             foreach (var info in _database.ExecuteQuery("select * from Gruppe where Gruppenkennung in (select Gruppenkennung from Zuordnung_GruppeBeleg where Belegkennung=\"" + selected.BelegKennung + "\")"))
             {
@@ -79,6 +90,7 @@ namespace ProgrammDozent
             gruppenListBox.DisplayMember = "gruppenKennung";
         }
 
+        // Rollen aus Datenkbank ziehen
         private void UpdateRollen(Beleg beleg)
         {
             _rollen = new List<string>();
@@ -91,6 +103,7 @@ namespace ProgrammDozent
             _rollen.Add("na");
         }
 
+        // Beleg bearbeiten-Dialog öffnene
         private void belegListBox_DoubleClicked(object sender, EventArgs e)
         {
             var belegB = new BelegBearbeiten(((Beleg) belegListBox.SelectedItem).BelegKennung, false)
@@ -98,16 +111,21 @@ namespace ProgrammDozent
             belegB.Show();
         }
 
+        // Gruppe bearbeiten-Dialog öffnen
         private void gruppenListBox_DoubleClicked(object sender, EventArgs e)
         {
             var gruppeB = new gruppeBearbeiten((Gruppe)gruppenListBox.SelectedItem, false);
             gruppeB.Show();
         }
 
+        // neue Gruppe ausgewählt
         private void gruppenListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // gruppenListBox leer?!
             if (gruppenListBox.SelectedItem == null) return;
             Gruppe selected = (Gruppe)gruppenListBox.SelectedItem;
+
+            // Studenten neu aus der Datenbank laden
             selected.Studenten = null;
             foreach (var info2 in _database.ExecuteQuery("select * from Student where sNummer in (select sNummer from Zuordnung_GruppeStudent where Gruppenkennung=\"" + selected.GruppenKennung + "\")"))
             {
@@ -115,16 +133,19 @@ namespace ProgrammDozent
             }
             int studentenCount = 0;
             if (selected.Studenten != null) studentenCount = selected.Studenten.Count;
+
+            // Studenten DataGridView mit Platzhaltern auffüllen (Anzahl der angegebenen maximalen Anzahl (-> nach Beleg der Gruppe)
             if (studentenCount < ((Beleg)belegListBox.SelectedItem).MaxMitglieder)
             {
                 for (int i = 0; i < ((Beleg)belegListBox.SelectedItem).MaxMitglieder - studentenCount; i++)
                     selected.AddStudent(new Student("na", "na", "na", "na", "na"));
             }
 
+            // Studenten dieser Gruppe im DataGridView darstellen
             mitgliederDataGridView.Rows.Clear();
             ((DataGridViewComboBoxColumn) mitgliederDataGridView.Columns[4]).DataSource = _rollen;
-            ((DataGridViewComboBoxColumn) mitgliederDataGridView.Columns[4]).MinimumWidth = 150;
-            ((DataGridViewTextBoxColumn) mitgliederDataGridView.Columns[3]).MinimumWidth = 250;
+            mitgliederDataGridView.Columns[4].MinimumWidth = 150;
+            mitgliederDataGridView.Columns[3].MinimumWidth = 250;
             if (selected.Studenten != null)
                 foreach (var info in selected.Studenten)
                 {
@@ -136,11 +157,13 @@ namespace ProgrammDozent
                     mitgliederDataGridView.Rows[number].Cells[3].Value = info.Mail;
                     mitgliederDataGridView.Rows[number].Cells[4].Value = info.Rolle;
 
+                    // Noch nicht ausgefüllte Mitglieder unter Mindestanzahl nach Beleg werden gelb markiert -> müssen noch vor Ende ausgefüllt werden
                     if (info.SNummer == "na" && number < ((Beleg)belegListBox.SelectedItem).MinMitglieder)
                         mitgliederDataGridView.Rows[number].DefaultCellStyle.BackColor = Color.Yellow;
                 }
         }
 
+        // Da MainForm nur präsentiert werden kann, muss ClosingEvent überschrieben werden, damit Prozess und nicht nur Fenster geschlossen wird
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
@@ -151,32 +174,39 @@ namespace ProgrammDozent
         {
         }
 
+        // Neuer Beleg soll hinzugefügt werden
         private void belegAnlegenButton_Click(object sender, EventArgs e)
         {
+            // belegBearbeiten-Dialog mit isNeuerBeleg-Bool als true
+            // Delegate zum refreshen nach hinzufügen setzen.
             BelegBearbeiten dest = new BelegBearbeiten("na", true)
             {
-                Saved = new BelegBearbeiten.IsSavedHandler(UpdateBelege)
+                Saved = UpdateBelege
             };
             dest.Show();
         }
 
-
+        // neue Gruppe soll hinzugefügt werden
         private void gruppeAnlegenButton_Click(object sender, EventArgs e)
         {
+            // Platzhalter-Gruppe für Anlegen-Dialog
             Gruppe temp = new Gruppe("na", 0, "na");
             temp.Belegkennung = ((Beleg) belegListBox.SelectedItem).BelegKennung;
 
+            // Prüfen ob es noch freie Casekennungen gibt für diesen Beleg
             if (getFreieCases(temp) == null)
             {
                 MessageBox.Show("Für diesen Beleg können keine weiteren Gruppen hinzugefügt werden.");
                 return;
             }
 
+            // Gruppe bearbeiten-Dialog mit Delegate erstellen und anzeigen lassen
             gruppeBearbeiten dest = new gruppeBearbeiten(temp, true);
-            dest.SavedG = new gruppeBearbeiten.GIsSavedHandler(belegListBox_SelectedIndexChanged);
+            dest.SavedG = belegListBox_SelectedIndexChanged;
             dest.Show();
         }
 
+        // Übergibt eine Liste aller noch freien Cases
         List<string> getFreieCases(Gruppe gruppe)
         {
             Database database = new Database();
@@ -192,6 +222,7 @@ namespace ProgrammDozent
             return erg;
         }
 
+        // Studenten-DataGridView in bearbeitbaren Modus setzen
         private void dataGridViewFreigebenButton_Click(object sender, EventArgs e)
         {
             _tempStudent = (List<Student>)mitgliederDataGridView.DataSource;
@@ -204,6 +235,7 @@ namespace ProgrammDozent
             dataGridViewFreigebenButton.Enabled = false;
         }
 
+        // Änderungen in StudentenDataGridView speichern
         private void saveDataGridViewButton_Click(object sender, EventArgs e)
         {
             if (SaveMitglieder())
@@ -217,22 +249,30 @@ namespace ProgrammDozent
             }
         }
 
+        // Studenten einer Gruppe speichern
         private bool SaveMitglieder()
         {
+            // aktuelle Gruppe auslesen
             var gruppe = (Gruppe)gruppenListBox.SelectedItem;
 
+            // For-Schleife über alle Studenten dieser Gruppe (im DataGridView)
             for (var i = 0; i < mitgliederDataGridView.Rows.Count; i++)
             {
+                // Daten rausziehen
                 var name = (String)mitgliederDataGridView.Rows[i].Cells[0].Value;
                 var vorname = (String)mitgliederDataGridView.Rows[i].Cells[1].Value;
                 var sNummer = (String)mitgliederDataGridView.Rows[i].Cells[2].Value;
                 var mail = (String) mitgliederDataGridView.Rows[i].Cells[3].Value;
+
+                // Wenn eine Mail-Adresse falsch ist und dieser Student kein Platzhalter ist
                 if (sNummer != "na" && mail != "na" && !checkMail(mail))
                 {
                     MessageBox.Show(mail + " ist keine gültige Mail-Adresse. Die Daten wurden nicht gespeichert.",
                         "Fehler");
                     return false;
                 }
+
+                // Wenn eine S-Nummer falsch ist und der Student kein Platzhalter ist
                 if (!mitgliederDataGridView.Rows[i].Cells[2].ReadOnly && sNummer != "na" && !checkSNummer(sNummer))
                 {
                     MessageBox.Show(
@@ -241,12 +281,16 @@ namespace ProgrammDozent
                         "Fehler");
                     return false;
                 }
+
+                // Vorname zu lang oder leer (Länge ist als Festwert in der DB)
                 if (sNummer != "na" && (string.IsNullOrEmpty(vorname) || vorname.Length > 15))
                 {
                     MessageBox.Show("Der Vorname " + vorname +
                                     " ist länger als 15 Zeichen oder leer. Die Daten wurden nicht gespeichert.");
                     return false;
                 }
+
+                //Nachname zu lang oder leer (Länge ist als Festwert in der DB)
                 if (sNummer != "na" && ( string.IsNullOrEmpty(name) || name.Length > 15))
                 {
                     MessageBox.Show("Der Nachname " + name +
@@ -255,6 +299,7 @@ namespace ProgrammDozent
                 }
             }
 
+            // Nach Überprüfung kann gespeichert werden, For-Schleife über alle Studenten dieser Gruppe
             for (var i = 0; i < mitgliederDataGridView.Rows.Count; i++)
             {
                 var name = (String)mitgliederDataGridView.Rows[i].Cells[0].Value;
@@ -265,6 +310,7 @@ namespace ProgrammDozent
 
                 if (sNummer != "na" && !string.IsNullOrEmpty(sNummer))
                 {
+                    // Überprüfen, ob es sich um einen neuen Studenten (insert) oder einen geänderten Studenten (update) handelt
                     if (mitgliederDataGridView.Rows[i].Cells[2].ReadOnly) updateStudent(new Student(name, vorname, sNummer, mail, rolle));
                     else insertStudent(new Student(name, vorname, sNummer, mail, rolle), gruppe);
                 }
@@ -272,6 +318,7 @@ namespace ProgrammDozent
             return true;
         }
 
+        // Mail-Adresse anhand von regular Expression überprüfen
         private bool checkMail(string mail)
         {
             Regex regExp = new Regex("\\b[!#$%&'*+./0-9=?_`a-z{|}~^-]+@[.0-9a-z-]+\\.[a-z]{2,6}\\b");
@@ -280,9 +327,10 @@ namespace ProgrammDozent
             {
                 return true;
             }
-            else return false;
+            return false;
         }
 
+        // S-Nummer überprüfen
         private bool checkSNummer(string sNummer)
         {
             Database db = new Database();
@@ -294,6 +342,7 @@ namespace ProgrammDozent
             bool isNummer = int.TryParse(nummer, out n);
             if (!isNummer) return false;
 
+            // Wenn S-Nummer schon vorhanden -> Fehlermeldung
             List<string[]> output = db.ExecuteQuery("select * from Student");
             foreach (string[] info in output)
             {
@@ -303,6 +352,7 @@ namespace ProgrammDozent
             return true;
         }
 
+        // Vorhandenen Student in der Datenbank aktualisieren
         private void updateStudent(Student student)
         {
             var db = new Database();
@@ -310,6 +360,7 @@ namespace ProgrammDozent
             db.ExecuteQuery(query);
         }
 
+        // Neuen Student in die DB einfügen
         private void insertStudent(Student student, Gruppe gruppe)
         {
             var db = new Database();
@@ -319,6 +370,7 @@ namespace ProgrammDozent
             db.ExecuteQuery(query);
         }
 
+        // Änderungen in der Studenten-DataGridView verwerfen
         private void cancelDataGridViewButton_Click(object sender, EventArgs e)
         {
             mitgliederDataGridView.Enabled = false;
@@ -326,6 +378,7 @@ namespace ProgrammDozent
             cancelDataGridViewButton.Enabled = false;
             dataGridViewFreigebenButton.Enabled = true;
 
+            // Studenten einfach neu aus der DB laden
             gruppenListBox_SelectedIndexChanged(this, null);
         }
 
@@ -335,6 +388,7 @@ namespace ProgrammDozent
             themenV.Show();
         }
 
+        // Rollen verwalten
         private void rolleTextBox_Click(object sender, EventArgs e)
         {
             var rolleV = new RolleVerwalten();
@@ -343,7 +397,6 @@ namespace ProgrammDozent
 
         private void studentenDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
         }
 
         private void buttonArchivieren_Click(object sender, EventArgs e)
@@ -352,23 +405,28 @@ namespace ProgrammDozent
             archivierung.Show();
         }
 
+        // Gruppen kontaktieren geklickt
         private void button1_Click(object sender, EventArgs e)
         {
             kontaktForm kForm = new kontaktForm();
             kForm.Show();
         }
 
+        // ausgewählten Beleg löschen 
         private void belegLoeschenButton_Click(object sender, EventArgs e)
         {
+            // aktuellen Beleg ziehen
             Beleg temp = (Beleg)belegListBox.SelectedItem;
             if (temp != null)
             {
+                // Erstes Nachfragen
                 DialogResult dialogResult = MessageBox.Show("Wollen Sie den Beleg " + temp.BelegKennung + " wirklich löschen?", "Achtung", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
                     Database db = new Database();
                     if (db.ExecuteQuery("select * from Zuordnung_GruppeBeleg where Belegkennung=\"" + temp.BelegKennung + "\"").Count != 0)
                     {
+                        // Wenn dieser Beleg noch aktive Gruppen hat -> zweite Meldung zum Nachfragen
                         DialogResult result = MessageBox.Show("Dieser Beleg hat noch aktive Gruppen, sollen diese ebenfalls gelöscht werden? (Das betrifft auch die Mitglieder der Gruppen)", "Achtung", MessageBoxButtons.YesNo);
                         if (result == DialogResult.Yes)
                         {
@@ -391,6 +449,7 @@ namespace ProgrammDozent
                             return;
                     }
 
+                    // Beleg ohne Gruppen löschen
                     db.ExecuteQuery("delete from Beleg where Belegkennung=\"" + temp.BelegKennung + "\"");
                     db.ExecuteQuery("delete from Zuordnung_BelegCases where Belegkennung=\"" + temp.BelegKennung + "\"");
                     db.ExecuteQuery("delete from Zuordnung_BelegThema where Belegkennung=\"" + temp.BelegKennung + "\"");
@@ -408,17 +467,20 @@ namespace ProgrammDozent
             }
         }
 
+        // Gruppe löschen
         private void gruppeLoeschenButton_Click(object sender, EventArgs e)
         {
             Gruppe temp = (Gruppe) gruppenListBox.SelectedItem;
             if (temp != null)
             {
+                // Erstes Nachfragen
                 DialogResult dialogResult = MessageBox.Show("Wollen Sie die Gruppe " + temp.GruppenKennung + " wirklich löschen?", "Achtung", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
                     Database db = new Database();
                     if (db.ExecuteQuery("select * from Zuordnung_GruppeStudent where Gruppenkennung=\"" + temp.GruppenKennung + "\"").Count != 0)
                     {
+                        // Wenn Gruppe noch aktive Studenten -> Zweites nachfragen zum rekursiven Löschen
                         DialogResult result = MessageBox.Show("Dieser Beleg hat noch aktive Studenten, sollen diese auch gelöscht werden?", "Achtung", MessageBoxButtons.YesNo);
                         if (result == DialogResult.Yes)
                         {
@@ -431,6 +493,7 @@ namespace ProgrammDozent
                             return;
                     }
 
+                    // Gruppe ohne Studenten löschen
                     db.ExecuteQuery("delete from Gruppe where Gruppenkennung=\"" + temp.GruppenKennung + "\"");
                     db.ExecuteQuery("delete from Zuordnung_GruppeStudent where Gruppenkennung=\"" + temp.GruppenKennung + "\"");
                     db.ExecuteQuery("delete from Zuordnung_GruppeBeleg where Gruppenkennung=\"" + temp.GruppenKennung + "\"");
