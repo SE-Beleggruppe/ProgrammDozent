@@ -332,7 +332,7 @@ namespace ProgrammDozent
         private bool checkMail(string mail)
         {
             Regex regExp = new Regex("\\b[!#$%&'*+./0-9=?_`a-z{|}~^-]+@[.0-9a-z-]+\\.[a-z]{2,6}\\b");
-            Match match = regExp.Match(mail);
+            Match match = regExp.Match(mail.ToLower());
             if (match.Success)
             {
                 return true;
