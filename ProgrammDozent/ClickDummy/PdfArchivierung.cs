@@ -16,7 +16,7 @@ namespace ProgrammDozent
 {
     public partial class PdfArchivierung : Form
     {
-        // Delegate für Nachricht nach Archivierung zum Refreshen
+        //Delegate für Nachricht nach Archivierung zum Refreshen der Listboxen und des datagridViews
         public delegate void GIsSavedHandler(object sender);
         public GIsSavedHandler SavedG;
 
@@ -37,6 +37,8 @@ namespace ProgrammDozent
             this.StartPosition = FormStartPosition.CenterScreen;
 
             this.database = database;
+
+            //Semeser aus Datenbank lesen um dies Später im Titel der PDF angeben zu können
             try
             {
                 this.semester = database.ExecuteQuery("select Semester from Beleg").First()[0];
@@ -50,19 +52,25 @@ namespace ProgrammDozent
             }
         }
 
+        /// <summary>
+        /// alle Daten der Datenbank werden in PDF geschrieben und Datenbank danach gereinigt
+        /// </summary>
         private void buttonArchivieren_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog pfadDialog = new FolderBrowserDialog();
             if (pfadDialog.ShowDialog() != DialogResult.Cancel)
             {
+                //Speicherpfad auslesen
                 speicherPfad = pfadDialog.SelectedPath;
                 using (MemoryStream myMemoryStream = new MemoryStream())
                 {
                     Document pdfArchiv = new Document();
                     PdfWriter pdfWriter = PdfWriter.GetInstance(pdfArchiv, myMemoryStream);
 
+                    //PDF Dokument zum Schreiben öffnen
                     pdfArchiv.Open();
 
+                    //Überschrift festlegen mit Semester im namen (dieses wird oben pro Beleg aus Datenbank ausgelesen)
                     Paragraph header = new Paragraph(new Phrase("Beleg - Archivierung " + semester)) { Alignment = 1, SpacingAfter = 15 };
                     header.Font.SetStyle("underline");
                     pdfArchiv.Add(header);
@@ -71,14 +79,13 @@ namespace ProgrammDozent
                     foreach (string[] array in database.ExecuteQuery("select * from Beleg"))
                     {
                         //pro Beleg auszuführender Code
-                        //Beleg beleg = new Beleg(array[0], array[1], Convert.ToDateTime(array[2]), Convert.ToDateTime(array[3]), Convert.ToInt32(array[4]), Convert.ToInt32(array[5]), array[6]);
-                        //speichern der belegspezifischen Daten in der PDF
-                        //string kennung, string semester, DateTime startDatum, DateTime endDatum, int minM, int maxM
+
+                        //Informationen zum Beleg auflisten
                         Paragraph belegabsatz = new Paragraph("Belegkennung: " + array[0] + "\nSemester: " + array[1] + "\nStartdatum: " + array[2] + "\nEnddatum: " + array[3] + "\nMinimale bis maximale Gruppengröße: " + array[4] + "-" + array[5] + "\n");
                         pdfArchiv.Add(belegabsatz);
-                        //semester = array[1];
                         PdfPTable nestedtable = new PdfPTable(2) { WidthPercentage = 90, HorizontalAlignment = 0, SpacingBefore = 10, SpacingAfter = 10 };
 
+                        //Rollentabelle
                         PdfPTable roletable = new PdfPTable(1) { WidthPercentage = 40, HorizontalAlignment = 0 };
                         roletable.AddCell(new PdfPCell(new Phrase("Verfügbare Rollen: ")));
                         foreach (string[] roles in database.ExecuteQuery("select Rolle from Zuordnung_BelegRolle Z where Z.Belegkennung=\"" + array[0] + "\""))
@@ -90,6 +97,7 @@ namespace ProgrammDozent
                         }
                         nestedtable.AddCell(roletable);
 
+                        //Thementabelle
                         PdfPTable topictable = new PdfPTable(1) { WidthPercentage = 40, HorizontalAlignment = 0 };
                         topictable.AddCell(new PdfPCell(new Phrase("Verfügbare Themen: ")));
                         foreach (string[] topics in database.ExecuteQuery("select Aufgabe from Zuordnung_BelegThema Z, Thema T where Z.Belegkennung=\"" + array[0] + "\" and Z.Themennummer=T.Themennummer"))
@@ -102,6 +110,7 @@ namespace ProgrammDozent
                         nestedtable.AddCell(topictable);
                         pdfArchiv.Add(nestedtable);
                         pdfArchiv.NewPage();
+
 
                         foreach (string[] info in database.ExecuteQuery("select * from Gruppe where Gruppenkennung in (select Gruppenkennung from Zuordnung_GruppeBeleg where Belegkennung=\"" + array[0] + "\")"))
                         {
@@ -166,6 +175,7 @@ namespace ProgrammDozent
                     fs.Close();
                     myMemoryStream.Close();
 
+                    //PDF-Datei nach Erzeugung direkt öffnen
                     Process.Start(speicherPfad + "\\archivierung" + semester + ".pdf");
 
                     //Tabellen reinigen
@@ -178,7 +188,7 @@ namespace ProgrammDozent
                     database.ExecuteQuery("delete from Zuordnung_BelegRolle");
                     database.ExecuteQuery("delete from Zuordnung_BelegCases");
 
-
+                    //Delegate aufrufen (zum Aktualisieren der Listboxen und des DataGridViews)
                     if (SavedG != null) SavedG(null);
 
                     Close();
