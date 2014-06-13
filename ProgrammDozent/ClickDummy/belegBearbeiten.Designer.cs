@@ -89,7 +89,6 @@
             this.semesterTextBox.Name = "semesterTextBox";
             this.semesterTextBox.Size = new System.Drawing.Size(200, 20);
             this.semesterTextBox.TabIndex = 2;
-            this.semesterTextBox.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // label2
             // 
@@ -99,7 +98,6 @@
             this.label2.Size = new System.Drawing.Size(51, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "Semester";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
@@ -421,7 +419,6 @@
             this.Controls.Add(this.label1);
             this.Name = "BelegBearbeiten";
             this.Text = "belegBearbeiten";
-            this.Load += new System.EventHandler(this.belegBearbeiten_Load);
             ((System.ComponentModel.ISupportInitialize)(this.minGR)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.maxGR)).EndInit();
             this.ResumeLayout(false);

@@ -12,6 +12,9 @@ namespace ProgrammDozent
 {
     public partial class Eingabe : Form
     {
+        /// <summary>
+        /// Fenster erscheint bei sämtlichen Eingaben (neues Thema, neue Rolle,...)
+        /// </summary>
 
         public delegate void textEingabeHandler(object sender);
         public textEingabeHandler textEingabe;

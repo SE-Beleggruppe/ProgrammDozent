@@ -10,6 +10,7 @@ namespace ProgrammDozent
         private List<Rolle> _rollen;
         readonly Database _database = new Database();
 
+        //Konstruktor
         public RolleVerwalten()
         {
             InitializeComponent();
@@ -24,6 +25,7 @@ namespace ProgrammDozent
         {
             var rolle = (Rolle)rollenListBox.SelectedItem;
 
+            //Falls Rolle noch bei einem Beleg zugeordnet ist
             if (
                 _database.ExecuteQuery(
                     "select * from Rolle where Rolle in(select Rolle from Zuordnung_BelegRolle) and Rolle=\"" +
@@ -34,10 +36,14 @@ namespace ProgrammDozent
                 return;
             }
 
+            //Rolle löschen und Listbox aktualisieren
             _database.ExecuteQuery("delete from Rolle where Rolle =\""+rolle.rolle+"\"");
             RefreshRollen();
         }
 
+        /// <summary>
+        /// aktualisiert Listbox mit Rollen
+        /// </summary>
         private void RefreshRollen()
         {
             _rollen = new List<Rolle>();
@@ -52,12 +58,15 @@ namespace ProgrammDozent
             else deleteRolleButton.Enabled = true;
         }
 
+        //Verwendet Eingabedialog aus Klasse Eingabe
         private void newRolleButton_Click(object sender, EventArgs e)
         {
             var eingabe = new Eingabe {textEingabe = new Eingabe.textEingabeHandler(EingabeF)};
             eingabe.Show();
         }
 
+        //wertet Eingabe aus und überprüft diese auf mögliche Fehleingaben
+        //falls Eingabe korrekt, füge Rolle hinzu
         public void EingabeF(object sender)
         {
             if (string.IsNullOrEmpty(((TextBox)sender).Text) || ((TextBox)sender).Text.Length > 25)

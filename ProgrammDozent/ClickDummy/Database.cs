@@ -33,6 +33,11 @@ namespace ProgrammDozent
             }
         }
         
+        /// <summary>
+        /// führt Datenbank-Abfrage aus
+        /// </summary>
+        /// <param name="query">Abfrage</param>
+        /// <returns>Abfrageergebnis als Liste von Strings</returns>
         public List<string[]> ExecuteQuery(string query)
         {
             Connect();

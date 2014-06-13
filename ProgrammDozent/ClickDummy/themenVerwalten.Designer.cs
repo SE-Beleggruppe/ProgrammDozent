@@ -72,7 +72,6 @@
             this.Controls.Add(this.themenListBox);
             this.Name = "ThemenVerwalten";
             this.Text = "themenVerwalten";
-            this.Load += new System.EventHandler(this.ThemenVerwalten_Load);
             this.ResumeLayout(false);
 
         }

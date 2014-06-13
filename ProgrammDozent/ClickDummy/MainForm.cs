@@ -30,6 +30,7 @@ namespace ProgrammDozent
             gruppenListBox.DoubleClick += gruppenListBox_DoubleClicked;
         }
 
+        //falls Student Zeile zum Entfernen auswählt
         void mitgliederDataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
             DataGridViewRow rowToDelete = e.Row;

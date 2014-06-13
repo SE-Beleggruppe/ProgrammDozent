@@ -15,6 +15,7 @@ namespace ProgrammDozent
         public delegate void GIsSavedHandler(object sender, EventArgs e);
         public GIsSavedHandler SavedG;
 
+        //falls neue Gruppe angelegt oder vorhandene Gruppe bearbeitet wird
         private bool isNeueGruppe;
 
         public Gruppe gruppe;
@@ -39,12 +40,19 @@ namespace ProgrammDozent
             if (!isNeueGruppe) kennungComboBox.SelectedItem = gruppe.GruppenKennung;
         }
 
+        /// <summary>
+        /// gibt alle noch nicht vergebenen Case-Gruppen zurück
+        /// </summary>
+        /// <returns>Liste mit freien Case-Gruppen</returns>
         List<string> getFreieCases()
         {
             
             List<string> erg = new List<string>();
+
+            //falls neue Gruppe angelegt wird
             if (isNeueGruppe)
             {
+                //suche alle Case-Gruppen die noch keinem Beleg zugeordnet sind
                 List<string[]> ergDB = database.ExecuteQuery(
                 "select Casekennung from Zuordnung_BelegCases where Casekennung not in(select Gruppenkennung from Zuordnung_GruppeBeleg where Belegkennung=\"" +
                 gruppe.Belegkennung + "\") and Belegkennung=\"" + gruppe.Belegkennung + "\"");
@@ -55,6 +63,8 @@ namespace ProgrammDozent
                     erg.Add(strings[0]);
                 }
             }
+
+            //falls Gruppe bearbeitet werden soll
             else
             {
                 erg.Add(gruppe.GruppenKennung);
@@ -63,6 +73,9 @@ namespace ProgrammDozent
             return erg;
         }
 
+        /// <summary>
+        /// füllt Combobox mit Themen
+        /// </summary>
         void getThemen()
         {
             foreach (string[] info in database.ExecuteQuery("select Aufgabe from Thema where Themennummer in (select Themennummer from Zuordnung_BelegThema where Belegkennung=\"" + gruppe.Belegkennung + "\")"))
@@ -81,8 +94,10 @@ namespace ProgrammDozent
             Close();
         }
 
+       
         private void speichernbutton_Click(object sender, EventArgs e)
         {
+            //falls Gruppe bearbeitet wird, muss Gruppenpasswort mit eingegeben worden sein
             if (!isNeueGruppe) updateGruppe(!(passwortTextBox.Text == ""));
             else
             {

@@ -18,6 +18,7 @@ namespace ProgrammDozent
 
         public List<Gruppe>  Gruppen = new List<Gruppe>(); 
 
+        //Konstruktor
         public Beleg(string kennung, string semester, DateTime startDatum, DateTime endDatum, int minM, int maxM, string passwort)
         {
             BelegKennung = kennung; // Automatisch generieren
@@ -29,9 +30,11 @@ namespace ProgrammDozent
             MinMitglieder = minM;
             MaxMitglieder = maxM;
 
-            Themen = new List<Thema> {new Thema(1, "Dies ist eine tolle Aufgabe")};
+            //Themen = new List<Thema> {new Thema(1, "Dies ist eine tolle Aufgabe")};
         }
 
+
+        //Gruppe hinzufühen
         public void AddGruppe(Gruppe gruppe)
         {
             Gruppen.Add(gruppe);

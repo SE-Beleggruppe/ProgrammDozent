@@ -32,11 +32,14 @@ namespace ProgrammDozent
                 return;
             }
 
-            
+            //Thema löschen und Listbox aktualisieren
             _database.ExecuteQuery("delete from Thema where Themennummer =" + thema.ThemenNummer + "");
             RefreshThemen();
         }
 
+        /// <summary>
+        /// aktualisiert Listbox mit Themen
+        /// </summary>
         private void RefreshThemen()
         {
             _themen = new List<Thema>();
@@ -51,12 +54,16 @@ namespace ProgrammDozent
             else deleteThemaButton.Enabled = true;
         }
 
+        //Verwendet Eingabedialog aus Klasse Eingabe
         private void addThemaButton_Click_1(object sender, EventArgs e)
         {
             var eingabe = new Eingabe {textEingabe = EingabeF};
             eingabe.Show();
         }
 
+
+        //wertet Eingabe aus und überprüft diese auf mögliche Fehleingaben
+        //falls Eingabe korrekt, füge Thema hinzu
         public void EingabeF(object sender)
         {
             if (string.IsNullOrEmpty(((TextBox)sender).Text) || ((TextBox)sender).Text.Length > 80)
@@ -66,11 +73,6 @@ namespace ProgrammDozent
             }
             _database.ExecuteQuery("insert into Thema values(\"" + ((TextBox)sender).Text + "\")");
             RefreshThemen();
-        }
-
-        private void ThemenVerwalten_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -10,7 +10,10 @@ namespace ProgrammDozent
         public delegate void IsSavedHandler(object sender);
         public IsSavedHandler Saved;
 
-        private bool isNeuerBeleg;
+
+        //überprüft ob bereits vorhandener Beleg bearbeitet (false) 
+        //oder neuer Beleg angelegt wird (true)
+        private bool isNeuerBeleg;  
 
         public List<Thema> AlleThemen = new List<Thema>();
         public List<Thema> VerfThemen = new List<Thema>();
@@ -32,11 +35,14 @@ namespace ProgrammDozent
 
             isNeuerBeleg = neu;
 
-
+            //falls kein neuer Beleg, lade ihn aus Datenbank
             if (!isNeuerBeleg) this.Beleg = GetBelegFromKennung(belegKennung);
+            
+            //neuer Beleg mit Default-Daten wird angelegt (Kennung, Semester, Startdatum, Enddatum, minAnz, maxAnz, Passwort)
             else
             {
                 this.Beleg = new Beleg("na", "na", DateTime.Today, DateTime.Today.AddDays(1), 1, 1, "passwort");
+                //Belegkennung darf eingegeben werden (beim bearbeiten nicht)
                 kennungTextBox.Enabled = true;
             }
 
@@ -55,6 +61,8 @@ namespace ProgrammDozent
                 var thema = new Thema(Convert.ToInt32(array[0]),array[1]);
                 AlleThemen.Add(thema);
             }
+
+            //Themen mittels Lambda-Expression alphabetisch sortieren
             AlleThemen.Sort((t1, t2) => t1.AufgabenName.CompareTo(t2.AufgabenName));
             allThemen.DataSource = AlleThemen;
             allThemen.DisplayMember = "aufgabenName";
@@ -66,6 +74,7 @@ namespace ProgrammDozent
                 AlleRollen.Add(rolle);
             }
 
+            //Rollen mittels Lambda-Expression alphabetisch sortieren
             AlleRollen.Sort((t1, t2) => t1.rolle.CompareTo(t2.rolle));
             allRollen.DataSource = AlleRollen;
             allRollen.DisplayMember = "rolle";
@@ -76,6 +85,8 @@ namespace ProgrammDozent
                 var oneCase = array[0];
                 AlleCases.Add(oneCase);
             }
+
+            //Cases aufsteigend sortieren
             AlleCases.Sort();
             allCases.DataSource = AlleCases;
 
@@ -126,7 +137,7 @@ namespace ProgrammDozent
                 verCases.DataSource = VerfCases;
             }
 
-            //Buttons ausgrauen falls nötig
+            //Buttons ausgrauen falls alle Themen, Rollen oder Cases bereits vergeben sind
             addButtonThema.Enabled = allThemen.Items.Count != 0;
             remButtonThema.Enabled = verThemen.Items.Count != 0;
 
@@ -136,21 +147,6 @@ namespace ProgrammDozent
             addButtonCase.Enabled = allCases.Items.Count != 0;
             remButtonCase.Enabled = verCases.Items.Count != 0;
             
-        }
-
-        private void belegBearbeiten_Load(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -164,16 +160,22 @@ namespace ProgrammDozent
             if (maxGR.Text == "") minGR.Value = 1;
             
 
-
+            //falls neuer Beleg
             if (isNeuerBeleg)
             {
                 if(!checkTextFields()) return;
+
                 Database database = new Database();
+
+                //Belegkennung bereits vergeben?
                 List<string[]> ergDB = database.ExecuteQuery(
                     "select * from Beleg where Belegkennung =\"" +
                     kennungTextBox.Text + "\"");
+
+                //falls neue Belegkennung
                 if (ergDB.Count == 0)
                 {
+                    //Datensätze in die Datenbank einfügen
                     InsertBeleg();
                     if (Saved != null) Saved(this);
                     Close();
@@ -186,6 +188,7 @@ namespace ProgrammDozent
                     
             }
 
+            //falls bereits vorhandener Beleg bearbeitet wird
             else
             {
                 UpdateBeleg();
@@ -195,6 +198,10 @@ namespace ProgrammDozent
 
         }
 
+        /// <summary>
+        /// //Pflichtfelder auf leere Eingaben oder Fehleingaben prüfen
+        /// </summary>
+        /// <returns>true, falls Pflichtfelder alle korrekt ausgefüllt sind</returns>
         bool checkTextFields()
         {
             if (kennungTextBox.Text == "")
@@ -216,6 +223,8 @@ namespace ProgrammDozent
             var startdatum = startDateTimePicker.Value.Year + "-" + startDateTimePicker.Value.Month + "-" + startDateTimePicker.Value.Day;
             var enddatum = endDateTimePicker.Value.Year + "-" + endDateTimePicker.Value.Month + "-" + endDateTimePicker.Value.Day;
             var query = "Update Beleg Set Semester = \"" + semesterTextBox.Text + "\", StartDatum = \"" + startdatum + "\",EndDatum = \"" + enddatum + "\",MinAnzMitglieder = " + minGR.Value + ",MaxAnzMitglieder = " + maxGR.Value + ",Passwort = \"" + passwortTextBox.Text + "\" where Belegkennung = \"" + Beleg.BelegKennung + "\"";
+            
+
             if (_database != null)
             {
                 _database.ExecuteQuery(query);
@@ -232,7 +241,7 @@ namespace ProgrammDozent
                 //Zuordnung_BelegRolle
                 //Alle zugehörigen Datensätze löschen
                 _database.ExecuteQuery("delete from Zuordnung_BelegRolle where Belegkennung = \"" + Beleg.BelegKennung + "\"");
-                //Inhalt von verfthemen inserten
+                //Inhalt von verfrollen inserten
                 foreach (var rolle in VerfRollen)
                 {
                     _database.ExecuteQuery("insert into Zuordnung_BelegRolle values(\"" + Beleg.BelegKennung + "\", \"" + rolle.rolle + "\")");
@@ -241,7 +250,7 @@ namespace ProgrammDozent
                 //Zuordnung_BelegCase
                 //Alle zugehörigen Datensätze löschen
                 _database.ExecuteQuery("delete from Zuordnung_BelegCases where Belegkennung = \"" + Beleg.BelegKennung + "\"");
-                //Inhalt von verfthemen inserten
+                //Inhalt von verfcases inserten
                 foreach (var onecase in VerfCases)
                 {
                     _database.ExecuteQuery("insert into Zuordnung_BelegCases values(\"" + Beleg.BelegKennung + "\", \"" + onecase + "\")");
@@ -255,6 +264,8 @@ namespace ProgrammDozent
             var startdatum = startDateTimePicker.Value.Year + "-" + startDateTimePicker.Value.Month + "-" + startDateTimePicker.Value.Day;
             var enddatum = endDateTimePicker.Value.Year + "-" + endDateTimePicker.Value.Month + "-" + endDateTimePicker.Value.Day;
             var query = "insert into Beleg values(\"" + kennungTextBox.Text + "\",\"" + semesterTextBox.Text + "\",\"" + startdatum + "\",\"" + enddatum + "\"," + minGR.Value + "," + maxGR.Value + ",\"" + passwortTextBox.Text + "\")";
+            
+            
             if (_database != null)
             {
                 _database.ExecuteQuery(query);
@@ -264,13 +275,13 @@ namespace ProgrammDozent
                     _database.ExecuteQuery("insert into Zuordnung_BelegThema values(\"" + kennungTextBox.Text + "\", " + thema.ThemenNummer + ")");
                 }
 
-                //Inhalt von verfthemen inserten
+                //Inhalt von verfrollen inserten
                 foreach (var rolle in VerfRollen)
                 {
                     _database.ExecuteQuery("insert into Zuordnung_BelegRolle values(\"" + kennungTextBox.Text + "\", \"" + rolle.rolle + "\")");
                 }
 
-                //Inhalt von verfthemen inserten
+                //Inhalt von verfcases inserten
                 foreach (var onecase in VerfCases)
                 {
                     _database.ExecuteQuery("insert into Zuordnung_BelegCases values(\"" + kennungTextBox.Text + "\", \"" + onecase + "\")");
@@ -278,6 +289,9 @@ namespace ProgrammDozent
             }
         }
 
+        /// <summary>
+        /// verfügbares Thema dem zu bearbeitenden Beleg hinzufügen
+        /// </summary>
         private void addButtonThema_Click(object sender, EventArgs e)
         {
             var thema = (Thema)allThemen.SelectedItem;
@@ -306,6 +320,9 @@ namespace ProgrammDozent
             remButtonThema.Enabled = verThemen.Items.Count != 0;
         }
 
+        /// <summary>
+        /// dem Beleg zugeordnetes Thema wieder freigeben
+        /// </summary>
         private void remButtonThema_Click(object sender, EventArgs e)
         {
             var thema = (Thema)verThemen.SelectedItem;
@@ -334,7 +351,9 @@ namespace ProgrammDozent
             remButtonThema.Enabled = verThemen.Items.Count != 0;
         }
 
-
+        /// <summary>
+        /// verfügbare Rolle dem zu bearbeitenden Beleg hinzufügen
+        /// </summary>
         private void addButtonRolle_Click(object sender, EventArgs e)
         {
             var rolle = (Rolle)allRollen.SelectedItem;
@@ -363,6 +382,9 @@ namespace ProgrammDozent
             }
         }
 
+        /// <summary>
+        /// dem Beleg zugeordnete Rolle wieder freigeben
+        /// </summary>
         private void remButtonRolle_Click(object sender, EventArgs e)
         {
             var rolle = (Rolle)verRollen.SelectedItem;
@@ -391,6 +413,10 @@ namespace ProgrammDozent
             remButtonRolle.Enabled = verRollen.Items.Count != 0;
         }
 
+
+        /// <summary>
+        /// verfügbare Case-Gruppe dem zu bearbeitenden Beleg hinzufügen
+        /// </summary>
         private void addButtonCase_Click(object sender, EventArgs e)
         {
             var onecase = (string)allCases.SelectedItem;
@@ -417,6 +443,9 @@ namespace ProgrammDozent
             remButtonCase.Enabled = verCases.Items.Count != 0;
         }
 
+        /// <summary>
+        /// dem Beleg zugeordnete Case-Gruppe wieder freigeben
+        /// </summary>
         private void remButtonCase_Click(object sender, EventArgs e)
         {
 
@@ -450,6 +479,12 @@ namespace ProgrammDozent
             remButtonCase.Enabled = verCases.Items.Count != 0;
         }
 
+
+        /// <summary>
+        /// sucht Beleg aus Datenbank
+        /// </summary>
+        /// <param name="belegKennung">gesuchte Belegkennung</param>
+        /// <returns>gesuchter Beleg</returns>
         private Beleg GetBelegFromKennung(string belegKennung)
         {
             var ergebnis = _database.ExecuteQuery("select * from Beleg where Belegkennung = \""+belegKennung+"\"");
@@ -458,6 +493,9 @@ namespace ProgrammDozent
 
         }
 
+        /// <summary>
+        /// gewährleistet, dass Enddatum mindestens ein Tag später als Startdatum ist und erkennt ob Semester WS oder SS ist
+        /// </summary>
         private void startDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
             if (startDateTimePicker.Value >= endDateTimePicker.Value)
@@ -469,6 +507,9 @@ namespace ProgrammDozent
             else semesterTextBox.Text = "WS " + (startTime.Year - 2000) + "/" + (startTime.Year - 2000 + 1);
         }
 
+        /// <summary>
+        /// gewährleistet, dass Enddatum mindestens ein Tag später als Startdatum ist
+        /// </summary>
         private void endDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
             if (startDateTimePicker.Value >= endDateTimePicker.Value)
@@ -477,6 +518,9 @@ namespace ProgrammDozent
             }
         }
 
+        /// <summary>
+        /// gewährleistet dass minAnz immer kleiner ist als maxAnz
+        /// </summary>
         private void minGR_ValueChanged(object sender, EventArgs e)
         {
             if (minGR.Text == "") minGR.Value = 1;
@@ -486,6 +530,9 @@ namespace ProgrammDozent
             }
         }
 
+        /// <summary>
+        /// gewährleistet dass minAnz immer kleiner ist als maxAnz
+        /// </summary>
         private void maxGR_ValueChanged(object sender, EventArgs e)
         {
             if (minGR.Text == "") minGR.Value = 1;

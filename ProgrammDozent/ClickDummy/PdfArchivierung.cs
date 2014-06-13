@@ -168,6 +168,8 @@ namespace ProgrammDozent
                     database.ExecuteQuery("delete from Zuordnung_BelegCases");
 
 
+
+
                     this.Close();
                 }
             }

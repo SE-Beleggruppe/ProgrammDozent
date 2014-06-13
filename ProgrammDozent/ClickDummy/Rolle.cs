@@ -5,6 +5,7 @@ namespace ProgrammDozent
     {
         public string rolle { get; set; }
 
+        //Konstruktor
         public Rolle(string rolle)
         {
             this.rolle = rolle;

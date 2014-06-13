@@ -10,6 +10,8 @@ namespace ProgrammDozent
         public string Password { get; set; }
         public string Belegkennung { get; set; }
 
+
+        //Konstruktor ohne Kennung
         public Gruppe(string password, string belegkennung)
         {
             this.Password = password;
@@ -17,6 +19,7 @@ namespace ProgrammDozent
             this.Studenten = new List<Student>();
         }
 
+        //Konstruktor mit Kennung
         public Gruppe(string kennung, int themennummer, string password)
         {
             GruppenKennung = kennung;
@@ -25,6 +28,7 @@ namespace ProgrammDozent
             Studenten = new List<Student>();
         }
 
+        //neuen Studenten hinzufügen
         public void AddStudent(Student student)
         {
             if (this.Studenten == null) Studenten = new List<Student>();
