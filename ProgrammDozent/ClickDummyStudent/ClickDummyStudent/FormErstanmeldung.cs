@@ -8,12 +8,12 @@ using DB_Services;
 
 namespace StudentBelegverwaltungUI
 {
-    public partial class FormLeiterNeuEingeben : Form
+    public partial class FormErstanmeldung : Form
     {
         public string Belegkennung;
 
         // Konstruktor
-        public FormLeiterNeuEingeben( string belegKennung)
+        public FormErstanmeldung( string belegKennung)
         {
             InitializeComponent();
             StartPosition = FormStartPosition.CenterScreen;

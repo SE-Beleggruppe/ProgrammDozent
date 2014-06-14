@@ -1,6 +1,6 @@
 ﻿namespace StudentBelegverwaltungUI
 {
-    partial class FormLeiterNeuEingeben
+    partial class FormErstanmeldung
     {
         /// <summary>
         /// Required designer variable.

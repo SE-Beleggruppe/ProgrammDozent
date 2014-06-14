@@ -43,7 +43,7 @@ namespace StudentBelegverwaltungUI
                                 MessageBox.Show("Der Anmeldezeitraum für diesen Beleg ist leider abgelaufen. Bitte melden Sie sich beim Dozenten.","Fehler");
                                 return;
                             }
-                            FormLeiterNeuEingeben leiterEingeben = new FormLeiterNeuEingeben(loginTextField.Text);
+                            FormErstanmeldung leiterEingeben = new FormErstanmeldung(loginTextField.Text);
                             leiterEingeben.Show();
                             Hide();
                         }
