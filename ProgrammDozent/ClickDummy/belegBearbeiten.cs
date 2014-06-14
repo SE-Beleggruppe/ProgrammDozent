@@ -27,7 +27,7 @@ namespace DozentBelegverwaltungUI
 
         public Beleg Beleg { get; set; }
 
-        readonly Database _database = new Database();
+        Database _database = new Database();
 
         public BelegBearbeiten(string belegKennung, bool neu)
         {
