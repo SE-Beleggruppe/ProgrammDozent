@@ -200,6 +200,58 @@
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
           </association>
+          <association
+            Id="0fd659b3-9316-4606-a32a-b37941fe99d1"
+            isDerived="false"
+            sourceEndRoleName="Beleg"
+            targetEndRoleName="Thema"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="150a5148-6f61-47d6-b45b-08ccad6bb5e7"
+              LastKnownName="Thema"
+              LastKnownLocation="Package_1255.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="0d35a46a-e5bd-44f5-9991-cb7746bf8dee"
+                  name="Beleg"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="f93b796a-4002-417a-ab3a-ba4f57e438f5"
+                  name="Thema"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="5706c60a-0579-4a25-8878-b85af53adbd8"
+                      name="Lower"
+                      value="n" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="79792293-4fa9-4a43-9c61-75559a7a79bd"
+                      name="Upper"
+                      value="n" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
         </targetEnds>
         <ownedAttributesInternal>
           <property
@@ -1455,21 +1507,20 @@
             </relationshipOwnedElementsInternal>
           </association>
           <association
-            Id="6edafbcb-5b50-414b-8462-450bb7277a61"
+            Id="f05b10cc-eb8c-4ba8-9a06-5de70a0cab76"
             isDerived="false"
             sourceEndRoleName="Gruppe"
-            targetEndRoleName="Thema"
+            targetEndRoleName="Student"
             isLeaf="false"
-            name="bearbeitet"
             isAbstract="false">
             <classMoniker
-              Id="150a5148-6f61-47d6-b45b-08ccad6bb5e7"
-              LastKnownName="Thema"
+              Id="49fe0571-4f19-43f2-9b6a-7ce5576996bf"
+              LastKnownName="Student"
               LastKnownLocation="Package_1255.uml" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
                 <memberEnd
-                  Id="55b7b1cc-6b4c-4758-ad93-aded6f77f8d9"
+                  Id="0ed46574-31c0-4549-a0e4-044fa416cd2e"
                   name="Gruppe"
                   isLeaf="false"
                   isStatic="false"
@@ -1482,15 +1533,28 @@
               </associationHasOwnedEnds>
               <associationHasOwnedEnds>
                 <memberEnd
-                  Id="e91f710a-285b-4fb3-b6bd-3d02dfafdc8e"
-                  name="Thema"
+                  Id="d10e4918-9a2d-4dc3-9642-26b218f84c61"
+                  name="Student"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
                   isDerived="false"
                   isDerivedUnion="false"
                   aggregation="None"
-                  isComposite="false" />
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="cdfac13c-27f2-4610-a591-8e46b3792de2"
+                      name="Lower"
+                      value="n" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="c5a55fdf-994a-427a-a95c-9acb057d65a5"
+                      name="Upper"
+                      value="n" />
+                  </upperValueInternal>
+                </memberEnd>
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
           </association>
@@ -2167,73 +2231,6 @@
             </propertyInstances>
           </stereotypeInstance>
         </appliedStereotypesInternal>
-        <targetEnds>
-          <association
-            Id="dbbd3b3a-49e0-42c7-813c-bd6b2abc0a11"
-            isDerived="false"
-            sourceEndRoleName="Thema"
-            targetEndRoleName="Beleg"
-            isLeaf="false"
-            isAbstract="false">
-            <classMoniker
-              Id="ff937be4-3d58-48eb-b696-d47f740146f8"
-              LastKnownName="Beleg"
-              LastKnownLocation="Package_1255.uml" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="222034e5-9390-4063-9b79-c49d42925ef2"
-                  name="Thema"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="58bfa093-7deb-488c-832a-449e4d5fd595"
-                      name="Lower"
-                      value="*" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="9569fd75-aecc-43e8-8cc5-57f65737b3ea"
-                      name="Upper"
-                      value="*" />
-                  </upperValueInternal>
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="fab17081-8eea-44d5-945c-ff7f0b194911"
-                  name="Beleg"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="2fb07a64-0852-4262-b90e-53ae7c11dc31"
-                      name="Lower"
-                      value="n" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="3b0c3866-e886-4cff-b9bf-6d3ca200601e"
-                      name="Upper"
-                      value="n" />
-                  </upperValueInternal>
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-        </targetEnds>
         <ownedAttributesInternal>
           <property
             Id="375310e8-6463-4334-814b-d217f73d4b7b"
@@ -2561,101 +2558,6 @@
             </propertyInstances>
           </stereotypeInstance>
         </appliedStereotypesInternal>
-        <targetEnds>
-          <association
-            Id="9a8217c9-837d-4a23-905d-793890532132"
-            isDerived="false"
-            sourceEndRoleName="Student"
-            targetEndRoleName="Rolle"
-            isLeaf="false"
-            name="hat "
-            isAbstract="false">
-            <classMoniker
-              Id="7997d8cf-5c3f-4f8d-8bf4-c7d212fdd240"
-              LastKnownName="Rolle"
-              LastKnownLocation="Package_1255.uml" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="f78abcd4-e984-4508-b712-0f63cdadcd3e"
-                  name="Student"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false" />
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="9c2531e7-ca7f-4c2c-9473-42a82db38a53"
-                  name="Rolle"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false" />
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-          <association
-            Id="af1a34c4-5d2a-49db-bbaa-2016eff43b08"
-            isDerived="false"
-            sourceEndRoleName="Student"
-            targetEndRoleName="Gruppe"
-            isLeaf="false"
-            name="ist Teil von"
-            isAbstract="false">
-            <classMoniker
-              Id="af1887b0-49e0-4fe3-ab7d-f99a56ae5ad0"
-              LastKnownName="Gruppe"
-              LastKnownLocation="Package_1255.uml" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="21dcf93e-47ef-486d-8adf-49f8b2521ed0"
-                  name="Student"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="93077d18-910b-4f23-9c80-8903978f58a6"
-                      name="Lower"
-                      value="*" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="6deb6709-790c-48a0-9cc3-8c7b4f594e76"
-                      name="Upper"
-                      value="*" />
-                  </upperValueInternal>
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="0c76565c-f096-46a5-bb1d-8a32011dd3fe"
-                  name="Gruppe"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false" />
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-        </targetEnds>
         <ownedAttributesInternal>
           <property
             Id="c2579ac1-8e98-4426-92e9-228c42651c93"
@@ -10466,6 +10368,46 @@
                 <memberEnd
                   Id="33bcd48e-5fc9-4b38-acd6-fa216d06a1ac"
                   name="PdfArchivierung"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="1b7de04c-3811-4cb4-8c09-935295414067"
+            isDerived="false"
+            sourceEndRoleName="MainForm"
+            targetEndRoleName="BelegBearbeiten"
+            isLeaf="false"
+            name="ruft auf"
+            isAbstract="false">
+            <classMoniker
+              Id="110b1ec1-1d9f-4137-afd5-32d41c65b249"
+              LastKnownName="BelegBearbeiten"
+              LastKnownLocation="Package_2242.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="bf6c517c-17a6-464d-9ea7-dd920b0d77e9"
+                  name="MainForm"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="fcb8a296-ef4b-4730-a0b3-95dcf3616737"
+                  name="BelegBearbeiten"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
