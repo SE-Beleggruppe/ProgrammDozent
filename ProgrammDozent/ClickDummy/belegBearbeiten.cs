@@ -73,13 +73,19 @@ namespace DozentBelegverwaltungUI
             foreach (var array in _database.ExecuteQuery("select * from Rolle where Rolle not in(select Rolle from Zuordnung_BelegRolle where Belegkennung = \"" + Beleg.BelegKennung + "\")"))
             {
                 var rolle = new Rolle(array[0]);
-                AlleRollen.Add(rolle);
+                if(rolle.rolle != "Leitung") AlleRollen.Add(rolle);
             }
 
             //Rollen mittels Lambda-Expression alphabetisch sortieren
             AlleRollen.Sort((t1, t2) => t1.rolle.CompareTo(t2.rolle));
             allRollen.DataSource = AlleRollen;
             allRollen.DisplayMember = "rolle";
+            if (isNeuerBeleg)
+            {
+                VerfRollen.Add(new Rolle("Leitung"));
+                verRollen.DataSource = VerfRollen;
+                verRollen.DisplayMember = "rolle";
+            }
 
             //Alle Cases füllen
             foreach (var array in _database.ExecuteQuery("select Cases.Casekennung from Cases where Cases.Casekennung not in (select Casekennung from Zuordnung_BelegCases)"))
@@ -123,6 +129,7 @@ namespace DozentBelegverwaltungUI
                 VerfRollen.Sort((t1, t2) => t1.rolle.CompareTo(t2.rolle));
                 verRollen.DataSource = VerfRollen;
                 verRollen.DisplayMember = "rolle";
+
 
 
                 //Verfügbare Cases füllen
@@ -328,6 +335,13 @@ namespace DozentBelegverwaltungUI
         private void remButtonThema_Click(object sender, EventArgs e)
         {
             var thema = (Thema)verThemen.SelectedItem;
+
+            if (_database.ExecuteQuery("select * from Gruppe where Themennummer = " + thema.ThemenNummer).Count != 0)
+            {
+                MessageBox.Show("Das Thema " + thema.AufgabenName + " ist noch einer Grupper zugeordnet und kann nicht entfernt werden.");
+                return;
+            }
+
             VerfThemen.Remove(thema);
             verThemen.DataSource = null;
             verThemen.DataSource = VerfThemen;
@@ -390,6 +404,20 @@ namespace DozentBelegverwaltungUI
         private void remButtonRolle_Click(object sender, EventArgs e)
         {
             var rolle = (Rolle)verRollen.SelectedItem;
+
+            if (rolle.rolle == "Leitung") return;
+
+            //Falls Rolle noch bei einem Beleg zugeordnet ist
+            if (
+                _database.ExecuteQuery(
+                    "select * from Rolle where Rolle in (select Rolle from Student where sNummer in (select sNummer from Zuordnung_GruppeStudent where Gruppenkennung in (select Gruppenkennung from Zuordnung_GruppeBeleg where Belegkennung = \"" + Beleg.BelegKennung + "\"))) and Rolle = \"" + rolle.rolle + "\"").Count != 0)
+            {
+                MessageBox.Show("Die Rolle " + rolle.rolle +
+                                " ist noch in Verwendung und kann nicht entfernt werden.");
+                return;
+            }
+
+
             VerfRollen.Remove(rolle);
             verRollen.DataSource = null;
             verRollen.DataSource = VerfRollen;
@@ -453,7 +481,7 @@ namespace DozentBelegverwaltungUI
 
             if (_database.ExecuteQuery("select * from Gruppe where Gruppenkennung = \"" + verCases.SelectedItem + "\"").Count != 0)
             {
-                MessageBox.Show("Case ist noch Gruppe zugeordnet!");
+                MessageBox.Show(verCases.SelectedItem + " ist noch Gruppe zugeordnet!");
                 return;
             }
 

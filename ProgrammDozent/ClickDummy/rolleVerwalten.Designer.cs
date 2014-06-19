@@ -40,6 +40,7 @@
             this.rollenListBox.Name = "rollenListBox";
             this.rollenListBox.Size = new System.Drawing.Size(443, 199);
             this.rollenListBox.TabIndex = 0;
+            this.rollenListBox.SelectedIndexChanged += new System.EventHandler(this.rollenListBox_SelectedIndexChanged);
             // 
             // newRolleButton
             // 

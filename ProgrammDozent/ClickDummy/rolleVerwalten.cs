@@ -58,6 +58,8 @@ namespace DozentBelegverwaltungUI
             rollenListBox.DisplayMember = "rolle";
             if (_rollen.Count == 0) deleteRolleButton.Enabled = false;
             else deleteRolleButton.Enabled = true;
+
+            rollenListBox_SelectedIndexChanged(null, null);
         }
 
         //Verwendet Eingabedialog aus Klasse Eingabe
@@ -71,6 +73,15 @@ namespace DozentBelegverwaltungUI
         //falls Eingabe korrekt, füge Rolle hinzu
         public void EingabeF(object sender)
         {
+            foreach(Rolle temp in _rollen)
+            {
+                if(temp.rolle == ((TextBox)sender).Text)
+                {
+                    MessageBox.Show("Die Rolle " + ((TextBox)sender).Text + " ist schon in der Liste vorhanden.");
+                    return;
+                }
+            }
+
             if (string.IsNullOrEmpty(((TextBox)sender).Text) || ((TextBox)sender).Text.Length > 25)
             {
                 MessageBox.Show("Die Rolle " + ((TextBox)sender).Text + " ist leer oder länger als 25 Zeichen. Die Daten konnten nicht gespeichert werden.");
@@ -78,6 +89,13 @@ namespace DozentBelegverwaltungUI
             }
             _database.ExecuteQuery("insert into Rolle values(\""+((TextBox)sender).Text +"\")");
             RefreshRollen();
+        }
+
+        private void rollenListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var rolle = (Rolle)rollenListBox.SelectedItem;
+            if (rolle.rolle == "Leitung") deleteRolleButton.Enabled = false;
+            else deleteRolleButton.Enabled = true;
         }
     }
 }
