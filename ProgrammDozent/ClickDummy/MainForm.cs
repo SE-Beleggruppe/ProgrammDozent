@@ -65,6 +65,10 @@ namespace DozentBelegverwaltungUI
                 _belege.Add(beleg);
             }
 
+            gruppeAnlegenButton.Enabled = !(_belege.Count == 0);
+            gruppeLoeschenButton.Enabled = !(_belege.Count == 0);
+            belegLoeschenButton.Enabled = !(_belege.Count == 0);
+
             // Listbox mit allen Belegen
             belegListBox.DataSource = _belege;
             belegListBox.DisplayMember = "Belegkennung";
@@ -95,6 +99,7 @@ namespace DozentBelegverwaltungUI
             gruppenListBox.DataSource = null;
             gruppenListBox.DataSource = _gruppen;
             gruppenListBox.DisplayMember = "gruppenKennung";
+            gruppeLoeschenButton.Enabled = !(_gruppen.Count == 0);
         }
 
         // Rollen aus Datenkbank ziehen

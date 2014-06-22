@@ -168,6 +168,17 @@ namespace DozentBelegverwaltungUI
             if (minGR.Text == "") minGR.Value = 1;
             if (maxGR.Text == "") minGR.Value = 1;
             
+            if(String.IsNullOrEmpty(passwortTextBox.Text))
+            {
+                MessageBox.Show("Bitte geben Sie ein Passwort ein.");
+                return;
+            }
+
+            if(passwortTextBox.Text.Length >= 10)
+            {
+                MessageBox.Show("Das Passwort darf maximal 10 Zeichen lang sein.");
+                return;
+            }
 
             //falls neuer Beleg
             if (isNeuerBeleg)
