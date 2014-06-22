@@ -42,6 +42,21 @@ namespace StudentBelegverwaltungUI
                     MessageBox.Show("Dies ist keine gültige E-Mail-Adresse.");
                     return;
                 }
+                if(mailTextField.Text.Length > 50)
+                {
+                    MessageBox.Show("Die eingegebene Mail-Adresse ist zu lang. (Maximal 50 Zeichen)");
+                    return;
+                }
+                if (nachnameTextField.Text.Length > 15)
+                {
+                    MessageBox.Show("Der eingegebene Nachname ist zu lang. (Maximal 15 zeichen)");
+                    return;
+                }
+                if (vornameTextField.Text.Length > 15)
+                {
+                    MessageBox.Show("Der eingegebene Vorname ist zu lang. (Maximal 15 zeichen)");
+                    return;
+                }
                 
                 // Student wird erst in nächster Form mit den restlichen gespeichert, hier noch nichts in Datenbank
                 Student leiter = new Student(nachnameTextField.Text, vornameTextField.Text, sNummerTextField.Text, mailTextField.Text, "Leitung");

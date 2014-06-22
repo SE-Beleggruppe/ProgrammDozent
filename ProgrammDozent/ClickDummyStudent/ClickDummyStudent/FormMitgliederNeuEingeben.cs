@@ -151,10 +151,10 @@ namespace StudentBelegverwaltungUI
                        fehlermeldung += "Student " + name + " " + vorname + " hat weder 'na' noch eine gültige S-Nummer eingetragen und konnte nicht hinzugefügt werden. (" + sNummer + ")\n";
                     }
                     // Mail überprüfen
-                    if (!checkMail(mail))
+                    if (!checkMail(mail) || mail.Length > 50)
                     {
                         fehlermeldung += "Student " + name + " " + vorname +
-                                         "hat weder 'na' noch eine gültige Mail-Adresse eingetragen und konnte nicht hinzugefügt werden. (" +
+                                         "hat weder 'na' noch eine gültige Mail-Adresse eingetragen und konnte nicht hinzugefügt werden oder die eingegebene Mail-Adresse ist zu lang (>50 Zeichen). (" +
                                          sNummer + ")\n";
                     }
                     // Name überprüfen
