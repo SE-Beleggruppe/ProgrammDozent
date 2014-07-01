@@ -62,5 +62,73 @@
         </appliedStereotypesInternal>
       </Interface>
     </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="554323fa-a759-486c-81ef-cf81bf5d93ae"
+        name="CancelEventArgs"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="41e831b0-690d-407d-92af-2f66cb498048"
+            handle="viewcode://./CodeSchema_Class?Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5%2FSystem.dll&quot; Namespace%3DSystem.ComponentModel Type%3DCancelEventArgs"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="d1c26848-332d-4b50-a3bf-a11aab17bbdd"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="59e6afd1-adbc-4d56-ae05-cedf22bb001b">
+                <propertyInstance
+                  Id="2fcc3244-95e8-4c85-8bcd-5d90e700f1a4"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="0ba39fc9-dbb9-49cb-8bba-8f024f7a1cf2">
+                <propertyInstance
+                  Id="fc93050e-bd42-4990-af40-b6ccf94adfc5"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="8f302e4c-15ed-43ab-84bf-8a06ec46540b">
+                <propertyInstance
+                  Id="04b4701a-8908-44e5-90a2-9f99d4a9a09a"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="64b682e9-131f-4bea-b325-a6bc001774b7">
+                <propertyInstance
+                  Id="04905086-2e4d-441e-b5dd-e73ee41cbaf4"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="bdc2f7c1-f55f-4195-92a6-5459d580e73e">
+                <propertyInstance
+                  Id="6f166ebf-e2ef-4ad3-8604-7ec917dc63b5"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <generalsInternal>
+          <generalization
+            Id="1dd4ebe1-903c-4c93-9cfc-d9daa959d2f5"
+            isSubstitutable="false">
+            <classMoniker
+              Id="1c51fa22-5dc2-478c-8229-a751de3d2cce"
+              LastKnownName="EventArgs"
+              LastKnownLocation="Package1_1255.uml" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </packageHasNamedElement>
   </packagedElements>
 </package>

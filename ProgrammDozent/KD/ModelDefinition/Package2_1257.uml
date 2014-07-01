@@ -831,6 +831,16 @@
             </propertyInstances>
           </stereotypeInstance>
         </appliedStereotypesInternal>
+        <generalsInternal>
+          <generalization
+            Id="ae4b8d97-b0b4-4c4a-bf07-6289ac2c3969"
+            isSubstitutable="false">
+            <classMoniker
+              Id="554323fa-a759-486c-81ef-cf81bf5d93ae"
+              LastKnownName="CancelEventArgs"
+              LastKnownLocation="Package_1257.uml" />
+          </generalization>
+        </generalsInternal>
       </class>
     </packageHasNamedElement>
   </packagedElements>

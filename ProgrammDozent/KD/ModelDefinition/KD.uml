@@ -296,6 +296,12 @@
         </appliedStereotypesInternal>
       </class>
     </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="655d525d-8952-4171-88c1-a3c8646cc2d0"
+        LastKnownName="StudentBelegverwaltungUI"
+        LastKnownLocation="Package_1014.uml" />
+    </packageHasNamedElement>
   </packagedElements>
   <primitiveType
     Id="220a3521-e091-4221-bae9-3ef9018e845c"
