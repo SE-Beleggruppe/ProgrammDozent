@@ -100,7 +100,7 @@
             this.mitgliederDataGridView.Enabled = false;
             this.mitgliederDataGridView.Location = new System.Drawing.Point(384, 38);
             this.mitgliederDataGridView.Name = "mitgliederDataGridView";
-            this.mitgliederDataGridView.Size = new System.Drawing.Size(742, 199);
+            this.mitgliederDataGridView.Size = new System.Drawing.Size(743, 199);
             this.mitgliederDataGridView.TabIndex = 6;
             this.mitgliederDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.studentenDataGridView_CellContentClick);
             // 
@@ -193,7 +193,7 @@
             // 
             // buttonArchivieren
             // 
-            this.buttonArchivieren.Location = new System.Drawing.Point(1002, 243);
+            this.buttonArchivieren.Location = new System.Drawing.Point(1003, 245);
             this.buttonArchivieren.Name = "buttonArchivieren";
             this.buttonArchivieren.Size = new System.Drawing.Size(124, 22);
             this.buttonArchivieren.TabIndex = 14;
@@ -236,7 +236,7 @@
             this.AcceptButton = this.belegAnlegenButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1136, 310);
+            this.ClientSize = new System.Drawing.Size(1139, 310);
             this.Controls.Add(this.gruppeLoeschenButton);
             this.Controls.Add(this.belegLoeschenButton);
             this.Controls.Add(this.btnKontaktiern);
