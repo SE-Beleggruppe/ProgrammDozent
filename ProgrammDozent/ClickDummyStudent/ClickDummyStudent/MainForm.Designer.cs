@@ -128,6 +128,8 @@
             this.Controls.Add(this.comboBoxThemen);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.mitgliederDataGridView);
+            this.MaximumSize = new System.Drawing.Size(784, 405);
+            this.MinimumSize = new System.Drawing.Size(784, 405);
             this.Name = "MainForm";
             this.Text = "MainForm";
             ((System.ComponentModel.ISupportInitialize)(this.mitgliederDataGridView)).EndInit();

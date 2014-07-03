@@ -103,6 +103,8 @@
             this.Controls.Add(this.loginTextField);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.MaximumSize = new System.Drawing.Size(309, 135);
+            this.MinimumSize = new System.Drawing.Size(309, 135);
             this.Name = "LoginForm";
             this.Text = "LoginForm";
             this.ResumeLayout(false);

@@ -93,6 +93,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonArchivieren);
+            this.MaximumSize = new System.Drawing.Size(419, 300);
+            this.MinimumSize = new System.Drawing.Size(419, 300);
             this.Name = "PdfArchivierung";
             this.Text = "PdfArchivierung";
             this.ResumeLayout(false);

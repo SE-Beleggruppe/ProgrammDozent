@@ -144,7 +144,7 @@
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
-            // FormLeiterNeuEingeben
+            // FormErstanmeldung
             // 
             this.AcceptButton = this.goButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -162,7 +162,9 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "FormLeiterNeuEingeben";
+            this.MaximumSize = new System.Drawing.Size(440, 204);
+            this.MinimumSize = new System.Drawing.Size(440, 204);
+            this.Name = "FormErstanmeldung";
             this.Text = "FormErstanmeldung";
             this.ResumeLayout(false);
             this.PerformLayout();

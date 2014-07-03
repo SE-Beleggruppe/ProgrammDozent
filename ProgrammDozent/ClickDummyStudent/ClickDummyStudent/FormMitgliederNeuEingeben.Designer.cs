@@ -142,6 +142,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.alleMitgliederDataGridView);
             this.Controls.Add(this.label1);
+            this.MaximumSize = new System.Drawing.Size(872, 265);
+            this.MinimumSize = new System.Drawing.Size(872, 265);
             this.Name = "FormMitgliederNeuEingeben";
             this.Text = "FormErstanmeldung2";
             ((System.ComponentModel.ISupportInitialize)(this.alleMitgliederDataGridView)).EndInit();

@@ -70,6 +70,8 @@
             this.Controls.Add(this.addThemaButton);
             this.Controls.Add(this.deleteThemaButton);
             this.Controls.Add(this.themenListBox);
+            this.MaximumSize = new System.Drawing.Size(650, 260);
+            this.MinimumSize = new System.Drawing.Size(650, 260);
             this.Name = "ThemenVerwalten";
             this.Text = "themenVerwalten";
             this.ResumeLayout(false);

@@ -68,6 +68,8 @@
             this.Controls.Add(this.tboEingabe);
             this.Controls.Add(this.eingabeButton);
             this.Controls.Add(this.label1);
+            this.MaximumSize = new System.Drawing.Size(365, 75);
+            this.MinimumSize = new System.Drawing.Size(365, 75);
             this.Name = "Eingabe";
             this.Text = "Eingabe";
             this.ResumeLayout(false);

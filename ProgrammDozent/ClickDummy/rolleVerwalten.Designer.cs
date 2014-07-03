@@ -71,6 +71,8 @@
             this.Controls.Add(this.deleteRolleButton);
             this.Controls.Add(this.newRolleButton);
             this.Controls.Add(this.rollenListBox);
+            this.MaximumSize = new System.Drawing.Size(650, 260);
+            this.MinimumSize = new System.Drawing.Size(650, 260);
             this.Name = "RolleVerwalten";
             this.Text = "themenVerwalten";
             this.ResumeLayout(false);

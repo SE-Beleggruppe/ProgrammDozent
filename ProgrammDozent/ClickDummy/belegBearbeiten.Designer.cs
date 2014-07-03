@@ -417,6 +417,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.kennungTextBox);
             this.Controls.Add(this.label1);
+            this.MaximumSize = new System.Drawing.Size(426, 672);
+            this.MinimumSize = new System.Drawing.Size(426, 672);
             this.Name = "BelegBearbeiten";
             this.Text = "belegBearbeiten";
             ((System.ComponentModel.ISupportInitialize)(this.minGR)).EndInit();

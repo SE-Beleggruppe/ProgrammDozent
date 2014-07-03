@@ -252,6 +252,8 @@
             this.Controls.Add(this.belegAnlegenButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.belegListBox);
+            this.MaximumSize = new System.Drawing.Size(1155, 349);
+            this.MinimumSize = new System.Drawing.Size(1155, 349);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainForm";

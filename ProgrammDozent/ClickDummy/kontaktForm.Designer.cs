@@ -169,6 +169,8 @@
             this.Controls.Add(this.comboBoxGruppe);
             this.Controls.Add(this.comboBoxBelegthema);
             this.Controls.Add(this.comboBoxBeleg);
+            this.MaximumSize = new System.Drawing.Size(303, 432);
+            this.MinimumSize = new System.Drawing.Size(303, 432);
             this.Name = "kontaktForm";
             this.Text = "Form1";
             this.ResumeLayout(false);

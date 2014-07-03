@@ -125,6 +125,8 @@
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.speichernbutton);
             this.Controls.Add(this.label1);
+            this.MaximumSize = new System.Drawing.Size(362, 164);
+            this.MinimumSize = new System.Drawing.Size(362, 164);
             this.Name = "gruppeBearbeiten";
             this.Text = "gruppeBearbeiten";
             this.ResumeLayout(false);
